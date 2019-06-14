@@ -15,9 +15,11 @@ import android.widget.TextView;
 import com.nuc.calvin.headline.R;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private FragmentActivity fragmentActivity;
+    private Unbinder unbinder;
     private View view;
     //可用来Fragment与Activity之间传送数据
     protected OnFragmentInteractionListener mListener;
@@ -87,5 +89,13 @@ public abstract class BaseFragment extends Fragment {
      */
     protected void initRecyclerView() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 }

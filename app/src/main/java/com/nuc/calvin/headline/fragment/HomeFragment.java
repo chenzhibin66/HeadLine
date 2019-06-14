@@ -28,7 +28,6 @@ public class HomeFragment extends BaseFragment {
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
     private HomeAdapter homeAdapter;
-    HomeFragment homeFragment;
 
     public CharSequence[] mTitles = {"精选", "订阅", "发现"};
     List<BaseFragment> mFragmentList = new ArrayList<>();
@@ -82,6 +81,7 @@ public class HomeFragment extends BaseFragment {
     private void loadTabData(List<BaseFragment> list, List<CharSequence> titles) {
         homeAdapter.addDataList(list, titles);
     }
+
     public void initTabLayout() {
         mFragmentList.clear();
         mFragmentList.add(new HomeChoiceFragment());

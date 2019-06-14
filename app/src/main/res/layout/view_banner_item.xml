@@ -6,11 +6,11 @@
     android:layout_height="200dp"
     android:orientation="vertical">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdv_image"
+    <ImageView
+        android:id="@+id/iv_banner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        fresco:actualImageScaleType="fitXY" />
+        android:background="@mipmap/ic_launcher" />
 
     <FrameLayout
         android:layout_width="match_parent"
