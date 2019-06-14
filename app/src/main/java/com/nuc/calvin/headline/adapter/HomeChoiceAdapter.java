@@ -65,8 +65,6 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter {
         TextView mCommentTv;
         @Bind(R.id.tv_like)
         TextView mLikeTv;
-//        @Bind(R.id.sdv_avatar)
-//        SimpleDraweeView mIconSdv;
 
         public ChoiceViewHolder(View itemView) {
             super(itemView);

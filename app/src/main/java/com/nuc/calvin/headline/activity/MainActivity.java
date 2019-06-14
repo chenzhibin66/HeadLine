@@ -1,5 +1,8 @@
 package com.nuc.calvin.headline.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.fragment.HomeFragment;
 
@@ -20,11 +24,32 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
-    private HomeFragment mHomeFragment;
+    private HomeFragment mHomeFragment = null;
     /**
      * 打开菜单
      */
     public static final String SCHEME_OPEN_MENU = "scheme_open_menu";
+
+    public static void launch(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        @SuppressLint("WrongViewCast") SimpleDraweeView avatarView = (SimpleDraweeView) navigationView.getHeaderView(0).findViewById(R.id.sdv_avatar);
+        if (avatarView != null) {
+            avatarView.setImageURI(Uri.parse("https://avatars2.githubusercontent.com/u/4241807?v=3&s=460"));
+        }
+
+        //fragment Manager
+        managerFragment(savedInstanceState);
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
