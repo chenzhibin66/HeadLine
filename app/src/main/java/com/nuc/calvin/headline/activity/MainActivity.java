@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -39,10 +40,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        @SuppressLint("WrongViewCast") SimpleDraweeView avatarView = (SimpleDraweeView) navigationView.getHeaderView(0).findViewById(R.id.sdv_avatar);
+        @SuppressLint("WrongViewCast") SimpleDraweeView avatarView = navigationView.getHeaderView(0).findViewById(R.id.sdv_avatar);
         if (avatarView != null) {
             avatarView.setImageURI(Uri.parse("https://avatars2.githubusercontent.com/u/4241807?v=3&s=460"));
         }
@@ -56,10 +57,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-////        SimpleDraweeView avatarView = navigationView.getHeaderView(0).findViewById(R.id.sdv_avatar);
-//        if (avatarView != null) {
-////            avatarView.setImageResource(head_img);
-//        }
+        SimpleDraweeView avatarView = navigationView.getHeaderView(0).findViewById(R.id.sdv_avatar);
+        if (avatarView != null) {
+            avatarView.setImageResource(R.drawable.head);
+        }
 
     }
 
@@ -123,6 +124,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_home:
                 fm.beginTransaction().show(mHomeFragment).commit();
                 break;
+            case R.id.nav_setting:
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                        startActivity(intent);
+                    }
+                }, 300);
+                break;
+
         }
         return true;
     }

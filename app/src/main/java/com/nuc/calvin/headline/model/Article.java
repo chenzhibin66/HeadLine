@@ -1,26 +1,6 @@
 package com.nuc.calvin.headline.model;
 
 public class Article {
-
-    /**
-     * is_advertorial : false
-     * id : 294078
-     * title : 如果你用 GitHub，可以这样提高效率
-     * contributor : 流星狂飙
-     * original_site_name : segmentfault.com
-     * is_recommend : false
-     * original_url : http://toutiao.io/r/0ivkig
-     * image : null
-     * thumbnail :
-     * is_featured : true
-     * comment_count : 2
-     * like_count : 109
-     * liked : false
-     * subject : {"id":22029,"name":"魅族科技开发团队","image":"http://7rf34y.com1.z0.glb.clouddn.com/subject/b79abfd1238f420eadbb38ba69421759/thumb"}
-     * user : {"id":"145451","name":"流星狂飙","avatar":"http://7rf34y.com1.z0.glb.clouddn.com/user/a6597eea1e2e4573aba796c98e396754/thumb","bio":null,"following":false}
-     * author_info : {"name":"JerryC","url":""}
-     * created_at : 1458124470
-     */
     private boolean is_advertorial;
     private int id;
     private String title;
@@ -34,27 +14,8 @@ public class Article {
     private int comment_count;
     private int like_count;
     private boolean liked;
-    /**
-     * id : 22029
-     * name : 魅族科技开发团队
-     * image : http://7rf34y.com1.z0.glb.clouddn.com/subject/b79abfd1238f420eadbb38ba69421759/thumb
-     */
-
     private SubjectBean subject;
-    /**
-     * id : 145451
-     * name : 流星狂飙
-     * avatar : http://7rf34y.com1.z0.glb.clouddn.com/user/a6597eea1e2e4573aba796c98e396754/thumb
-     * bio : null
-     * following : false
-     */
-
     private UserBean user;
-    /**
-     * name : JerryC
-     * url :
-     */
-
     private AuthorInfoBean author_info;
     private int created_at;
 

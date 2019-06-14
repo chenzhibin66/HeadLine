@@ -43,7 +43,6 @@ public class HomeChoiceFragment extends BaseFragment {
                     public void run() {
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
-
                 }, 2000);
             }
         });

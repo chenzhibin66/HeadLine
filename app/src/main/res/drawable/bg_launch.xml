@@ -8,6 +8,6 @@
     <item android:bottom="120dp">
         <bitmap
             android:gravity="bottom|center_horizontal"
-            android:src="@drawable/logo" />
+            android:src="@drawable/it" />
     </item>
 </layer-list>

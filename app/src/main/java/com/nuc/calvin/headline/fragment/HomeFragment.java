@@ -88,8 +88,6 @@ public class HomeFragment extends BaseFragment {
         mFragmentList.add(new HomeSubscribeFragment());
         mFragmentList.add(new HomeFindFragment());
         loadTabData(mFragmentList, Arrays.asList(mTitles));
-
-
     }
 
 
