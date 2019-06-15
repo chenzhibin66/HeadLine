@@ -7,10 +7,13 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,12 +21,13 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.fragment.HomeFragment;
 
-import butterknife.Bind;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+    Toolbar mToolbar;
+    TabLayout mTabLayout;
+    ViewPager mViewPager;
 
-    @Bind(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
+    private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
     private HomeFragment mHomeFragment = null;
     /**
@@ -54,6 +58,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        mToolbar = findViewById(R.id.toolbar);
+        mTabLayout = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.viewpager);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 

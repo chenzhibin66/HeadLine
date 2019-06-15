@@ -1,14 +1,11 @@
 package com.nuc.calvin.headline.activity;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.nuc.calvin.headline.R;
 
 public class SettingActivity extends BaseActivity {
-
 
 
     @Override

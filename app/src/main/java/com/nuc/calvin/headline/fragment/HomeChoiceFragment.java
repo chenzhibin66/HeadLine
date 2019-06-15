@@ -1,15 +1,10 @@
 package com.nuc.calvin.headline.fragment;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,28 +13,20 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-import com.bumptech.glide.Glide;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nuc.calvin.headline.R;
-import com.nuc.calvin.headline.activity.MainActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
-import com.nuc.calvin.headline.model.Banner;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 
 
 public class HomeChoiceFragment extends BaseFragment {
 
-    @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @Bind(R.id.recyclerview)
     FamiliarRecyclerView mRecyclerView;
-    @Bind(R.id.banner)
     ConvenientBanner banner;
     private HomeChoiceAdapter mAdapter;
     //是否自动轮播,控制如果是一张图片，不能滑动
@@ -48,7 +35,10 @@ public class HomeChoiceFragment extends BaseFragment {
     private DisplayImageOptions options;
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView() {
+        mSwipeRefreshLayout = getView().findViewById(R.id.swipe_refresh_layout);
+        mRecyclerView = getView().findViewById(R.id.recyclerview);
+        banner = getView().findViewById(R.id.banner);
         initImage();
         initBanner();
         mRecyclerView.addHeaderView(banner);

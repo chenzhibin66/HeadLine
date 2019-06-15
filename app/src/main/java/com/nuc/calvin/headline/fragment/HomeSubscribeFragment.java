@@ -6,7 +6,7 @@ import com.nuc.calvin.headline.R;
 public class HomeSubscribeFragment extends BaseFragment {
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView() {
 
     }
 

@@ -12,14 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nuc.calvin.headline.R;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private FragmentActivity fragmentActivity;
-    private Unbinder unbinder;
     private View view;
     //可用来Fragment与Activity之间传送数据
     protected OnFragmentInteractionListener mListener;
@@ -34,8 +29,7 @@ public abstract class BaseFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(getContentView(), container, false);
         fragmentActivity = getSupportActivity();
-        ButterKnife.bind(this, view);
-        initView(savedInstanceState);
+        initView();
         return view;
     }
 
@@ -43,9 +37,9 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 初始化UI
      *
-     * @param savedInstanceState
+     * //@param savedInstanceState
      */
-    protected abstract void initView(Bundle savedInstanceState);
+    protected abstract void initView();
 
     /**
      * @return
@@ -94,8 +88,5 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
     }
 }

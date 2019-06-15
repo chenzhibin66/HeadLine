@@ -14,8 +14,6 @@ import com.nuc.calvin.headline.model.Article;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class HomeChoiceAdapter extends RecyclerView.Adapter {
     private final List<Article> dataList = new ArrayList<>();
@@ -57,18 +55,17 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter {
     }
 
     public static class ChoiceViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_title)
+
         TextView mTitleTv;
-        @Bind(R.id.tv_where)
         TextView mWhereTv;
-        @Bind(R.id.tv_comment)
         TextView mCommentTv;
-        @Bind(R.id.tv_like)
         TextView mLikeTv;
 
         public ChoiceViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mTitleTv = itemView.findViewById(R.id.tv_title);
+            mWhereTv = itemView.findViewById(R.id.tv_comment);
+            mLikeTv = itemView.findViewById(R.id.tv_like);
         }
 
         public void bindData(Article article) {
