@@ -6,10 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:frv_layoutManager="linear"
         app:frv_layoutManagerOrientation="vertical" />
+
+
 </android.support.v4.widget.SwipeRefreshLayout>

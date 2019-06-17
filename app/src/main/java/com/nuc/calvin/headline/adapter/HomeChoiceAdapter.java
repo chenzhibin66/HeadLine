@@ -4,18 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.model.Article;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-public class HomeChoiceAdapter extends RecyclerView.Adapter {
+
+public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.ChoiceViewHolder> {
     private final List<Article> dataList = new ArrayList<>();
     private Context context;
 
@@ -24,6 +31,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter {
     }
 
     public void addDataList(List<Article> list) {
+
         addDataList(list, false);
     }
 
@@ -38,15 +46,25 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return null;
+    public ChoiceViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return new ChoiceViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_home_choice_item
+                , viewGroup, false));
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
+    public void onBindViewHolder(@NonNull ChoiceViewHolder choiceViewHolder, int i) {
+        choiceViewHolder.bindData(dataList.get(i));
+        choiceViewHolder.itemView.setClickable(true);
+        choiceViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "点击了", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -55,30 +73,27 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter {
     }
 
     public static class ChoiceViewHolder extends RecyclerView.ViewHolder {
-
+        @Bind(R.id.tv_title)
         TextView mTitleTv;
+        @Bind(R.id.tv_where)
         TextView mWhereTv;
+        @Bind(R.id.tv_comment)
         TextView mCommentTv;
+        @Bind(R.id.tv_like)
         TextView mLikeTv;
+        @Bind(R.id.sdv_avatar)
+        ImageView author;
 
         public ChoiceViewHolder(View itemView) {
             super(itemView);
-            mTitleTv = itemView.findViewById(R.id.tv_title);
-            mWhereTv = itemView.findViewById(R.id.tv_comment);
-            mLikeTv = itemView.findViewById(R.id.tv_like);
+            ButterKnife.bind(this, itemView);
+
         }
 
         public void bindData(Article article) {
-            if (article == null) return;
-            try {
-                mTitleTv.setText(article.getTitle());
-                mWhereTv.setText("选自 " + article.getSubject().getName());
-//                mIconSdv.setImageURI(Uri.parse(article.getUser().getAvatar()));
-                mLikeTv.setText(article.getLike_count() + "");
-                mCommentTv.setText(article.getComment_count() + "");
-            } catch (Exception e) {
-                //TODO 日志处理 ，待优化
-            }
+            mTitleTv.setText("欢迎来到IT头条");
+            mWhereTv.setText("czb");
+            author.setImageResource(R.drawable.author);
         }
     }
 }

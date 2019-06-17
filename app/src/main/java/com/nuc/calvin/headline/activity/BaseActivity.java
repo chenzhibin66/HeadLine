@@ -11,16 +11,20 @@ import android.view.MenuItem;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.fragment.BaseFragment;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
-
+    @Nullable
+    @Bind(R.id.toolbar)
     protected Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
-        mToolbar = findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         initView(savedInstanceState);
         if (isNeedToolbar()) {
             initToolbar();

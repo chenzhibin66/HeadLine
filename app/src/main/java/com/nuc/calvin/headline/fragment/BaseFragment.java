@@ -12,12 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
+
 
 public abstract class BaseFragment extends Fragment {
     private FragmentActivity fragmentActivity;
-    private View view;
+
+    public View getMyView() {
+        return myView;
+    }
+
+    public View myView;
     //可用来Fragment与Activity之间传送数据
     protected OnFragmentInteractionListener mListener;
+
 
 
     public BaseFragment() {
@@ -27,19 +35,20 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(getContentView(), container, false);
+        myView = inflater.inflate(getContentView(), container, false);
+        ButterKnife.bind(this, myView);
         fragmentActivity = getSupportActivity();
-        initView();
-        return view;
+        initView(myView);
+        return myView;
     }
 
 
     /**
      * 初始化UI
-     *
+     * <p>
      * //@param savedInstanceState
      */
-    protected abstract void initView();
+    protected abstract void initView(View view);
 
     /**
      * @return

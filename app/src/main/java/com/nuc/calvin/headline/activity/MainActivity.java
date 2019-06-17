@@ -23,9 +23,6 @@ import com.nuc.calvin.headline.fragment.HomeFragment;
 
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    Toolbar mToolbar;
-    TabLayout mTabLayout;
-    ViewPager mViewPager;
 
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
@@ -58,9 +55,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        mToolbar = findViewById(R.id.toolbar);
-        mTabLayout = findViewById(R.id.tab_layout);
-        mViewPager = findViewById(R.id.viewpager);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

@@ -20,13 +20,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import butterknife.Bind;
+
 
 public class HomeFragment extends BaseFragment {
 
 
-//    Toolbar mToolbar;
-//    TabLayout mTabLayout;
-//    ViewPager mViewPager;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+    @Bind(R.id.tab_layout)
+    TabLayout mTabLayout;
+    @Bind(R.id.viewpager)
+    ViewPager mViewPager;
     private HomeAdapter homeAdapter;
 
     public CharSequence[] mTitles = {"精选", "订阅", "发现"};
@@ -41,23 +46,8 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_home, container, false);
-//        super.onCreateView(inflater,container,savedInstanceState);
-//        mToolbar = view.findViewById(R.id.toolbar);
-//        mTabLayout = view.findViewById(R.id.tab_layout);
-//        mViewPager = view.findViewById(R.id.viewpager);
-//        return view;
-//    }
-
-
     @Override
-    protected void initView() {
-
-//        mToolbar = getView().findViewById(R.id.toolbar);
-//        mTabLayout = getView().findViewById(R.id.tab_layout);
-//        mViewPager = getView().findViewById(R.id.viewpager);
+    protected void initView(View view) {
 
         if (getArguments() != null) {
         }
@@ -92,7 +82,6 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected int getContentView() {
-        initView();
         return R.layout.fragment_home;
     }
 
