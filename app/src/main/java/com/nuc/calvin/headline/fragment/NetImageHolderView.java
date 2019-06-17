@@ -8,6 +8,7 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.nuc.calvin.headline.R;
 
+
 public class NetImageHolderView extends Holder<String> {
     private ImageView imageView;
     private Context mContext;
@@ -24,6 +25,8 @@ public class NetImageHolderView extends Holder<String> {
 
     @Override
     public void updateUI(String data) {
-        Glide.with(mContext).load(data).into(imageView);
+       if (data!=null){
+           Glide.with(mContext).load(data).into(imageView);
+       }
     }
 }

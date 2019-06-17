@@ -17,6 +17,16 @@ android {
         }
     }
 }
+//1,增加这个东西
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
