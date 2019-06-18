@@ -1,150 +1,114 @@
 package com.nuc.calvin.headline.activity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
-import com.nuc.calvin.headline.fragment.HomeFragment;
+import com.nuc.calvin.headline.fragment.HomeChoiceFragment;
+import com.nuc.calvin.headline.fragment.HomeFindFragment;
+import com.nuc.calvin.headline.fragment.HomeMessageFragment;
+import com.nuc.calvin.headline.fragment.HomeUserFragment;
 
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    private DrawerLayout mDrawerLayout;
-    private NavigationView navigationView;
-    private HomeFragment mHomeFragment = null;
-    /**
-     * 打开菜单
-     */
-    public static final String SCHEME_OPEN_MENU = "scheme_open_menu";
+    private RadioGroup radioGroup;
+    private ImageView iv_share;
 
-    public static void launch(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
-    }
+    private FragmentTransaction fragmentTransaction;
+    private FragmentManager fragmentManager;
+    private HomeChoiceFragment homeChoiceFragment;
+    private HomeMessageFragment homeMessageFragment;
+    private HomeFindFragment homeFindFragment;
+    private HomeUserFragment homeUserFragment;
+    //记录当前正在使用的fragment
+    private Fragment isFragment;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        @SuppressLint("WrongViewCast") SimpleDraweeView avatarView = navigationView.getHeaderView(0).findViewById(R.id.sdv_avatar);
-        if (avatarView != null) {
-            avatarView.setImageURI(Uri.parse("https://avatars2.githubusercontent.com/u/4241807?v=3&s=460"));
-        }
-
-        //fragment Manager
-        managerFragment(savedInstanceState);
-    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        SimpleDraweeView avatarView = navigationView.getHeaderView(0).findViewById(R.id.sdv_avatar);
-        if (avatarView != null) {
-            avatarView.setImageResource(R.drawable.head);
-        }
+        radioGroup = findViewById(R.id.rd_group);
+        iv_share = findViewById(R.id.iv_add);
+        radioGroup.setOnCheckedChangeListener(this);
+        iv_share.setOnClickListener(this);
+        /*homeChoiceFragment = new HomeChoiceFragment();
+        homeMessageFragment = new HomeMessageFragment();
+        homeFindFragment = new HomeFindFragment();
+        homeUserFragment = new HomeUserFragment();*/
+        initFragment(savedInstanceState);
 
     }
 
-    @Override
-    public int getContentView() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected boolean isNeedToolbar() {
-        return false;
-    }
-
-    /**
-     * 管理Fragment
-     *
-     * @param savedInstanceState
-     */
-    private void managerFragment(Bundle savedInstanceState) {
-        FragmentManager fm = getSupportFragmentManager();
+    private void initFragment(Bundle savedInstanceState) {
+        //判断activity是否重建，如果不是，则不需要重新建立fragment.
         if (savedInstanceState == null) {
-            mHomeFragment = HomeFragment.newInstance();
-            fm.beginTransaction().add(R.id.container, mHomeFragment).commit();
-        }
-
-        fm.beginTransaction().show(mHomeFragment).commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            if (homeChoiceFragment == null) {
+                homeChoiceFragment = new HomeChoiceFragment();
+            }
+            isFragment = homeChoiceFragment;
+            fragmentTransaction.replace(R.id.content, homeChoiceFragment).commit();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    private void switchFragment(Fragment from, Fragment to) {
+        if (isFragment != to) {
+            isFragment = to;
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            if (!to.isAdded()) {// 先判断是否被add过
+                fragmentTransaction.hide(from).add(R.id.content, to).commit();// 隐藏当前的fragment，add下一个到Activity中
+            } else {
+                fragmentTransaction.hide(from).show(to).commit(); // 隐藏当前的fragment，显示下一个
+            }
         }
-        return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_home;
+    }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().hide(mHomeFragment).commit();
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        switch (id) {
-            case R.id.nav_home:
-                fm.beginTransaction().show(mHomeFragment).commit();
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.rb_read:
+                if (homeChoiceFragment == null) {
+                    homeChoiceFragment = new HomeChoiceFragment();
+                }
+                switchFragment(isFragment, homeChoiceFragment);
                 break;
-            case R.id.nav_setting:
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-                        startActivity(intent);
-                    }
-                }, 300);
+            case R.id.rb_meassage:
+                if (homeMessageFragment == null) {
+                    homeMessageFragment = new HomeMessageFragment();
+                }
+                switchFragment(isFragment, homeMessageFragment);
                 break;
-
+            case R.id.rb_search:
+                if (homeFindFragment == null) {
+                    homeFindFragment = new HomeFindFragment();
+                }
+                switchFragment(isFragment, homeFindFragment);
+                break;
+            case R.id.rb_user:
+                if (homeUserFragment == null) {
+                    homeUserFragment = new HomeUserFragment();
+                }
+                switchFragment(isFragment, homeUserFragment);
+                break;
         }
-        return true;
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-        super.onFragmentInteraction(uri);
-        if (SCHEME_OPEN_MENU.equals(uri.getScheme())) {
-            mDrawerLayout.openDrawer(GravityCompat.START);
-        }
+    public void onClick(View v) {
+        Intent intent = new Intent(MainActivity.this, ShareActivity.class);
+        startActivity(intent);
     }
 }

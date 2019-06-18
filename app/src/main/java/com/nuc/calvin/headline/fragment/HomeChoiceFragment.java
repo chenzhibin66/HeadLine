@@ -1,5 +1,6 @@
 package com.nuc.calvin.headline.fragment;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +17,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+
 import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 
 import static android.support.constraint.Constraints.TAG;
@@ -59,18 +62,15 @@ public class HomeChoiceFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        /*banner = (ConvenientBanner) View.inflate(getActivity(), R.layout.view_home_banner, null);*/
         View header = LayoutInflater.from(getContext()).inflate(R.layout.view_home_banner, null);
         banner = header.findViewById(R.id.banner);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         initBanner();
 
         mAdapter = new HomeChoiceAdapter(getActivity());
         initArticle();
-        mAdapter.setmHeaderView(banner);
-        /* mRecyclerView.addHeaderView(banner);*/
+        mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -83,7 +83,6 @@ public class HomeChoiceFragment extends BaseFragment {
                 }, 2000);
             }
         });
-        Log.i(TAG, "initView: " + banner_image.size());
 
       /*  mSwipeRefreshLayout.postDelayed(new Runnable() {
             @Override
@@ -119,22 +118,14 @@ public class HomeChoiceFragment extends BaseFragment {
      */
     private void initBanner() {
         initImage();
+
         banner.setPages(new CBViewHolderCreator() {
             @Override
-            public Holder createHolder(View itemView) {
-                return new BannerImageHolderView(itemView);
+            public Object createHolder() {
+                return new BannerImageHolderView();
             }
-
-            @Override
-            public int getLayoutId() {
-                return R.layout.view_banner_item;
-            }
-        }, banner_image)
-                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器，不需要圆点指示器可以不设
-                .setPageIndicator(new int[]{R.drawable.ic_banner_indicator_unselected, R.drawable.ic_banner_indicator_selected})
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
-                .setPointViewVisible(mCanLoop)
-                .setCanLoop(mCanLoop)
+        },banner_image).setPageIndicator(new int[]{R.drawable.ic_banner_indicator_unselected
+                , R.drawable.ic_banner_indicator_selected})
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
@@ -143,24 +134,21 @@ public class HomeChoiceFragment extends BaseFragment {
                 });
     }
 
-    public class BannerImageHolderView extends Holder<String> {
+    public class BannerImageHolderView implements Holder<String> {
 
         private ImageView imageView;
 
-        public BannerImageHolderView(View itemView) {
-            super(itemView);
+
+        @Override
+        public View createView(Context context) {
+            View view = LayoutInflater.from(context).inflate(R.layout.view_banner_item, null);
+            imageView = ButterKnife.findById(view, R.id.iv_banner);
+            return view;
         }
 
         @Override
-        protected void initView(View itemView) {
-            imageView = itemView.findViewById(R.id.iv_banner);
-
-        }
-
-        @Override
-        public void updateUI(String data) {
-            //使用glide加载更新图片
-            Glide.with(getContext()).load(data).into(imageView);
+        public void UpdateUI(Context context, int position, String data) {
+            Glide.with(context).load(data).into(imageView);
         }
     }
 
@@ -182,5 +170,6 @@ public class HomeChoiceFragment extends BaseFragment {
     private void initImage() {
         banner_image = Arrays.asList(imagesString);
     }
+
 
 }

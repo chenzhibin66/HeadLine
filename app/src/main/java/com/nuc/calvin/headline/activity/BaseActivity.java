@@ -16,9 +16,6 @@ import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
-    @Nullable
-    @Bind(R.id.toolbar)
-    protected Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,36 +23,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
         setContentView(getContentView());
         ButterKnife.bind(this);
         initView(savedInstanceState);
-        if (isNeedToolbar()) {
-            initToolbar();
-        }
     }
 
     /**
      * 初始化UI
      *
-     * @param savedInstanceState
+     * @param
      */
     protected abstract void initView(Bundle savedInstanceState);
 
-    /**
-     * init toolbar
-     */
-    private void initToolbar() {
-        if (mToolbar == null) {
-            throw new IllegalArgumentException("Toolbar must not be null");
-        }
-        setSupportActionBar(mToolbar);
-    }
-
-    /**
-     * is or need toolbar
-     *
-     * @return
-     */
-    protected boolean isNeedToolbar() {
-        return true;
-    }
 
     /**
      * 销毁activity
@@ -73,14 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
      */
     protected abstract int getContentView();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            //不建议用finish
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

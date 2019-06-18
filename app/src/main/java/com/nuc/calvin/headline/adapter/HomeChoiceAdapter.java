@@ -24,12 +24,11 @@ import java.util.List;
 public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.ChoiceViewHolder> {
 
     public static final int TYPE_HEADER = 0;
-
     public static final int TYPE_NOMAL = 1;
 
-    private View mHeaderView;
+    private View HeaderView;
 
-    private final List<Article> dataList = new ArrayList<>();
+    private List<Article> dataList = new ArrayList<>();
 
     private Context context;
 
@@ -38,12 +37,8 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
     }
 
 
-    public View getmHeaderView() {
-        return mHeaderView;
-    }
-
-    public void setmHeaderView(View mHeaderView) {
-        this.mHeaderView = mHeaderView;
+    public void setHeaderView(View mHeaderView) {
+        this.HeaderView = mHeaderView;
         notifyItemInserted(0);//插入下标0位置
     }
 
@@ -67,7 +62,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
 
     @Override
     public int getItemViewType(int position) {
-        if (mHeaderView == null) {
+        if (HeaderView == null) {
             return TYPE_NOMAL;
         }
         if (position == 0) {
@@ -79,8 +74,8 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
     @NonNull
     @Override
     public ChoiceViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        if (mHeaderView != null && i == TYPE_HEADER) {
-            return new ChoiceViewHolder(mHeaderView);
+        if (HeaderView != null && i == TYPE_HEADER) {
+            return new ChoiceViewHolder(HeaderView);
         }
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_home_choice_item, viewGroup, false);
         return new ChoiceViewHolder(itemView);
@@ -94,7 +89,9 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         }
         final int pos = getRealPosition(choiceViewHolder);//这里的 position 实际需要不包括 header
         final Article article = dataList.get(pos);
-        choiceViewHolder.bindData(article);
+        if (choiceViewHolder instanceof ChoiceViewHolder) {
+            choiceViewHolder.bindData(article);
+        }
         choiceViewHolder.itemView.setClickable(true);
         choiceViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,15 +105,15 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
      * 添加头部布局后的位置
      * headerView 不为空则 position - 1
      */
-    private int getRealPosition(ChoiceViewHolder holder) {
+    private int getRealPosition(/*ChoiceViewHolder*/ RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
-        return mHeaderView == null ? position : position - 1;
+        return HeaderView == null ? position : position - 1;
     }
 
     @Override
     public int getItemCount() {
         //header 不为空，则 reclclerview 的总 Count 需要 +1（把 Header 加上算一个 item）
-        return mHeaderView == null ? dataList.size() : dataList.size() - 1;
+        return HeaderView == null ? dataList.size() : dataList.size() +1;
     }
 
     public class ChoiceViewHolder extends RecyclerView.ViewHolder {
@@ -133,7 +130,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
 
         public ChoiceViewHolder(View itemView) {
             super(itemView);
-            if (itemView == mHeaderView) {
+            if (itemView == HeaderView) {
                 return;
             }
             mTitleTv = itemView.findViewById(R.id.tv_title);

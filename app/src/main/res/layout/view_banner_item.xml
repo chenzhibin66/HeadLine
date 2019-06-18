@@ -24,7 +24,6 @@
             android:layout_gravity="bottom"
             android:layout_marginBottom="15dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            tools:text="广告位标题" />
+            android:textSize="18sp" />
     </FrameLayout>
 </FrameLayout>
