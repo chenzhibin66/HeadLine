@@ -5,7 +5,6 @@ public class Message {
     private int messageImgId;
     private String messageName;
 
-
     public Message(int messageImgId, String messageName) {
         this.messageImgId = messageImgId;
         this.messageName = messageName;
@@ -26,4 +25,7 @@ public class Message {
     public void setMessageName(String messageName) {
         this.messageName = messageName;
     }
+
+
+
 }

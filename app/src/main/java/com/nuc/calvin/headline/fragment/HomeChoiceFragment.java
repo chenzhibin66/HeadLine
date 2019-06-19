@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -39,7 +40,7 @@ import static android.support.constraint.Constraints.TAG;
 
 public class HomeChoiceFragment extends BaseFragment {
     @Bind(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+   PullRefreshLayout pullRefreshLayout;
     @Bind(R.id.recyclerview)
     FamiliarRecyclerView mRecyclerView;
     ConvenientBanner banner;
@@ -52,7 +53,8 @@ public class HomeChoiceFragment extends BaseFragment {
     private String[] imagesString = new String[]{
             "http://39.105.110.19/static/images/文徵明/临兰亭序/fatie-000.jpg",
             "http://39.105.110.19/static/images/文徵明/临兰亭序/fatie-000.jpg",
-            "http://39.105.110.19/static/images/文徵明/临兰亭序/fatie-000.jpg",
+            "http://39.105.110.19/static/images/文徵明/临兰亭序/fatie-000.jpg"
+
     };
 
     @Override
@@ -72,7 +74,18 @@ public class HomeChoiceFragment extends BaseFragment {
         initArticle();
         mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+          @Override
+          public void onRefresh() {
+              new Handler().postDelayed(new Runnable() {
+                  @Override
+                  public void run() {
+                   pullRefreshLayout.setRefreshing(false);
+                  }
+              }, 2000);
+          }
+      });
+       /* mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
@@ -82,7 +95,7 @@ public class HomeChoiceFragment extends BaseFragment {
                     }
                 }, 2000);
             }
-        });
+        });*/
 
       /*  mSwipeRefreshLayout.postDelayed(new Runnable() {
             @Override
@@ -155,9 +168,9 @@ public class HomeChoiceFragment extends BaseFragment {
     private void initArticle() {
         for (int i = 0; i < 20; i++) {
             Article article = new Article();
-            article.setTitle("欢迎来到IT头条");
+           /* article.setTitle("欢迎来到IT头条");
             article.setImage(R.drawable.author);
-            article.setContributor("czb");
+            article.setContributor("czb");*/
             datas.add(article);
         }
         mAdapter.addDataList(datas);

@@ -16,10 +16,6 @@
         <activity android:name=".activity.ShareActivity"
             android:label="我要分享"
             android:theme="@style/AppTheme.NoActionBar.Activity" />
-        <activity
-            android:name=".activity.SettingActivity"
-            android:label="@string/nav_setting"
-            android:theme="@style/AppTheme.NoActionBar.Activity" />
         <activity android:name=".activity.LoginActivity" />
         <activity
             android:name=".activity.MainActivity"
