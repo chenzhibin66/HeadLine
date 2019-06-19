@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#ff159cd1</color>
     <color name="colorAccent">#ff0288d1</color>
     <color name="tra_color_primary">#8f27b5ee</color>
+    <color name="nav_bottom">#1296db</color>
 
     <color name="color_black">#000000</color>
     <color name="color_dark_grey">#555555</color>
@@ -17,4 +18,40 @@
     <color name="window_bg">#ffeef1f3</color>
     <color name="red_f2">#f24949</color>
     <color name="line">#e8e8e8</color>
+    <!--message-->
+    <color name="message_bg">#fcfcfc</color>
+    <color name="message_type">#050505</color>
+    <color name="message_line">#e8e8e8</color>
+
+    <!--feature-->
+    <color name="feature_tab_unchecked">#aae1f9</color>
+    <color name="feature_sub_tab1_roll_i">#9e9e9e</color>
+    <color name="feature_sub_tab1_title">#323232</color>
+    <color name="feature_sub_tab1_count">#8a8a8a</color>
+    <color name="feature_sub_tab1_name">#7e7e7e</color>
+    <color name="feature_sub_tab1_line">#e9e9e9</color>
+
+    <!--search-->
+    <color name="search_bar">#f4f4f4</color>
+    <color name="search_hint">#aaaaaa</color>
+    <color name="search_title_name">#848484</color>
+    <color name="search_part_line">#ededed</color>
+    <color name="search_team_tag">#fa9a01</color>
+    <color name="count">#a4a4a4</color>
+    <color name="signature">#767676</color>
+
+    <!--主色彩-->
+    <color name="main_theme">#27b5ee</color>
+    <color name="title">#ffffff</color>
+
+    <!--acount-->
+    <color name="complete_oneself_info">#d4f0fc</color>
+    <color name="under_oneself_line">#a6d1e2</color>
+    <color name="share_focu_friend">#f4f4f4</color>
+    <color name="part_line">#dddddd</color>
+    <color name="black_content">#212121</color>
+    <color name="gray_content">#757575</color>
+    <color name="press_item">#00d4d4d4</color>
+    <color name="red_content">#f62e00</color>
+    <color name="toshow_presure">#279bee</color>
 </resources>

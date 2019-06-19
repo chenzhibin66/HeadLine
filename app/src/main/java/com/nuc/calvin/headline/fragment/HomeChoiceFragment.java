@@ -1,10 +1,12 @@
 package com.nuc.calvin.headline.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,9 +22,11 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import com.bumptech.glide.Glide;
+import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nuc.calvin.headline.R;
+import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
 import com.nuc.calvin.headline.model.Article;
 import com.nuc.calvin.headline.model.Banner;
@@ -40,7 +44,7 @@ import static android.support.constraint.Constraints.TAG;
 
 public class HomeChoiceFragment extends BaseFragment {
     @Bind(R.id.swipe_refresh_layout)
-   PullRefreshLayout pullRefreshLayout;
+    PullRefreshLayout pullRefreshLayout;
     @Bind(R.id.recyclerview)
     FamiliarRecyclerView mRecyclerView;
     ConvenientBanner banner;
@@ -51,10 +55,9 @@ public class HomeChoiceFragment extends BaseFragment {
     private List<String> banner_image = new ArrayList<>();
     private List<Article> datas = new ArrayList<>();
     private String[] imagesString = new String[]{
-            "http://39.105.110.19/static/images/文徵明/临兰亭序/fatie-000.jpg",
-            "http://39.105.110.19/static/images/文徵明/临兰亭序/fatie-000.jpg",
-            "http://39.105.110.19/static/images/文徵明/临兰亭序/fatie-000.jpg"
-
+            "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
+            "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
+            "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small"
     };
 
     @Override
@@ -67,35 +70,33 @@ public class HomeChoiceFragment extends BaseFragment {
         View header = LayoutInflater.from(getContext()).inflate(R.layout.view_home_banner, null);
         banner = header.findViewById(R.id.banner);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
         initBanner();
-
         mAdapter = new HomeChoiceAdapter(getActivity());
         initArticle();
         mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
-      pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-          @Override
-          public void onRefresh() {
-              new Handler().postDelayed(new Runnable() {
-                  @Override
-                  public void run() {
-                   pullRefreshLayout.setRefreshing(false);
-                  }
-              }, 2000);
-          }
-      });
-       /* mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mSwipeRefreshLayout.setRefreshing(false);
+                        pullRefreshLayout.setRefreshing(false);
                     }
                 }, 2000);
             }
-        });*/
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShareActivity.class);
+                startActivity(intent);
+            }
+        });
 
       /*  mSwipeRefreshLayout.postDelayed(new Runnable() {
             @Override
@@ -137,7 +138,7 @@ public class HomeChoiceFragment extends BaseFragment {
             public Object createHolder() {
                 return new BannerImageHolderView();
             }
-        },banner_image).setPageIndicator(new int[]{R.drawable.ic_banner_indicator_unselected
+        }, banner_image).setPageIndicator(new int[]{R.drawable.ic_banner_indicator_unselected
                 , R.drawable.ic_banner_indicator_selected})
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
@@ -168,9 +169,6 @@ public class HomeChoiceFragment extends BaseFragment {
     private void initArticle() {
         for (int i = 0; i < 20; i++) {
             Article article = new Article();
-           /* article.setTitle("欢迎来到IT头条");
-            article.setImage(R.drawable.author);
-            article.setContributor("czb");*/
             datas.add(article);
         }
         mAdapter.addDataList(datas);

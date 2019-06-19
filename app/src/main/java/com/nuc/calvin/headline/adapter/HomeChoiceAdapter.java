@@ -105,7 +105,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
      * 添加头部布局后的位置
      * headerView 不为空则 position - 1
      */
-    private int getRealPosition(/*ChoiceViewHolder*/ RecyclerView.ViewHolder holder) {
+    private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return HeaderView == null ? position : position - 1;
     }
@@ -113,7 +113,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
     @Override
     public int getItemCount() {
         //header 不为空，则 reclclerview 的总 Count 需要 +1（把 Header 加上算一个 item）
-        return HeaderView == null ? dataList.size() : dataList.size() +1;
+        return HeaderView == null ? dataList.size() : dataList.size() + 1;
     }
 
     public class ChoiceViewHolder extends RecyclerView.ViewHolder {
