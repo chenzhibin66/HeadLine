@@ -9,8 +9,8 @@ public class Article {
     private boolean is_recommend;
     private String original_url;
     private Object image;
-    private String thumbnail;
-    private boolean is_featured;
+//    private String thumbnail;
+//    private boolean is_featured;
     private int comment_count;
     private int like_count;
     private boolean liked;
@@ -83,21 +83,21 @@ public class Article {
         this.image = image;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
+//    public String getThumbnail() {
+//        return thumbnail;
+//    }
+//
+//    public void setThumbnail(String thumbnail) {
+//        this.thumbnail = thumbnail;
+//    }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public boolean isIs_featured() {
-        return is_featured;
-    }
-
-    public void setIs_featured(boolean is_featured) {
-        this.is_featured = is_featured;
-    }
+//    public boolean isIs_featured() {
+//        return is_featured;
+//    }
+//
+//    public void setIs_featured(boolean is_featured) {
+//        this.is_featured = is_featured;
+//    }
 
     public int getComment_count() {
         return comment_count;

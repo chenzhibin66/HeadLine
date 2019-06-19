@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:id="@+id/my_search_fragment"
-    android:background="@color/message_bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/message_bg"
+    android:orientation="vertical">
 
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/search_refresh"
@@ -69,9 +69,9 @@
                         android:id="@+id/hot_team_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="查看热门"
+                        android:text="热门文章"
                         android:textColor="@color/search_title_name"
-                        android:textSize="13sp" />
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/help_img"
@@ -81,18 +81,10 @@
                         android:layout_toRightOf="@id/hot_team_title"
                         android:src="@drawable/ic_hot_article" />
 
-                    <TextView
-                        android:id="@+id/select_hot_teams"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text=">查看热门"
-                        android:textColor="@color/main_theme"
-                        android:textSize="13sp" />
                 </RelativeLayout>
                 <!--活跃团队号列表-->
-                <com.nuc.calvin.headline.view.ListViewForScrollView
-                    android:id="@+id/hot_team_list"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/hot_article_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/title" />
@@ -108,9 +100,9 @@
                         android:id="@+id/active_account_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="活跃独家号"
+                        android:text="热门博主"
                         android:textColor="@color/search_title_name"
-                        android:textSize="13sp" />
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/help_img_account"
@@ -118,20 +110,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@id/active_account_title"
-                        android:src="@mipmap/icon_help_blue_small" />
-
-                    <TextView
-                        android:id="@+id/select_active_account"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="查看最新"
-                        android:textColor="@color/main_theme"
-                        android:textSize="13sp" />
+                        android:src="@drawable/ic_hot_article" />
                 </RelativeLayout>
                 <!--活跃独家号列表-->
-                <com.nuc.calvin.headline.view.ListViewForScrollView
-                    android:id="@+id/active_account_list"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/hot_account_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/title" />
