@@ -39,7 +39,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 
-import static android.support.constraint.Constraints.TAG;
 
 
 public class HomeChoiceFragment extends BaseFragment {

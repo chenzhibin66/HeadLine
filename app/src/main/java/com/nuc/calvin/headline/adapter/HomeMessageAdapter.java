@@ -53,7 +53,7 @@ public class HomeMessageAdapter extends RecyclerView.Adapter<HomeMessageAdapter.
         if (myHolder instanceof MyHolder) {
             myHolder.bindMessage(message);
         }
-        myHolder.bindMessage(message);
+//        myHolder.bindMessage(message);
         myHolder.itemView.setClickable(true);
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -43,7 +43,6 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
     }
 
     public void addDataList(List<Article> list) {
-
         dataList.addAll(list);
         notifyDataSetChanged();
     }
