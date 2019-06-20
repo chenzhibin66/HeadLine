@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    /**
+    *按钮颜色
+    */
+    <solid
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:color="#E03627" />
+    /**
+    *圆角设置
+    */
+    <corners
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:bottomLeftRadius="1000dp"
+        android:bottomRightRadius="1000dp"
+        android:topLeftRadius="1000dp"
+        android:topRightRadius="1000dp" />
+
+    /**
+    *和边缘的距离
+    */
+    <padding
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:top="10dp" />
+</shape>

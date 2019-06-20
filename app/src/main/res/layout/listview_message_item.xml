@@ -16,29 +16,11 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
-        android:gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/iv_message_head"
-        android:textSize="16sp"
-        android:textColor="@color/color_black"/>
-    <LinearLayout
-        android:id="@+id/msg_point"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:textColor="@color/color_black"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/point"
-            android:layout_width="wrap_content"
-            android:layout_height="18dp"
-            android:background="@drawable/red_bg"
-            android:gravity="center"
-            android:singleLine="true"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"/>
-    </LinearLayout>
 
 </RelativeLayout>

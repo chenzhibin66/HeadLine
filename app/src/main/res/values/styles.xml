@@ -40,4 +40,13 @@
         <item name="android:drawablePadding">4dp</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+    <style name="account_share_bar">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/title</item>
+    </style>
+
 </resources>

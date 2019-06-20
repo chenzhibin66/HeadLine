@@ -40,7 +40,6 @@ import butterknife.ButterKnife;
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 
 
-
 public class HomeChoiceFragment extends BaseFragment {
     @Bind(R.id.swipe_refresh_layout)
     PullRefreshLayout pullRefreshLayout;
@@ -48,8 +47,6 @@ public class HomeChoiceFragment extends BaseFragment {
     FamiliarRecyclerView mRecyclerView;
     ConvenientBanner banner;
     private HomeChoiceAdapter mAdapter;
-    //是否自动轮播,控制如果是一张图片，不能滑动
-    private boolean mCanLoop = true;
     private DisplayImageOptions options;
     private List<String> banner_image = new ArrayList<>();
     private List<Article> datas = new ArrayList<>();
