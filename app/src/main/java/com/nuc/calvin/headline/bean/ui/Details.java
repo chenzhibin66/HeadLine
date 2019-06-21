@@ -1,4 +1,4 @@
-package com.nuc.calvin.headline.model;
+package com.nuc.calvin.headline.bean.ui;
 
 public class Details {
 

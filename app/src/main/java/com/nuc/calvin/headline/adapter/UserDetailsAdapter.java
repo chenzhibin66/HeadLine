@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nuc.calvin.headline.R;
-import com.nuc.calvin.headline.model.Details;
+import com.nuc.calvin.headline.bean.ui.Details;
 
 import java.util.ArrayList;
 import java.util.List;

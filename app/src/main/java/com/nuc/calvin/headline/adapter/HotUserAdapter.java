@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nuc.calvin.headline.R;
-import com.nuc.calvin.headline.model.User;
+import com.nuc.calvin.headline.bean.User;
 
 import java.util.ArrayList;
 import java.util.List;

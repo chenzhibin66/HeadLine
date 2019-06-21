@@ -2,17 +2,12 @@ package com.nuc.calvin.headline.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -24,12 +19,10 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
-import com.nuc.calvin.headline.model.Article;
-import com.nuc.calvin.headline.model.Banner;
+import com.nuc.calvin.headline.bean.Article;
 
 import java.util.ArrayList;
 import java.util.Arrays;

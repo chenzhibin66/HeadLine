@@ -1,7 +1,6 @@
 package com.nuc.calvin.headline.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nuc.calvin.headline.R;
-import com.nuc.calvin.headline.model.Article;
+import com.nuc.calvin.headline.bean.Article;
 
 import java.util.ArrayList;
 import java.util.List;

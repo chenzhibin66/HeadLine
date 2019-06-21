@@ -11,7 +11,7 @@ import com.baoyz.widget.PullRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.adapter.UserDetailsAdapter;
-import com.nuc.calvin.headline.model.Details;
+import com.nuc.calvin.headline.bean.ui.Details;
 
 
 import java.util.ArrayList;
