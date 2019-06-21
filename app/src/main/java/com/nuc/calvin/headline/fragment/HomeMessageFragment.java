@@ -43,7 +43,6 @@ public class HomeMessageFragment extends BaseFragment {
     }
 
 
-
     private void init(View view) {
         iv_dingyue = view.findViewById(R.id.msg_iv_dingyue);
         iv_comment = view.findViewById(R.id.msg_iv_comment);

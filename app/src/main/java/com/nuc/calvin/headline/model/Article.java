@@ -1,31 +1,17 @@
 package com.nuc.calvin.headline.model;
 
 public class Article {
-    private boolean is_advertorial;
     private int id;
+    private boolean is_advertorial;
     private String title;
-    private String contributor;
-    private String original_site_name;
-    private boolean is_recommend;
-    private String original_url;
-    private Object image;
-//    private String thumbnail;
-//    private boolean is_featured;
-    private int comment_count;
-    private int like_count;
     private boolean liked;
-    private SubjectBean subject;
-    private UserBean user;
-    private AuthorInfoBean author_info;
-    private int created_at;
-
-    public boolean isIs_advertorial() {
-        return is_advertorial;
-    }
-
-    public void setIs_advertorial(boolean is_advertorial) {
-        this.is_advertorial = is_advertorial;
-    }
+    private int like_count;
+    private int comment_Count;
+    private boolean subscribe;
+    private int subscribe_count;
+    private Object author_head;
+    private String author_name;
+    private String url;
 
     public int getId() {
         return id;
@@ -33,6 +19,14 @@ public class Article {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isIs_advertorial() {
+        return is_advertorial;
+    }
+
+    public void setIs_advertorial(boolean is_advertorial) {
+        this.is_advertorial = is_advertorial;
     }
 
     public String getTitle() {
@@ -43,68 +37,12 @@ public class Article {
         this.title = title;
     }
 
-    public String getContributor() {
-        return contributor;
+    public boolean isLiked() {
+        return liked;
     }
 
-    public void setContributor(String contributor) {
-        this.contributor = contributor;
-    }
-
-    public String getOriginal_site_name() {
-        return original_site_name;
-    }
-
-    public void setOriginal_site_name(String original_site_name) {
-        this.original_site_name = original_site_name;
-    }
-
-    public boolean isIs_recommend() {
-        return is_recommend;
-    }
-
-    public void setIs_recommend(boolean is_recommend) {
-        this.is_recommend = is_recommend;
-    }
-
-    public String getOriginal_url() {
-        return original_url;
-    }
-
-    public void setOriginal_url(String original_url) {
-        this.original_url = original_url;
-    }
-
-    public Object getImage() {
-        return image;
-    }
-
-    public void setImage(Object image) {
-        this.image = image;
-    }
-
-//    public String getThumbnail() {
-//        return thumbnail;
-//    }
-//
-//    public void setThumbnail(String thumbnail) {
-//        this.thumbnail = thumbnail;
-//    }
-
-//    public boolean isIs_featured() {
-//        return is_featured;
-//    }
-//
-//    public void setIs_featured(boolean is_featured) {
-//        this.is_featured = is_featured;
-//    }
-
-    public int getComment_count() {
-        return comment_count;
-    }
-
-    public void setComment_count(int comment_count) {
-        this.comment_count = comment_count;
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     public int getLike_count() {
@@ -115,142 +53,51 @@ public class Article {
         this.like_count = like_count;
     }
 
-    public boolean isLiked() {
-        return liked;
+    public int getComment_Count() {
+        return comment_Count;
     }
 
-    public void setLiked(boolean liked) {
-        this.liked = liked;
+    public void setComment_Count(int comment_Count) {
+        this.comment_Count = comment_Count;
     }
 
-    public SubjectBean getSubject() {
-        return subject;
+    public boolean isSubscribe() {
+        return subscribe;
     }
 
-    public void setSubject(SubjectBean subject) {
-        this.subject = subject;
+    public void setSubscribe(boolean subscribe) {
+        this.subscribe = subscribe;
     }
 
-    public UserBean getUser() {
-        return user;
+    public int getSubscribe_count() {
+        return subscribe_count;
     }
 
-    public void setUser(UserBean user) {
-        this.user = user;
+    public void setSubscribe_count(int subscribe_count) {
+        this.subscribe_count = subscribe_count;
     }
 
-    public AuthorInfoBean getAuthor_info() {
-        return author_info;
+    public Object getAuthor_head() {
+        return author_head;
     }
 
-    public void setAuthor_info(AuthorInfoBean author_info) {
-        this.author_info = author_info;
+    public void setAuthor_head(Object author_head) {
+        this.author_head = author_head;
     }
 
-    public int getCreated_at() {
-        return created_at;
+    public String getAuthor_name() {
+        return author_name;
     }
 
-    public void setCreated_at(int created_at) {
-        this.created_at = created_at;
+    public void setAuthor_name(String author_name) {
+        this.author_name = author_name;
     }
 
-    public static class SubjectBean {
-        private int id;
-        private String name;
-        private String image;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
+    public String getUrl() {
+        return url;
     }
 
-    public static class UserBean {
-        private String id;
-        private String name;
-        private String avatar;
-        private Object bio;
-        private boolean following;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-
-        public Object getBio() {
-            return bio;
-        }
-
-        public void setBio(Object bio) {
-            this.bio = bio;
-        }
-
-        public boolean isFollowing() {
-            return following;
-        }
-
-        public void setFollowing(boolean following) {
-            this.following = following;
-        }
-    }
-
-    public static class AuthorInfoBean {
-        private String name;
-        private String url;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
