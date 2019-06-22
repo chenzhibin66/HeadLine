@@ -17,14 +17,14 @@ public class User {
     private String signature;
     //是否被关注
     private boolean following;
-    //关注的用户的id
-    private int subUserId;
-    //关注数量
-    private int subscribeCount;
     //粉丝id
     private int fansId;
     //粉丝数量
     private int fansCount;
+    //关注的用户的id
+    private int subUserId;
+    //关注数量
+    private int subscribeCount;
     //分享的文章数量
     private int shareCount;
     //注册时间

@@ -11,7 +11,7 @@ public class Article {
     //作者id
     private int authorId;
     //是否被点赞
-    private boolean isfavoured;
+    private boolean isFavoured;
     //点赞id
     private int favourId;
     //点赞数量
@@ -51,12 +51,12 @@ public class Article {
         this.authorId = authorId;
     }
 
-    public boolean isIsfavoured() {
-        return isfavoured;
+    public boolean isFavoured() {
+        return isFavoured;
     }
 
-    public void setIsfavoured(boolean isfavoured) {
-        this.isfavoured = isfavoured;
+    public void setFavoured(boolean favoured) {
+        isFavoured = favoured;
     }
 
     public int getFavourId() {

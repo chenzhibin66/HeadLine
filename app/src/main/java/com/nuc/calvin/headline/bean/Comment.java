@@ -9,9 +9,9 @@ public class Comment implements Serializable {
     //评论的文章id
     private int articleId;
     //评论发布人
-    private User user;
+    private int fromUserId;
     //评论接收人
-    private User toUser;
+    private int toUserId;
     //评论内容
     private String commentContent;
     //评论时间
@@ -33,20 +33,20 @@ public class Comment implements Serializable {
         this.articleId = articleId;
     }
 
-    public User getUser() {
-        return user;
+    public int getFromUserId() {
+        return fromUserId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFromUserId(int fromUserId) {
+        this.fromUserId = fromUserId;
     }
 
-    public User getToUser() {
-        return toUser;
+    public int getToUserId() {
+        return toUserId;
     }
 
-    public void setToUser(User toUser) {
-        this.toUser = toUser;
+    public void setToUserId(int toUserId) {
+        this.toUserId = toUserId;
     }
 
     public String getCommentContent() {
