@@ -4,33 +4,48 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Comment implements Serializable {
-    private int commentId;
-    private int user;//评论发布人
-    private int toUser;
+    //评论id
+    private int id;
+    //评论的文章id
+    private int articleId;
+    //评论发布人
+    private User user;
+    //评论接收人
+    private User toUser;
+    //评论内容
     private String commentContent;
+    //评论时间
     private Date commentTime;
 
-    public int getCommentId() {
-        return commentId;
+    public int getId() {
+        return id;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getUser() {
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
+    }
+
+    public User getUser() {
         return user;
     }
 
-    public void setUser(int user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public int getToUser() {
+    public User getToUser() {
         return toUser;
     }
 
-    public void setToUser(int toUser) {
+    public void setToUser(User toUser) {
         this.toUser = toUser;
     }
 

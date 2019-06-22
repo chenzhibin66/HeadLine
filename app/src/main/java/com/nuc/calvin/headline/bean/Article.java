@@ -8,38 +8,24 @@ public class Article {
     private int articleId;
     //是否广告
     private boolean isAdvertorial;
-    //文章标题
-    private String title;
+    //作者id
+    private int authorId;
     //是否被点赞
-    private boolean liked;
+    private boolean isfavoured;
     //点赞id
-    private int likeId;
-    //被点赞数量
-    private int likeCount;
+    private int favourId;
+    //点赞数量
+    private int favourCount;
     //评论id
-    private int idComment;
+    private int commentId;
     //评论数量
     private int commentCount;
     //是否被收藏
     private boolean collect;
-    //收藏的数量
-    private int collectCount;
-    //作者ID
-    private int authorId;
-    //作者头像url
-    private String authorHead;
-    //作者名字
-    private String authorName;
     //文章url
     private String articleUrl;
-    //收藏的用户id
-    private int collectUserId;
     //发布时间
     private Date createTime;
-
-    private List<Comment> commentList;
-    private List<Favour> favourList;
-    private Date articleTime;
 
     public int getArticleId() {
         return articleId;
@@ -57,44 +43,44 @@ public class Article {
         isAdvertorial = advertorial;
     }
 
-    public String getTitle() {
-        return title;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
-    public boolean isLiked() {
-        return liked;
+    public boolean isIsfavoured() {
+        return isfavoured;
     }
 
-    public void setLiked(boolean liked) {
-        this.liked = liked;
+    public void setIsfavoured(boolean isfavoured) {
+        this.isfavoured = isfavoured;
     }
 
-    public int getLikeId() {
-        return likeId;
+    public int getFavourId() {
+        return favourId;
     }
 
-    public void setLikeId(int likeId) {
-        this.likeId = likeId;
+    public void setFavourId(int favourId) {
+        this.favourId = favourId;
     }
 
-    public int getLikeCount() {
-        return likeCount;
+    public int getFavourCount() {
+        return favourCount;
     }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
+    public void setFavourCount(int favourCount) {
+        this.favourCount = favourCount;
     }
 
-    public int getIdComment() {
-        return idComment;
+    public int getCommentId() {
+        return commentId;
     }
 
-    public void setIdComment(int idComment) {
-        this.idComment = idComment;
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
     }
 
     public int getCommentCount() {
@@ -113,38 +99,6 @@ public class Article {
         this.collect = collect;
     }
 
-    public int getCollectCount() {
-        return collectCount;
-    }
-
-    public void setCollectCount(int collectCount) {
-        this.collectCount = collectCount;
-    }
-
-    public int getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
-    }
-
-    public String getAuthorHead() {
-        return authorHead;
-    }
-
-    public void setAuthorHead(String authorHead) {
-        this.authorHead = authorHead;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
     public String getArticleUrl() {
         return articleUrl;
     }
@@ -153,43 +107,11 @@ public class Article {
         this.articleUrl = articleUrl;
     }
 
-    public int getCollectUserId() {
-        return collectUserId;
-    }
-
-    public void setCollectUserId(int collectUserId) {
-        this.collectUserId = collectUserId;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
-
-    public List<Favour> getFavourList() {
-        return favourList;
-    }
-
-    public void setFavourList(List<Favour> favourList) {
-        this.favourList = favourList;
-    }
-
-    public Date getArticleTime() {
-        return articleTime;
-    }
-
-    public void setArticleTime(Date articleTime) {
-        this.articleTime = articleTime;
     }
 }

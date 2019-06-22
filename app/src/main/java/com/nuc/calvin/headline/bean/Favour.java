@@ -5,8 +5,14 @@ import java.util.Date;
 public class Favour {
 
     private int id;
-    private int userId;
-    private Date likeTime;
+    //点赞用户的id
+    private int favourUserId;
+    //点赞的文章id
+    private int articleId;
+    //点赞数量
+    private int likeCount;
+    //点赞时间
+    private Date favourTime;
 
     public int getId() {
         return id;
@@ -16,19 +22,35 @@ public class Favour {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getFavourUserId() {
+        return favourUserId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setFavourUserId(int favourUserId) {
+        this.favourUserId = favourUserId;
     }
 
-    public Date getLikeTime() {
-        return likeTime;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public void setLikeTime(Date likeTime) {
-        this.likeTime = likeTime;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public Date getFavourTime() {
+        return favourTime;
+    }
+
+    public void setFavourTime(Date favourTime) {
+        this.favourTime = favourTime;
     }
 }
