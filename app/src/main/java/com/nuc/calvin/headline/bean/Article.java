@@ -4,99 +4,78 @@ import java.util.Date;
 import java.util.List;
 
 public class Article {
-    //文章id
-    private int articleId;
-    //是否广告
-    private boolean isAdvertorial;
-    //作者id
-    private int authorId;
-    //是否被点赞
-    private boolean isFavoured;
-    //点赞id
-    private int favourId;
-    //点赞数量
-    private int favourCount;
-    //评论id
-    private int commentId;
-    //评论数量
-    private int commentCount;
-    //是否被收藏
-    private boolean collect;
-    //文章url
+    /**
+     * 文章id
+     */
+    private Integer articleId;
+    /**
+     * 作者id
+     */
+    private Integer userId;
+    /**
+     * 发布时间
+     */
+    private Date postTime;
+    /**
+     * 文章标题
+     */
+    private String articleTitle;
+    /**
+     * 文章url
+     */
     private String articleUrl;
-    //发布时间
-    private Date createTime;
 
-    public int getArticleId() {
+    /**
+     * 赞 0-否  1-是
+     */
+    private int likes;
+    /**
+     * 收藏 0-否  1-是
+     */
+    private int collcet;
+    /**
+     * 被评论次数
+     */
+    private int commentCount;
+    /**
+     * 被点赞数
+     */
+    private int likeCount;
+    /**
+     * 扩展user
+     */
+    private User user;
+
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(int articleId) {
+    public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
 
-    public boolean isAdvertorial() {
-        return isAdvertorial;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setAdvertorial(boolean advertorial) {
-        isAdvertorial = advertorial;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public Date getPostTime() {
+        return postTime;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public void setPostTime(Date postTime) {
+        this.postTime = postTime;
     }
 
-    public boolean isFavoured() {
-        return isFavoured;
+    public String getArticleTitle() {
+        return articleTitle;
     }
 
-    public void setFavoured(boolean favoured) {
-        isFavoured = favoured;
-    }
-
-    public int getFavourId() {
-        return favourId;
-    }
-
-    public void setFavourId(int favourId) {
-        this.favourId = favourId;
-    }
-
-    public int getFavourCount() {
-        return favourCount;
-    }
-
-    public void setFavourCount(int favourCount) {
-        this.favourCount = favourCount;
-    }
-
-    public int getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public boolean isCollect() {
-        return collect;
-    }
-
-    public void setCollect(boolean collect) {
-        this.collect = collect;
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 
     public String getArticleUrl() {
@@ -107,11 +86,43 @@ public class Article {
         this.articleUrl = articleUrl;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public int getLikes() {
+        return likes;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getCollcet() {
+        return collcet;
+    }
+
+    public void setCollcet(int collcet) {
+        this.collcet = collcet;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -3,47 +3,70 @@ package com.nuc.calvin.headline.bean;
 import java.util.Date;
 
 public class User {
-    //用户id
-    private int userId;
-    //用户名
-    private String userName;
-    //用户邮件
+    /**
+     * 用户id
+     */
+    private Integer userId;
+    /**
+     * 用户昵称
+     */
+    private String username;
+    /**
+     * 注册邮箱
+     */
     private String email;
-    //用户密码
+    /**
+     * 用户密码
+     */
     private String password;
-    //用户头像url
-    private String userHead;
-    //用户个性签名
+    /**
+     * 用户头像
+     */
+    private String headImg;
+    /**
+     * 用户个性签名
+     */
     private String signature;
-    //是否被关注
-    private boolean following;
-    //粉丝id
-    private int fansId;
-    //粉丝数量
+    /**
+     * 用户性别   0--男   1--女
+     */
+    private Integer sex;
+
+    /**
+     * 用户关系 0——未关注 1——已关注 2——相互关注
+     */
+    private Relation relation;
+    /**
+     * 文章数
+     */
+    private int articleCount;
+    /**
+     * 关注数
+     */
+    private int followCount;
+    /**
+     * 粉丝数
+     */
     private int fansCount;
-    //关注的用户的id
-    private int subUserId;
-    //关注数量
-    private int subscribeCount;
-    //分享的文章数量
-    private int shareCount;
-    //注册时间
+    /**
+     * 注册时间
+     */
     private Date singUpTime;
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -62,12 +85,12 @@ public class User {
         this.password = password;
     }
 
-    public String getUserHead() {
-        return userHead;
+    public String getHeadImg() {
+        return headImg;
     }
 
-    public void setUserHead(String userHead) {
-        this.userHead = userHead;
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
     }
 
     public String getSignature() {
@@ -78,36 +101,36 @@ public class User {
         this.signature = signature;
     }
 
-    public boolean isFollowing() {
-        return following;
+    public Integer getSex() {
+        return sex;
     }
 
-    public void setFollowing(boolean following) {
-        this.following = following;
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
-    public int getSubUserId() {
-        return subUserId;
+    public Relation getRelation() {
+        return relation;
     }
 
-    public void setSubUserId(int subUserId) {
-        this.subUserId = subUserId;
+    public void setRelation(Relation relation) {
+        this.relation = relation;
     }
 
-    public int getSubscribeCount() {
-        return subscribeCount;
+    public int getArticleCount() {
+        return articleCount;
     }
 
-    public void setSubscribeCount(int subscribeCount) {
-        this.subscribeCount = subscribeCount;
+    public void setArticleCount(int articleCount) {
+        this.articleCount = articleCount;
     }
 
-    public int getFansId() {
-        return fansId;
+    public int getFollowCount() {
+        return followCount;
     }
 
-    public void setFansId(int fansId) {
-        this.fansId = fansId;
+    public void setFollowCount(int followCount) {
+        this.followCount = followCount;
     }
 
     public int getFansCount() {
@@ -116,14 +139,6 @@ public class User {
 
     public void setFansCount(int fansCount) {
         this.fansCount = fansCount;
-    }
-
-    public int getShareCount() {
-        return shareCount;
-    }
-
-    public void setShareCount(int shareCount) {
-        this.shareCount = shareCount;
     }
 
     public Date getSingUpTime() {
