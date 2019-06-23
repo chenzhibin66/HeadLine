@@ -32,7 +32,7 @@ public class Article {
     /**
      * 收藏 0-否  1-是
      */
-    private int collcet;
+    private int collect;
     /**
      * 被评论次数
      */
@@ -94,12 +94,12 @@ public class Article {
         this.likes = likes;
     }
 
-    public int getCollcet() {
-        return collcet;
+    public int getCollect() {
+        return collect;
     }
 
-    public void setCollcet(int collcet) {
-        this.collcet = collcet;
+    public void setCollect(int collect) {
+        this.collect = collect;
     }
 
     public int getCommentCount() {

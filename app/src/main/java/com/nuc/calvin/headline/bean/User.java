@@ -31,11 +31,6 @@ public class User {
      * 用户性别   0--男   1--女
      */
     private Integer sex;
-
-    /**
-     * 用户关系 0——未关注 1——已关注 2——相互关注
-     */
-    private Relation relation;
     /**
      * 文章数
      */
@@ -52,6 +47,11 @@ public class User {
      * 注册时间
      */
     private Date singUpTime;
+
+    /**
+     * 用户关系 0——未关注 1——已关注 2——相互关注
+     */
+    private Relation relation;
 
     public Integer getUserId() {
         return userId;
