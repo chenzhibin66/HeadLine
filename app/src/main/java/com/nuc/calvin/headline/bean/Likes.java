@@ -20,10 +20,7 @@ public class Likes {
      */
     private Date likesTime;
 
-    private String authorName;
-    private String authorImg;
-    private Article article;
-    private User user;
+
 
     public Integer getLikesId() {
         return likesId;
@@ -57,35 +54,6 @@ public class Likes {
         this.likesTime = likeTime;
     }
 
-    public String getAuthorName() {
-        return authorName;
-    }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
 
-    public String getAuthorImg() {
-        return authorImg;
-    }
-
-    public void setAuthorImg(String authorImg) {
-        this.authorImg = authorImg;
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

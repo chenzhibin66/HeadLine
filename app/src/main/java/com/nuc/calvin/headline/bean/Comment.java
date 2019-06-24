@@ -26,23 +26,6 @@ public class Comment implements Serializable {
      */
     private Date commentTime;
 
-    /**
-     * 被评论文章作者昵称
-     */
-    private String authorName;
-    /**
-     * 评论回复数
-     */
-    private int countReply;
-
-    /**
-     * 回复列表
-     */
-    private List<Reply> replyList;
-
-
-    private User user;
-    private Article article;
 
     public Integer getCommentId() {
         return commentId;
@@ -82,45 +65,5 @@ public class Comment implements Serializable {
 
     public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public int getCountReply() {
-        return countReply;
-    }
-
-    public void setCountReply(int countReply) {
-        this.countReply = countReply;
-    }
-
-    public List<Reply> getReplyList() {
-        return replyList;
-    }
-
-    public void setReplyList(List<Reply> replyList) {
-        this.replyList = replyList;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
     }
 }

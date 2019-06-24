@@ -23,23 +23,7 @@ public class Reply {
      * 评论内容
      */
     private String content;
-    /**
-     * from 昵称
-     */
-    private String fromName;
-    /**
-     * to 昵称
-     */
-    private String toName;
-    /**
-     * 头像
-     */
-    private String fromImg;
-    private String toImg;
-    /**
-     * 源文章
-     */
-    private Article article;
+
     /**
      * 回复时间
      */
@@ -83,46 +67,6 @@ public class Reply {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getFromName() {
-        return fromName;
-    }
-
-    public void setFromName(String fromName) {
-        this.fromName = fromName;
-    }
-
-    public String getToName() {
-        return toName;
-    }
-
-    public void setToName(String toName) {
-        this.toName = toName;
-    }
-
-    public String getFromImg() {
-        return fromImg;
-    }
-
-    public void setFromImg(String fromImg) {
-        this.fromImg = fromImg;
-    }
-
-    public String getToImg() {
-        return toImg;
-    }
-
-    public void setToImg(String toImg) {
-        this.toImg = toImg;
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
     }
 
     public Date getReplyTime() {

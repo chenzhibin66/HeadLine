@@ -32,26 +32,9 @@ public class User {
      */
     private Integer sex;
     /**
-     * 文章数
-     */
-    private int articleCount;
-    /**
-     * 关注数
-     */
-    private int followCount;
-    /**
-     * 粉丝数
-     */
-    private int fansCount;
-    /**
      * 注册时间
      */
     private Date singUpTime;
-
-    /**
-     * 用户关系 0——未关注 1——已关注 2——相互关注
-     */
-    private Relation relation;
 
     public Integer getUserId() {
         return userId;
@@ -107,45 +90,5 @@ public class User {
 
     public void setSex(Integer sex) {
         this.sex = sex;
-    }
-
-    public Relation getRelation() {
-        return relation;
-    }
-
-    public void setRelation(Relation relation) {
-        this.relation = relation;
-    }
-
-    public int getArticleCount() {
-        return articleCount;
-    }
-
-    public void setArticleCount(int articleCount) {
-        this.articleCount = articleCount;
-    }
-
-    public int getFollowCount() {
-        return followCount;
-    }
-
-    public void setFollowCount(int followCount) {
-        this.followCount = followCount;
-    }
-
-    public int getFansCount() {
-        return fansCount;
-    }
-
-    public void setFansCount(int fansCount) {
-        this.fansCount = fansCount;
-    }
-
-    public Date getSingUpTime() {
-        return singUpTime;
-    }
-
-    public void setSingUpTime(Date singUpTime) {
-        this.singUpTime = singUpTime;
     }
 }
