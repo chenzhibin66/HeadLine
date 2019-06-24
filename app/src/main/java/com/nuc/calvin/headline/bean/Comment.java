@@ -39,6 +39,8 @@ public class Comment implements Serializable {
      * 回复列表
      */
     private List<Reply> replyList;
+
+
     private User user;
     private Article article;
 

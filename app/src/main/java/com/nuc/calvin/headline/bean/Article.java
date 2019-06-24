@@ -26,6 +26,11 @@ public class Article {
     private String articleUrl;
 
     /**
+     * 是否广告   1-是   0-否
+     */
+    private int isAdvertorial;
+
+    /**
      * 赞 0-否  1-是
      */
     private int likes;
@@ -45,6 +50,14 @@ public class Article {
      * 扩展user
      */
     private User user;
+
+    public int getIsAdvertorial() {
+        return isAdvertorial;
+    }
+
+    public void setIsAdvertorial(int isAdvertorial) {
+        this.isAdvertorial = isAdvertorial;
+    }
 
     public Integer getArticleId() {
         return articleId;

@@ -12,7 +12,7 @@ public class Relation {
     /**
      *
      */
-    private Integer followid;
+    private Integer followId;
     /**
      *
      */

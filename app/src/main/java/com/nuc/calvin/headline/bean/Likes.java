@@ -18,7 +18,7 @@ public class Likes {
     /**
      * 点赞的时间
      */
-    private Date likeTime;
+    private Date likesTime;
 
     private String authorName;
     private String authorImg;
@@ -49,12 +49,12 @@ public class Likes {
         this.articleId = articleId;
     }
 
-    public Date getLikeTime() {
-        return likeTime;
+    public Date getLikesTime() {
+        return likesTime;
     }
 
     public void setLikeTime(Date likeTime) {
-        this.likeTime = likeTime;
+        this.likesTime = likeTime;
     }
 
     public String getAuthorName() {
