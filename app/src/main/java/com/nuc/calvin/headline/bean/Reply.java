@@ -22,7 +22,7 @@ public class Reply {
     /**
      * 评论内容
      */
-    private String content;
+    private String replyContent;
 
     /**
      * 回复时间
@@ -61,12 +61,12 @@ public class Reply {
         this.toId = toId;
     }
 
-    public String getContent() {
-        return content;
+    public String getReplyContent() {
+        return replyContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
     }
 
     public Date getReplyTime() {
