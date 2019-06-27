@@ -66,7 +66,7 @@ public class LoginActivity extends RobinActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String res = response.body().string();
-                Log.d(TAG, "res=: " + res);
+                Log.d(TAG, "hahahahres=: " + res);
                 Gson gson = new Gson();
                 List<LoginJs> loginJs = gson.fromJson(res, new TypeToken<List<LoginJs>>() {
                 }.getType());
