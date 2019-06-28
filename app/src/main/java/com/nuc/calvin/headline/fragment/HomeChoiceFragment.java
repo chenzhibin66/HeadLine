@@ -3,8 +3,10 @@ package com.nuc.calvin.headline.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,20 +19,40 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
 import com.nuc.calvin.headline.bean.Article;
+import com.nuc.calvin.headline.json.ArticleJs;
+import com.nuc.calvin.headline.utils.StaticClass;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 public class HomeChoiceFragment extends BaseFragment {
@@ -42,7 +64,9 @@ public class HomeChoiceFragment extends BaseFragment {
     private HomeChoiceAdapter mAdapter;
     private DisplayImageOptions options;
     private List<String> banner_image = new ArrayList<>();
-    private List<Article> datas = new ArrayList<>();
+    private List<ArticleJs> datas = null;
+    /* private ArticleJs[] articleJs = null;*/
+    private List<Map<String, Object>> list = new ArrayList<>();
     private String[] imagesString = new String[]{
             "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
             "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
@@ -56,12 +80,15 @@ public class HomeChoiceFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+        Fresco.initialize(getContext());
         View header = LayoutInflater.from(getContext()).inflate(R.layout.view_home_banner, null);
         banner = header.findViewById(R.id.banner);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         initBanner();
+
         mAdapter = new HomeChoiceAdapter(getActivity());
-        initArticle();
+        /*  initArticle();*/
+        getAllArticle();
         mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
         FloatingActionButton fab = view.findViewById(R.id.fab);
@@ -156,11 +183,12 @@ public class HomeChoiceFragment extends BaseFragment {
     }
 
     private void initArticle() {
-        for (int i = 0; i < 20; i++) {
-            Article article = new Article();
-            datas.add(article);
+       /* datas = new ArrayList<>();
+        for (int i = 0; i < articleJs.length; i++) {
+            datas.add(articleJs[i]);
         }
-        mAdapter.addDataList(datas);
+        Log.d(TAG, "initArticle: " + datas);
+        mAdapter.addDataList(datas);*/
     }
 
     /**
@@ -171,5 +199,104 @@ public class HomeChoiceFragment extends BaseFragment {
         banner_image = Arrays.asList(imagesString);
     }
 
+
+    private void getAllArticle() {
+        /*  articleJs = new ArticleJs[5];*/
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(StaticClass.articleUrl).get().build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "请求服务器失败", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String res = response.body().string();
+                Gson gson = new Gson();
+                gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                datas = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
+                }.getType());
+                mAdapter.addDataList(datas);
+                Log.d(TAG, "datas=: " + datas);
+            }
+        });
+    }
+
+   /* private void JSONtoBean() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(StaticClass.articleUrl).get().build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "请求服务器失败", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String res = response.body().string();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    JSONArray jsonArray = jsonObject.getJSONArray(res);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jsonObject = jsonArray.getJSONObject(i);
+                        Map<String, Object> map = new HashMap<>();
+                        String articleId = jsonObject.getString("articleId");
+                        String userId = jsonObject.getString("userId");
+                        String articleTitle = jsonObject.getString("articleTitle");
+                        String articleUrl = jsonObject.getString("articleUrl");
+                        String likes = jsonObject.getString("likes");
+                        String collcet = jsonObject.getString("collect");
+                        String commentCount = jsonObject.optString("commentCount");
+                        String likeCount = jsonObject.getString("likeCount");
+
+                        map.put("articleId", articleId);
+                        map.put("userId", userId);
+                        map.put("articleTitle", articleTitle);
+                        map.put("articlUrl", articleUrl);
+                        map.put("likes", likes);
+                        map.put("collect", collcet);
+                        map.put("commentCount", commentCount);
+                        map.put("likeCount", likeCount);
+
+                        list.add(map);
+
+                        Message msg = new Message();
+                        msg.what = 1;
+                        handler.sendMessage(msg);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }*/
+
+    public Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+
+            }
+        }
+    };
 
 }

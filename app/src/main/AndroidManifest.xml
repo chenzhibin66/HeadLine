@@ -17,11 +17,12 @@
             android:name=".activity.ShareActivity"
             android:label="我要分享"
             android:theme="@style/AppTheme.NoActionBar.Activity" />
-        <activity android:name=".activity.MainActivity"
-            android:label="IT头条"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activity.LoginActivity"
+           />
         <activity
-            android:name=".activity.LoginActivity">
+            android:name=".activity.MainActivity"
+            android:label="IT头条"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

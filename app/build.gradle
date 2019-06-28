@@ -43,7 +43,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //fresco图片加载
-    implementation 'com.facebook.fresco:fresco:0.12.0'
+    implementation 'com.facebook.fresco:fresco:0.14.1'
     //5，图片缓存库
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 

@@ -9,4 +9,7 @@ public class StaticClass {
 
     //注册url
     public static String registerUrl = "http://" + ip + ":8080/headline/user/userRegister";
+
+    //文章url
+    public static String articleUrl = "http://" + ip + ":8080/headline/article/getAllArticle";
 }

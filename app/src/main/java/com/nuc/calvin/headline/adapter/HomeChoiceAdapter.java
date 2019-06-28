@@ -1,6 +1,7 @@
 package com.nuc.calvin.headline.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.bean.Article;
+import com.nuc.calvin.headline.json.ArticleJs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
 
     private View HeaderView;
 
-    private List<Article> dataList = new ArrayList<>();
+    private List<ArticleJs> dataList = new ArrayList<>();
 
     private Context context;
 
@@ -41,9 +44,9 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         notifyItemInserted(0);//插入下标0位置
     }
 
-    public void addDataList(List<Article> list) {
-        dataList.addAll(list);
-        notifyDataSetChanged();
+    public void addDataList(List<ArticleJs> articleJs) {
+        dataList.addAll(articleJs);
+       /* notifyDataSetChanged();*/
     }
 
 
@@ -82,19 +85,20 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
 
     @Override
     public void onBindViewHolder(@NonNull ChoiceViewHolder choiceViewHolder, int i) {
+
         if (getItemViewType(i) == TYPE_HEADER) {
             return;
         }
         final int pos = getRealPosition(choiceViewHolder);//这里的 position 实际需要不包括 header
-        final Article article = dataList.get(pos);
+        final ArticleJs articleJs = dataList.get(pos);
         if (choiceViewHolder instanceof ChoiceViewHolder) {
-            choiceViewHolder.bindData(article);
+            choiceViewHolder.bindData(articleJs);
         }
         choiceViewHolder.itemView.setClickable(true);
         choiceViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "点击了" + pos, Toast.LENGTH_LONG).show();
+
             }
         });
     }
@@ -124,7 +128,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
 
         TextView mLikeTv;
 
-        ImageView author;
+        SimpleDraweeView authorImg;
 
         public ChoiceViewHolder(View itemView) {
             super(itemView);
@@ -135,15 +139,15 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
             mWhereTv = itemView.findViewById(R.id.tv_where);
             mLikeTv = itemView.findViewById(R.id.tv_like);
             mCommentTv = itemView.findViewById(R.id.tv_comment);
-            author = itemView.findViewById(R.id.sdv_avatar);
+            authorImg = itemView.findViewById(R.id.sdv_avatar);
 
 
         }
 
-        public void bindData(Article article) {
-            mTitleTv.setText("欢迎来到IT头条");
-            mWhereTv.setText("czb");
-            author.setImageResource(R.drawable.author);
+        public void bindData(ArticleJs article) {
+            mTitleTv.setText(article.getArticleTitle());
+            mWhereTv.setText(article.getUser().getUsername());
+            authorImg.setImageURI(article.getUser().getHeadImg());
         }
     }
 }
