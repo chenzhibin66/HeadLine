@@ -1,5 +1,6 @@
 package com.nuc.calvin.headline.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -58,6 +59,13 @@ public class MainActivity extends BaseActivity {
                 //.hideMsg(1)//隐藏消息
                 // .hideRedPoint(2)//隐藏红点
                 .setSelected(0);//设置选中的位置
+/*
+        int id = getIntent().getIntExtra("id", 0);
+        if (id==1){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace()
+        }*/
 
 
         //选中的点击事件
@@ -109,9 +117,30 @@ public class MainActivity extends BaseActivity {
         homeFindFragment = new HomeFindFragment();
         homeMessageFragment = new HomeMessageFragment();
         homeUserFragment = new HomeUserFragment();
+        Intent intent = getIntent();
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", intent.getStringExtra("userId"));
+        bundle.putString("userHead", intent.getStringExtra("userHead"));
+        bundle.putString("userName", intent.getStringExtra("userName"));
+        bundle.putString("signature", intent.getStringExtra("signature"));
+       /* bundle.putString("sex",intent.getStringExtra("sex"));
+        bundle.putString("articleCount",intent.getStringExtra("articleCount"));
+        bundle.putString("fansCount",intent.getStringExtra("fansCount"));
+        bundle.putString("followCount",intent.getStringExtra("followCount"));*/
+        homeUserFragment.setArguments(bundle);
+        homeChoiceFragment.setArguments(bundle);
         listFragment.add(homeChoiceFragment);
         listFragment.add(homeMessageFragment);
         listFragment.add(homeFindFragment);
         listFragment.add(homeUserFragment);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int id = getIntent().getIntExtra("id", 0);
+        if (id == 0) {
+            mViewPager.setCurrentItem(0);
+        }
     }
 }

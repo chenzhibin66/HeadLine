@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dip"
+        android:layout_margin="15dip"
+        android:rowCount="8"
+        android:columnCount="2" >
+
+        <!-- username -->
+        <TextView
+            android:id="@+id/login_user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="文章标题"
+            android:textSize="16sp"
+            android:textColor="@color/color_black"
+            />
+
+        <EditText
+            android:id="@+id/username_edit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="请填写文章标题" />
+
+        <!-- password -->
+        <TextView
+            android:id="@+id/login_password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="原始链接"
+            android:textSize="16sp"
+            android:textColor="@color/color_black"
+            />
+
+        <EditText
+            android:id="@+id/password_edit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="请填写分享文章的链接地址"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
+    </GridLayout>
+</LinearLayout>

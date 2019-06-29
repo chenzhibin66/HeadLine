@@ -8,6 +8,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.json.LoginJs;
@@ -17,6 +22,7 @@ import com.sirvar.robin.RobinActivity;
 import com.sirvar.robin.Theme;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
 
@@ -74,6 +80,14 @@ public class LoginActivity extends RobinActivity {
                 Log.d(TAG, "loginJss: " + loginJss);
                 if (loginJss.getMsg().equals("登录成功!")) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("userId", loginJss.getUser().getUserId());
+                    intent.putExtra("userHead", loginJss.getUser().getHeadImg());
+                    intent.putExtra("userName", loginJss.getUser().getUsername());
+                    intent.putExtra("signature", loginJss.getUser().getSignature());
+                    intent.putExtra("sex", loginJss.getUser().getSex());
+                   /* intent.putExtra("articleCount", loginJss.getUser().getArticleCount());
+                    intent.putExtra("followCount", loginJss.getUser().getFollowCount());
+                    intent.putExtra("fansCount", loginJss.getUser().getFansCount());*/
                     startActivity(intent);
                     finish();
                 } else if (loginJss.getMsg().equals("登录失败！")) {

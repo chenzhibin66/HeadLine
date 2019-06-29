@@ -31,10 +31,7 @@ public class User {
      * 用户性别   0--男   1--女
      */
     private Integer sex;
-    /**
-     * 注册时间
-     */
-    private Date singUpTime;
+
 
     public Integer getUserId() {
         return userId;

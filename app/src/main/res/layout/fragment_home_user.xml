@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/tools"
     android:background="@color/message_bg"
     android:orientation="vertical">
 
@@ -39,20 +39,19 @@
                     android:background="@color/main_theme"
                     android:padding="15dp">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/user_img"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginRight="15dp"
-                        android:src="@drawable/head" />
+                        fresco:roundAsCircle="true"/>
 
                     <TextView
-                        android:id="@+id/please_input_nickname"
+                        android:id="@+id/please_input_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_toRightOf="@id/user_img"
-                        android:text="czb"
                         android:textColor="@color/title"
                         android:textSize="15sp" />
 
@@ -60,10 +59,9 @@
                         android:id="@+id/tv_signature"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/please_input_nickname"
+                        android:layout_below="@id/please_input_username"
                         android:layout_marginTop="10dp"
                         android:layout_toRightOf="@id/user_img"
-                        android:text="Java牛逼"
                         android:textColor="@color/complete_oneself_info" />
                 </RelativeLayout>
 
@@ -99,7 +97,6 @@
                             android:layout_below="@+id/share_article"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="0"
                             android:textColor="@color/color_white" />
 
                     </RelativeLayout>
@@ -124,13 +121,12 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/user_subscribe_count"
+                            android:id="@+id/user_follow_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/user_subscribe"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="0"
                             android:textColor="@color/color_white" />
 
                     </RelativeLayout>
@@ -162,7 +158,6 @@
                             android:layout_below="@+id/user_fan"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="0"
                             android:textColor="@color/color_white" />
 
                     </RelativeLayout>

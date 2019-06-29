@@ -2,6 +2,7 @@ package com.nuc.calvin.headline.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DividerItemDecoration;
@@ -65,7 +66,6 @@ public class HomeChoiceFragment extends BaseFragment {
     private DisplayImageOptions options;
     private List<String> banner_image = new ArrayList<>();
     private List<ArticleJs> datas = null;
-    /* private ArticleJs[] articleJs = null;*/
     private List<Map<String, Object>> list = new ArrayList<>();
     private String[] imagesString = new String[]{
             "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
@@ -85,9 +85,7 @@ public class HomeChoiceFragment extends BaseFragment {
         banner = header.findViewById(R.id.banner);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         initBanner();
-
         mAdapter = new HomeChoiceAdapter(getActivity());
-        /*  initArticle();*/
         getAllArticle();
         mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
@@ -110,6 +108,10 @@ public class HomeChoiceFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ShareActivity.class);
+                /*  intent.putExtra("userId", getUserId());*/
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", getUserId());
+                intent.putExtra(bundle)
                 startActivity(intent);
             }
         });
@@ -120,6 +122,13 @@ public class HomeChoiceFragment extends BaseFragment {
                 mSwipeRefreshLayout.setRefreshing(true);
             }
         }, 100);*/
+    }
+
+
+    private Integer getUserId() {
+        Bundle bundle = this.getArguments();
+        Integer userId = Integer.valueOf(bundle.getString("userId"));
+        return userId;
     }
 
 
@@ -182,14 +191,6 @@ public class HomeChoiceFragment extends BaseFragment {
         }
     }
 
-    private void initArticle() {
-       /* datas = new ArrayList<>();
-        for (int i = 0; i < articleJs.length; i++) {
-            datas.add(articleJs[i]);
-        }
-        Log.d(TAG, "initArticle: " + datas);
-        mAdapter.addDataList(datas);*/
-    }
 
     /**
      * 初始化
@@ -201,7 +202,6 @@ public class HomeChoiceFragment extends BaseFragment {
 
 
     private void getAllArticle() {
-        /*  articleJs = new ArticleJs[5];*/
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(StaticClass.articleUrl).get().build();
         Call call = client.newCall(request);
@@ -221,7 +221,7 @@ public class HomeChoiceFragment extends BaseFragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String res = response.body().string();
                 Gson gson = new Gson();
-                gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                /* gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();*/
                 datas = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
                 }.getType());
                 mAdapter.addDataList(datas);
@@ -229,74 +229,4 @@ public class HomeChoiceFragment extends BaseFragment {
             }
         });
     }
-
-   /* private void JSONtoBean() {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(StaticClass.articleUrl).get().build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, final IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), "请求服务器失败", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String res = response.body().string();
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    JSONArray jsonArray = jsonObject.getJSONArray(res);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        jsonObject = jsonArray.getJSONObject(i);
-                        Map<String, Object> map = new HashMap<>();
-                        String articleId = jsonObject.getString("articleId");
-                        String userId = jsonObject.getString("userId");
-                        String articleTitle = jsonObject.getString("articleTitle");
-                        String articleUrl = jsonObject.getString("articleUrl");
-                        String likes = jsonObject.getString("likes");
-                        String collcet = jsonObject.getString("collect");
-                        String commentCount = jsonObject.optString("commentCount");
-                        String likeCount = jsonObject.getString("likeCount");
-
-                        map.put("articleId", articleId);
-                        map.put("userId", userId);
-                        map.put("articleTitle", articleTitle);
-                        map.put("articlUrl", articleUrl);
-                        map.put("likes", likes);
-                        map.put("collect", collcet);
-                        map.put("commentCount", commentCount);
-                        map.put("likeCount", likeCount);
-
-                        list.add(map);
-
-                        Message msg = new Message();
-                        msg.what = 1;
-                        handler.sendMessage(msg);
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-    }*/
-
-    public Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-
-            }
-        }
-    };
-
 }

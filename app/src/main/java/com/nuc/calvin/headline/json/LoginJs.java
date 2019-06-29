@@ -1,11 +1,13 @@
 package com.nuc.calvin.headline.json;
 
+import com.nuc.calvin.headline.bean.UserCustom;
+
 public class LoginJs {
 
 
     private int code;
     private String msg;
-    private UserBean user;
+    private UserCustom user;
 
     public int getCode() {
         return code;
@@ -23,68 +25,20 @@ public class LoginJs {
         this.msg = msg;
     }
 
-    public UserBean getUser() {
+    public UserCustom getUser() {
         return user;
     }
 
-    public void setUser(UserBean user) {
+    public void setUser(UserCustom user) {
         this.user = user;
     }
 
-    public static class UserBean {
-        private Integer uId;
-        private String uEmail;
-        private String uPassword;
-        private String uName;
-        private Integer uSex;
-        private String uImg;
-
-        public Integer getuId() {
-            return uId;
-        }
-
-        public void setuId(Integer uId) {
-            this.uId = uId;
-        }
-
-        public String getuEmail() {
-            return uEmail;
-        }
-
-        public void setuEmail(String uEmail) {
-            this.uEmail = uEmail;
-        }
-
-        public String getuPassword() {
-            return uPassword;
-        }
-
-        public void setuPassword(String uPassword) {
-            this.uPassword = uPassword;
-        }
-
-        public String getuName() {
-            return uName;
-        }
-
-        public void setuName(String uName) {
-            this.uName = uName;
-        }
-
-        public Integer getuSex() {
-            return uSex;
-        }
-
-        public void setuSex(Integer uSex) {
-            this.uSex = uSex;
-        }
-
-        public String getuImg() {
-            return uImg;
-        }
-
-        public void setuImg(String uImg) {
-            this.uImg = uImg;
-        }
+    @Override
+    public String toString() {
+        return "LoginJs{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

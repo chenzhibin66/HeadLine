@@ -1,7 +1,6 @@
 package com.nuc.calvin.headline.bean;
 
-import java.util.Date;
-import java.util.List;
+
 
 public class Article {
     /**
@@ -20,10 +19,7 @@ public class Article {
      * 文章url
      */
     private String articleUrl;
-    /**
-     * 发布时间
-     */
-    private Date postTime;
+
 
     public Integer getArticleId() {
         return articleId;
@@ -57,11 +53,4 @@ public class Article {
         this.articleUrl = articleUrl;
     }
 
-    public Date getPostTime() {
-        return postTime;
-    }
-
-    public void setPostTime(Date postTime) {
-        this.postTime = postTime;
-    }
 }
