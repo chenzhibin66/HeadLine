@@ -5,8 +5,6 @@ import com.nuc.calvin.headline.bean.UserCustom;
 import java.io.Serializable;
 
 public class LoginJs implements Serializable {
-
-
     private int code;
     private String msg;
     private UserCustom user;

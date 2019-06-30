@@ -1,8 +1,9 @@
 package com.nuc.calvin.headline.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserCustom extends User {
+public class UserCustom extends User implements Serializable {
     /**
      * 用户关系 0——未关注 1——已关注 2——相互关注
      */

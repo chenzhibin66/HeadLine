@@ -40,6 +40,7 @@ public class LoginActivity extends RobinActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ShareUtils.initSharedPreference(getApplicationContext());
         setLoginTitle("IT头条");
         setSignupTitle("欢迎来到IT头条");
         setForgotPasswordTitle("忘记密码");
@@ -81,25 +82,9 @@ public class LoginActivity extends RobinActivity {
                 Log.d(TAG, "loginJss: " + loginJss);
                 if (loginJss.getMsg().equals("登录成功!")) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    /*intent.putExtra("userId", loginJss.getUser().getUserId());
-                    Log.d(TAG, "calvin: "+loginJss.getUser().getUserId());
-                    intent.putExtra("userHead", loginJss.getUser().getHeadImg());
-                    intent.putExtra("userName", loginJss.getUser().getUsername());
-                    intent.putExtra("signature", loginJss.getUser().getSignature());
-                    intent.putExtra("sex", loginJss.getUser().getSex());
-                    intent.putExtra("articleCount", loginJss.getUser().getArticleCount());
-                    intent.putExtra("followCount", loginJss.getUser().getFollowCount());
-                    intent.putExtra("fansCount", loginJss.getUser().getFansCount());*/
-                    ShareUtils.getInt(LoginActivity.this, "userId", loginJss.getUser().getUserId());
-                    ShareUtils.getString(LoginActivity.this, "userHead", loginJss.getUser().getHeadImg());
-                    ShareUtils.getString(LoginActivity.this, "userName", loginJss.getUser().getUsername());
-                    ShareUtils.getString(LoginActivity.this, "signature", loginJss.getUser().getSignature());
-                    ShareUtils.getInt(LoginActivity.this, "sex", loginJss.getUser().getSex());
-                    ShareUtils.getInt(LoginActivity.this, "articleCount", loginJss.getUser().getArticleCount());
-                    ShareUtils.getInt(LoginActivity.this, "followCount", loginJss.getUser().getFollowCount());
-                    ShareUtils.getInt(LoginActivity.this, "fansCount", loginJss.getUser().getFansCount());
-
+                    ShareUtils.getInstance().putUser(loginJss.getUser());
                     startActivity(intent);
+                    finish();
                 } else if (loginJss.getMsg().equals("登录失败！")) {
                     runOnUiThread(new Runnable() {
                         @Override

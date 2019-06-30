@@ -13,7 +13,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nuc.calvin.headline.R;
+import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.json.OkJs;
+import com.nuc.calvin.headline.utils.ShareUtils;
 import com.nuc.calvin.headline.utils.StaticClass;
 
 import java.io.IOException;
@@ -50,11 +52,10 @@ public class ShareActivity extends BaseActivity {
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer userId = getIntent().getIntExtra("userId", 0);
+                UserCustom user = ShareUtils.getInstance().getUser();
                 String url = shareUrl.getText().toString();
                 String title = shareTitle.getText().toString();
-                Log.d(TAG, "onClickResult: " + userId + url + title);
-
+                Integer userId = user.getUserId();
                 shareArticle(userId, title, url);
             }
         });
@@ -73,7 +74,7 @@ public class ShareActivity extends BaseActivity {
         Request.Builder builder = new Request.Builder();
         Request request = builder.get().url(StaticClass.shareUrl + "?userId=" + userId
                 + "&title=" + title + "&url=" + url).build();
-        Log.d(TAG, "shareArticle: "+StaticClass.shareUrl + "?userId" + userId
+        Log.d(TAG, "shareArticle: " + StaticClass.shareUrl + "?userId" + userId
                 + "&title" + title + "&url" + url);
         Call call = okHttpClient.newCall(request);
 
@@ -95,7 +96,7 @@ public class ShareActivity extends BaseActivity {
                 Gson gson = new Gson();
                 OkJs okJs = gson.fromJson(res, new TypeToken<OkJs>() {
                 }.getType());
-                Log.d(TAG, "okjsResult: " +okJs);
+                Log.d(TAG, "okjsResult: " + okJs);
                 if (okJs.getCode() == 1) {
                     runOnUiThread(new Runnable() {
                         @Override

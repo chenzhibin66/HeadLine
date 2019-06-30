@@ -17,7 +17,10 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.adapter.UserDetailsAdapter;
+import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.bean.ui.Details;
+import com.nuc.calvin.headline.json.LoginJs;
+import com.nuc.calvin.headline.utils.ShareUtils;
 
 
 import java.util.ArrayList;
@@ -95,7 +98,8 @@ public class HomeUserFragment extends BaseFragment {
     }
 
     public void getUserMsg() {
-        Bundle bundle = this.getArguments();
+
+        /*Bundle bundle = this.getArguments();
         String userHead = bundle.getString("userHead");
         String userName = bundle.getString("userName");
         String signature = bundle.getString("signature");
@@ -106,12 +110,14 @@ public class HomeUserFragment extends BaseFragment {
         String user_fansCount = String.valueOf(bundle.getInt("fansCount"));
         Log.d(TAG, "getUserMsgfanscount: " + user_fansCount);
         String articleCount = String.valueOf(bundle.getInt("articleCount"));
-        Log.d(TAG, "getUserMsgarticle: " + articleCount);
-        user_head.setImageURI(userHead);
-        user_name.setText(userName);
-        user_signature.setText(signature);
-        follow_count.setText(user_followCount);
-        fans_count.setText(user_fansCount);
-        article_count.setText(articleCount);
+        Log.d(TAG, "getUserMsgarticle: " + articleCount);*/
+
+        UserCustom user = ShareUtils.getInstance().getUser();
+        user_head.setImageURI(user.getHeadImg());
+        user_name.setText(user.getUsername());
+        user_signature.setText(user.getSignature());
+        follow_count.setText(String.valueOf(user.getFollowCount()));
+        fans_count.setText(String.valueOf(user.getFansCount()));
+        article_count.setText(String.valueOf(user.getArticleCount()));
     }
 }

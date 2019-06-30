@@ -109,10 +109,9 @@ public class HomeChoiceFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ShareActivity.class);
-                /*  intent.putExtra("userId", getUserId());*/
-                Bundle bundle = new Bundle();
+               /* Bundle bundle = new Bundle();
                 bundle.putInt("userId", getUserId());
-                intent.putExtras(bundle);
+                intent.putExtras(bundle);*/
                 getActivity().startActivity(intent);
             }
         });
@@ -223,7 +222,6 @@ public class HomeChoiceFragment extends BaseFragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String res = response.body().string();
                 Gson gson = new Gson();
-                /* gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();*/
                 datas = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
                 }.getType());
                 mAdapter.addDataList(datas);

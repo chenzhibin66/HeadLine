@@ -117,19 +117,6 @@ public class MainActivity extends BaseActivity {
         homeFindFragment = new HomeFindFragment();
         homeMessageFragment = new HomeMessageFragment();
         homeUserFragment = new HomeUserFragment();
-        Intent intent = getIntent();
-        Bundle bundle = new Bundle();
-        /* bundle.putString("userId",String.valueOf( intent.getStringExtra("userId")));*/
-        bundle.putInt("userId", intent.getIntExtra("userId",0));
-        bundle.putString("userHead", intent.getStringExtra("userHead"));
-        bundle.putString("userName", intent.getStringExtra("userName"));
-        bundle.putString("signature", intent.getStringExtra("signature"));
-      /*  bundle.putString("sex",intent.getStringExtra("sex"));*/
-        bundle.putInt("articleCount",intent.getIntExtra("articleCount",0));
-        bundle.putInt("fansCount",intent.getIntExtra("fansCount",0));
-        bundle.putInt("followCount",intent.getIntExtra("followCount",0));
-        homeUserFragment.setArguments(bundle);
-        homeChoiceFragment.setArguments(bundle);
         listFragment.add(homeChoiceFragment);
         listFragment.add(homeMessageFragment);
         listFragment.add(homeFindFragment);
