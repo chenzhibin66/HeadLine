@@ -2,7 +2,9 @@ package com.nuc.calvin.headline.json;
 
 import com.nuc.calvin.headline.bean.UserCustom;
 
-public class LoginJs {
+import java.io.Serializable;
+
+public class LoginJs implements Serializable {
 
 
     private int code;

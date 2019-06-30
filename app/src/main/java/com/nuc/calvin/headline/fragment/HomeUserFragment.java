@@ -46,7 +46,7 @@ public class HomeUserFragment extends BaseFragment {
         Fresco.initialize(getContext());
         user_head = view.findViewById(R.id.user_img);
         user_name = view.findViewById(R.id.please_input_username);
-        user_signature = view.findViewById(R.id.signature);
+        user_signature = view.findViewById(R.id.tv_signature);
         article_count = view.findViewById(R.id.share_count);
         follow_count = view.findViewById(R.id.user_follow_count);
         fans_count = view.findViewById(R.id.user_fan_count);
@@ -99,7 +99,7 @@ public class HomeUserFragment extends BaseFragment {
         String userHead = bundle.getString("userHead");
         String userName = bundle.getString("userName");
         String signature = bundle.getString("signature");
-        Log.d(TAG, "getUserMsgSignature: "+signature);
+        Log.d(TAG, "getUserMsgSignature: " + userHead +"名字"+ userName + signature);
         /*String user_sex = bundle.getString("sex");
         String user_followCount = bundle.getString("followCount");
         Log.d(TAG, "getUserMsgfollowcount: "+signature);
@@ -109,7 +109,7 @@ public class HomeUserFragment extends BaseFragment {
         Log.d(TAG, "getUserMsgarticle: " +articleCount);*/
         user_head.setImageURI(userHead);
         user_name.setText(userName);
-      /*  user_signature.setText(signature);*/
+        user_signature.setText(signature);
        /* follow_count.setText(user_followCount);
         fans_count.setText(user_fansCount);
         article_count.setText(articleCount);*/

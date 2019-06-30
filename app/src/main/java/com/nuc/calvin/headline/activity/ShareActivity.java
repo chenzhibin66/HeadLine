@@ -3,6 +3,7 @@ package com.nuc.calvin.headline.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import okhttp3.Response;
 
 public class ShareActivity extends BaseActivity {
 
+    private static final String TAG = "ShareActivity";
     private ImageView iv_left;
     private TextView tv_submit;
     private EditText shareTitle;
@@ -48,7 +50,12 @@ public class ShareActivity extends BaseActivity {
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareArticle(getIntent().getIntExtra(),);
+                Integer userId = getIntent().getIntExtra("userId", 0);
+                String url = shareUrl.getText().toString();
+                String title = shareTitle.getText().toString();
+                Log.d(TAG, "onClickResult: " + userId + url + title);
+
+                shareArticle(userId, title, url);
             }
         });
     }
@@ -64,8 +71,10 @@ public class ShareActivity extends BaseActivity {
         OkHttpClient okHttpClient = new OkHttpClient();
         //构造Request
         Request.Builder builder = new Request.Builder();
-        Request request = builder.get().url(StaticClass.shareUrl + "?userId" + userId
-                + "&articleTitle" + title + "&articleUrl" + url).build();
+        Request request = builder.get().url(StaticClass.shareUrl + "?userId=" + userId
+                + "&title=" + title + "&url=" + url).build();
+        Log.d(TAG, "shareArticle: "+StaticClass.shareUrl + "?userId" + userId
+                + "&title" + title + "&url" + url);
         Call call = okHttpClient.newCall(request);
 
         call.enqueue(new Callback() {
@@ -84,9 +93,9 @@ public class ShareActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String res = response.body().string();
                 Gson gson = new Gson();
-
                 OkJs okJs = gson.fromJson(res, new TypeToken<OkJs>() {
                 }.getType());
+                Log.d(TAG, "okjsResult: " +okJs);
                 if (okJs.getCode() == 1) {
                     runOnUiThread(new Runnable() {
                         @Override

@@ -5,7 +5,7 @@ import com.nuc.calvin.headline.bean.ArticleCustom;
 import com.nuc.calvin.headline.bean.User;
 
 import java.util.Date;
-import java.util.List;
+
 
 public class ArticleJs {
         private int articleId;

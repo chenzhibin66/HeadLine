@@ -119,7 +119,8 @@ public class MainActivity extends BaseActivity {
         homeUserFragment = new HomeUserFragment();
         Intent intent = getIntent();
         Bundle bundle = new Bundle();
-        bundle.putString("userId", intent.getStringExtra("userId"));
+        /* bundle.putString("userId",String.valueOf( intent.getStringExtra("userId")));*/
+        bundle.putInt("userId", intent.getIntExtra("userId",0));
         bundle.putString("userHead", intent.getStringExtra("userHead"));
         bundle.putString("userName", intent.getStringExtra("userName"));
         bundle.putString("signature", intent.getStringExtra("signature"));

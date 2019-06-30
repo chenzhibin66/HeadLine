@@ -110,9 +110,9 @@ public class HomeChoiceFragment extends BaseFragment {
                 Intent intent = new Intent(getActivity(), ShareActivity.class);
                 /*  intent.putExtra("userId", getUserId());*/
                 Bundle bundle = new Bundle();
-                bundle.putInt("userId", getUserId());
-                intent.putExtra(bundle)
-                startActivity(intent);
+                bundle.putInt("userId",getUserId());
+                intent.putExtras(bundle);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -127,7 +127,7 @@ public class HomeChoiceFragment extends BaseFragment {
 
     private Integer getUserId() {
         Bundle bundle = this.getArguments();
-        Integer userId = Integer.valueOf(bundle.getString("userId"));
+        Integer userId = bundle.getInt("userId",0);
         return userId;
     }
 

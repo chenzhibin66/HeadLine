@@ -81,13 +81,14 @@ public class LoginActivity extends RobinActivity {
                 if (loginJss.getMsg().equals("登录成功!")) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("userId", loginJss.getUser().getUserId());
+                    Log.d(TAG, "calvin: "+loginJss.getUser().getUserId());
                     intent.putExtra("userHead", loginJss.getUser().getHeadImg());
                     intent.putExtra("userName", loginJss.getUser().getUsername());
                     intent.putExtra("signature", loginJss.getUser().getSignature());
                     intent.putExtra("sex", loginJss.getUser().getSex());
-                   /* intent.putExtra("articleCount", loginJss.getUser().getArticleCount());
+                    intent.putExtra("articleCount", loginJss.getUser().getArticleCount());
                     intent.putExtra("followCount", loginJss.getUser().getFollowCount());
-                    intent.putExtra("fansCount", loginJss.getUser().getFansCount());*/
+                    intent.putExtra("fansCount", loginJss.getUser().getFansCount());
                     startActivity(intent);
                     finish();
                 } else if (loginJss.getMsg().equals("登录失败！")) {

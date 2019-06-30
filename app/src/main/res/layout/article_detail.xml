@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/top_layout"
@@ -74,10 +75,9 @@
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="550dp"
         android:layout_below="@id/top_line"
         android:layout_marginTop="-3dp" />
-
 
     <LinearLayout
         android:id="@+id/bottom_layout"
@@ -87,5 +87,36 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/iv_detail_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_mini_left" />
+
+        <ImageView
+            android:id="@+id/iv_detail_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_mini_like" />
+
+        <ImageView
+            android:id="@+id/iv_detail_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_mini_comment" />
+
+        <ImageView
+            android:id="@+id/iv_detail_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_mini_collect" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

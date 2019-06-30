@@ -92,4 +92,12 @@ public class HomeFindFragment extends BaseFragment {
         }
         hotUserAdapter.addHotUser(userList);
     }
+
+    public void getHotArticle(){
+
+    }
+
+    public void getHotUser(){
+
+    }
 }
