@@ -105,7 +105,6 @@ public class ShareActivity extends BaseActivity {
                             intent.setClass(ShareActivity.this, MainActivity.class);
                             intent.putExtra("id", 0);
                             startActivity(intent);
-                            finish();
                         }
                     });
                 } else {

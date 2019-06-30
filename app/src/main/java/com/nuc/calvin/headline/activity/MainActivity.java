@@ -124,10 +124,10 @@ public class MainActivity extends BaseActivity {
         bundle.putString("userHead", intent.getStringExtra("userHead"));
         bundle.putString("userName", intent.getStringExtra("userName"));
         bundle.putString("signature", intent.getStringExtra("signature"));
-       /* bundle.putString("sex",intent.getStringExtra("sex"));
-        bundle.putString("articleCount",intent.getStringExtra("articleCount"));
-        bundle.putString("fansCount",intent.getStringExtra("fansCount"));
-        bundle.putString("followCount",intent.getStringExtra("followCount"));*/
+      /*  bundle.putString("sex",intent.getStringExtra("sex"));*/
+        bundle.putInt("articleCount",intent.getIntExtra("articleCount",0));
+        bundle.putInt("fansCount",intent.getIntExtra("fansCount",0));
+        bundle.putInt("followCount",intent.getIntExtra("followCount",0));
         homeUserFragment.setArguments(bundle);
         homeChoiceFragment.setArguments(bundle);
         listFragment.add(homeChoiceFragment);

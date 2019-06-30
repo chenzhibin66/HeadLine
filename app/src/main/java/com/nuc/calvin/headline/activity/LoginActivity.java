@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.json.LoginJs;
 import com.nuc.calvin.headline.json.RegisterJs;
+import com.nuc.calvin.headline.utils.ShareUtils;
 import com.nuc.calvin.headline.utils.StaticClass;
 import com.sirvar.robin.RobinActivity;
 import com.sirvar.robin.Theme;
@@ -80,7 +81,7 @@ public class LoginActivity extends RobinActivity {
                 Log.d(TAG, "loginJss: " + loginJss);
                 if (loginJss.getMsg().equals("登录成功!")) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("userId", loginJss.getUser().getUserId());
+                    /*intent.putExtra("userId", loginJss.getUser().getUserId());
                     Log.d(TAG, "calvin: "+loginJss.getUser().getUserId());
                     intent.putExtra("userHead", loginJss.getUser().getHeadImg());
                     intent.putExtra("userName", loginJss.getUser().getUsername());
@@ -88,9 +89,17 @@ public class LoginActivity extends RobinActivity {
                     intent.putExtra("sex", loginJss.getUser().getSex());
                     intent.putExtra("articleCount", loginJss.getUser().getArticleCount());
                     intent.putExtra("followCount", loginJss.getUser().getFollowCount());
-                    intent.putExtra("fansCount", loginJss.getUser().getFansCount());
+                    intent.putExtra("fansCount", loginJss.getUser().getFansCount());*/
+                    ShareUtils.getInt(LoginActivity.this, "userId", loginJss.getUser().getUserId());
+                    ShareUtils.getString(LoginActivity.this, "userHead", loginJss.getUser().getHeadImg());
+                    ShareUtils.getString(LoginActivity.this, "userName", loginJss.getUser().getUsername());
+                    ShareUtils.getString(LoginActivity.this, "signature", loginJss.getUser().getSignature());
+                    ShareUtils.getInt(LoginActivity.this, "sex", loginJss.getUser().getSex());
+                    ShareUtils.getInt(LoginActivity.this, "articleCount", loginJss.getUser().getArticleCount());
+                    ShareUtils.getInt(LoginActivity.this, "followCount", loginJss.getUser().getFollowCount());
+                    ShareUtils.getInt(LoginActivity.this, "fansCount", loginJss.getUser().getFansCount());
+
                     startActivity(intent);
-                    finish();
                 } else if (loginJss.getMsg().equals("登录失败！")) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -181,5 +190,6 @@ public class LoginActivity extends RobinActivity {
     protected void onFacebookLogin() {
 
     }
+
 
 }

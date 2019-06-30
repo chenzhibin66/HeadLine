@@ -14,4 +14,5 @@ public class StaticClass {
     public static String articleUrl = "http://" + ip + ":8080/headline/article/getAllArticle";
 
     public static String shareUrl = "http://" + ip + ":8080/headline/article/postArticle";
+
 }

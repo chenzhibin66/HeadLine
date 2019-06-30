@@ -47,7 +47,7 @@ public class HomeUserFragment extends BaseFragment {
         user_head = view.findViewById(R.id.user_img);
         user_name = view.findViewById(R.id.please_input_username);
         user_signature = view.findViewById(R.id.tv_signature);
-        article_count = view.findViewById(R.id.share_count);
+        article_count = view.findViewById(R.id.user_share_count);
         follow_count = view.findViewById(R.id.user_follow_count);
         fans_count = view.findViewById(R.id.user_fan_count);
         userRefreshLayout = view.findViewById(R.id.user_refresh);
@@ -99,19 +99,19 @@ public class HomeUserFragment extends BaseFragment {
         String userHead = bundle.getString("userHead");
         String userName = bundle.getString("userName");
         String signature = bundle.getString("signature");
-        Log.d(TAG, "getUserMsgSignature: " + userHead +"名字"+ userName + signature);
-        /*String user_sex = bundle.getString("sex");
-        String user_followCount = bundle.getString("followCount");
-        Log.d(TAG, "getUserMsgfollowcount: "+signature);
-        String user_fansCount = bundle.getString("fansCount");
-        Log.d(TAG, "getUserMsgfanscount: "+signature);
-        String articleCount = bundle.getString("articleCount");
-        Log.d(TAG, "getUserMsgarticle: " +articleCount);*/
+        Log.d(TAG, "getUserMsgSignature: " + userHead + "名字" + userName + signature);
+        String user_sex = bundle.getString("sex");
+        String user_followCount = String.valueOf(bundle.getInt("followCount"));
+        Log.d(TAG, "getUserMsgfollowcount: " + user_followCount);
+        String user_fansCount = String.valueOf(bundle.getInt("fansCount"));
+        Log.d(TAG, "getUserMsgfanscount: " + user_fansCount);
+        String articleCount = String.valueOf(bundle.getInt("articleCount"));
+        Log.d(TAG, "getUserMsgarticle: " + articleCount);
         user_head.setImageURI(userHead);
         user_name.setText(userName);
         user_signature.setText(signature);
-       /* follow_count.setText(user_followCount);
+        follow_count.setText(user_followCount);
         fans_count.setText(user_fansCount);
-        article_count.setText(articleCount);*/
+        article_count.setText(articleCount);
     }
 }

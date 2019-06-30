@@ -17,10 +17,17 @@ public class ArticleDetailActivity extends BaseActivity {
     private TextView detailTitle;
     private TextView author_name;
     private WebView webView;
-
+    private ImageView iv_left;
+    private ImageView iv_like;
+    private ImageView iv_comment;
+    private ImageView iv_collect;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        iv_left = findViewById(R.id.iv_detail_left);
+        iv_like = findViewById(R.id.iv_detail_like);
+        iv_comment = findViewById(R.id.iv_detail_comment);
+        iv_collect = findViewById(R.id.iv_detail_collect);
         detailTitle = findViewById(R.id.detail_title);
         author_name = findViewById(R.id.name_author);
         webView = findViewById(R.id.web_view);
@@ -33,6 +40,15 @@ public class ArticleDetailActivity extends BaseActivity {
         detailTitle.setText(title);
         author_name.setText(authorname);
         webView.loadUrl(url);
+
+        iv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ArticleDetailActivity.this, MainActivity.class);
+                intent.putExtra("id", 0);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
