@@ -4,23 +4,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.ArticleDetailActivity;
+import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.json.ArticleJs;
+import com.nuc.calvin.headline.utils.ShareUtils;
+import com.wx.goodview.GoodView;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 /**
  * 根据不同的 ViewType 返回不同的 ViewHolder
  * 通过 setter 方法将不同的 View 注入进 Adapter
  */
-public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.ChoiceViewHolder> {
+public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.ChoiceViewHolder> implements View.OnClickListener {
 
     public static final int TYPE_HEADER = 0;
     public static final int TYPE_NOMAL = 1;
@@ -88,10 +96,15 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         }
         final int pos = getRealPosition(choiceViewHolder);//这里的 position 实际需要不包括 header
         final ArticleJs articleJs = dataList.get(pos);
+        Log.d(TAG, "onBindViewHolderLikeCount: "+articleJs.getLikeCount());
         if (choiceViewHolder instanceof ChoiceViewHolder) {
             choiceViewHolder.bindData(articleJs);
         }
-        choiceViewHolder.itemView.setClickable(true);
+        choiceViewHolder.itemView.setTag(pos);
+        choiceViewHolder.mLikeIv.setTag(pos);
+        choiceViewHolder.mCommentIv.setTag(pos);
+        choiceViewHolder.mCollectIv.setTag(pos);
+       /* choiceViewHolder.itemView.setClickable(true);
         choiceViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +114,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
                 intent.putExtra("authorName", articleJs.getUser().getUsername());
                 v.getContext().startActivity(intent);
             }
-        });
+        });*/
     }
 
     /**
@@ -119,15 +132,19 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         return HeaderView == null ? dataList.size() : dataList.size() + 1;
     }
 
+
     public class ChoiceViewHolder extends RecyclerView.ViewHolder {
+        TextView likeCount;
+        TextView commentCount;
+        TextView collectCount;
 
         TextView mTitleTv;
-
         TextView mWhereTv;
+        ImageView mCommentIv;
 
-        TextView mCommentTv;
+        ImageView mLikeIv;
 
-        TextView mLikeTv;
+        ImageView mCollectIv;
 
         SimpleDraweeView authorImg;
 
@@ -136,12 +153,19 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
             if (itemView == HeaderView) {
                 return;
             }
-            mTitleTv = itemView.findViewById(R.id.tv_title);
+            mTitleTv = itemView.findViewById(R.id.item_title);
             mWhereTv = itemView.findViewById(R.id.tv_where);
-            mLikeTv = itemView.findViewById(R.id.tv_like);
-            mCommentTv = itemView.findViewById(R.id.tv_comment);
+            mLikeIv = itemView.findViewById(R.id.iv_like);
+            mCommentIv = itemView.findViewById(R.id.iv_comment);
+            mCollectIv = itemView.findViewById(R.id.iv_collect);
             authorImg = itemView.findViewById(R.id.sdv_avatar);
-
+            likeCount = itemView.findViewById(R.id.like_count);
+            commentCount = itemView.findViewById(R.id.comment_count);
+            collectCount = itemView.findViewById(R.id.collect_count);
+            itemView.setOnClickListener(HomeChoiceAdapter.this);
+            mLikeIv.setOnClickListener(HomeChoiceAdapter.this);
+            mCommentIv.setOnClickListener(HomeChoiceAdapter.this);
+            mCollectIv.setOnClickListener(HomeChoiceAdapter.this);
 
         }
 
@@ -149,6 +173,46 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
             mTitleTv.setText(article.getArticleTitle());
             mWhereTv.setText(article.getUser().getUsername());
             authorImg.setImageURI(article.getUser().getHeadImg());
+            likeCount.setText(String.valueOf(article.getLikeCount()));
+            commentCount.setText(String.valueOf(article.getCommentCount()));
+            /* collcetCount.setText(String.valueOf(article.ge));*/
+
+        }
+    }
+
+    //item里面有多个控件可以点击（item+item内部控件）
+    public enum ViewName {
+        ITEM,
+        PRACTISE
+    }
+
+    //自定义一个回调接口来实现Click和LongClick事件
+    public interface OnItemClickListener {
+        void onItemClick(View v, ViewName viewName, int position);
+
+        void onItemLongClick(View v);
+    }
+
+
+    private OnItemClickListener mOnItemClickListener;//声明自定义的接口
+
+    //定义方法并传给外面的使用者
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        if (mOnItemClickListener != null) {
+            switch (v.getId()) {
+                case R.id.recyclerview:
+                    mOnItemClickListener.onItemClick(v, ViewName.PRACTISE, position);
+                    break;
+                default:
+                    mOnItemClickListener.onItemClick(v, ViewName.ITEM, position);
+                    break;
+            }
         }
     }
 }

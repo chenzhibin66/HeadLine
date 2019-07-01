@@ -13,6 +13,10 @@ public class StaticClass {
     //文章url
     public static String articleUrl = "http://" + ip + ":8080/headline/article/getAllArticle";
 
+    //发布文章
     public static String shareUrl = "http://" + ip + ":8080/headline/article/postArticle";
+
+    //点赞
+    public static String likeUrl = "http://" + ip + ":8080/headline/likes/like";
 
 }

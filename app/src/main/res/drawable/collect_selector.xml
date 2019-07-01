@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 表示按下时，颜色为：@android:color/black,也可改为#f00(红色) -->
+    <item android:state_pressed="true" android:drawable="@drawable/ic_mini_collect"/>
+    <!-- 表示正常情况下，即没有按下颜色为：@android:color/white-->
+    <item android:drawable="@drawable/ic_mini_collect_press"/></selector>

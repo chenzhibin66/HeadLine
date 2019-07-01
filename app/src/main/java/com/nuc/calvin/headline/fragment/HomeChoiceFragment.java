@@ -27,11 +27,15 @@ import com.google.gson.reflect.TypeToken;
 import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nuc.calvin.headline.R;
+import com.nuc.calvin.headline.activity.ArticleDetailActivity;
 import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
 import com.nuc.calvin.headline.bean.Article;
+import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.json.ArticleJs;
+import com.nuc.calvin.headline.utils.ShareUtils;
 import com.nuc.calvin.headline.utils.StaticClass;
+import com.wx.goodview.GoodView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +53,7 @@ import butterknife.ButterKnife;
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -57,6 +62,7 @@ import static android.support.constraint.Constraints.TAG;
 
 
 public class HomeChoiceFragment extends BaseFragment {
+    GoodView goodView;
     @Bind(R.id.swipe_refresh_layout)
     PullRefreshLayout pullRefreshLayout;
     @Bind(R.id.recyclerview)
@@ -80,6 +86,8 @@ public class HomeChoiceFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+
+        goodView = new GoodView(getContext());
         Fresco.initialize(getContext());
         View header = LayoutInflater.from(getContext()).inflate(R.layout.view_home_banner, null);
         banner = header.findViewById(R.id.banner);
@@ -89,6 +97,7 @@ public class HomeChoiceFragment extends BaseFragment {
         getAllArticle();
         mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(homeClickListener);
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -203,8 +212,11 @@ public class HomeChoiceFragment extends BaseFragment {
 
 
     private void getAllArticle() {
+        UserCustom user = ShareUtils.getInstance().getUser();
+        Log.d(TAG, "getAllArticle: " + user.getUserId());
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(StaticClass.articleUrl).get().build();
+        Request request = new Request.Builder().url(StaticClass.articleUrl + "?userId=" + user.getUserId()).get().build();
+        Log.d(TAG, "getAllArticleUrl: " + StaticClass.articleUrl + "?userId=" + user.getUserId());
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -228,5 +240,54 @@ public class HomeChoiceFragment extends BaseFragment {
                 Log.d(TAG, "datas=: " + datas);
             }
         });
+    }
+
+    private HomeChoiceAdapter.OnItemClickListener homeClickListener = new HomeChoiceAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View v, HomeChoiceAdapter.ViewName viewName, int position) {
+            final ArticleJs articleJs = datas.get(position);
+            Log.d(TAG, "onItemClickArticle: " + articleJs.toString() + "pos=" + position);
+            switch (v.getId()) {
+                case R.id.iv_like:
+                    UserCustom userCustom = ShareUtils.getInstance().getUser();
+                    Log.d(TAG, "likeUserId: " + userCustom.getUserId());
+                    Log.d(TAG, "likeArticleId: " + articleJs.getArticleId());
+                    like(userCustom.getUserId(), articleJs.getArticleId());
+                    ((ImageView) v).setImageResource(R.drawable.ic_iv_like_press);
+                    goodView.setText("+1");
+                    goodView.show(v);
+                    break;
+                case R.id.iv_comment:
+
+                    break;
+                case R.id.iv_collect:
+                    Toast.makeText(getContext(), "你收藏" + (position), Toast.LENGTH_SHORT).show();
+                    goodView.setText("收藏成功");
+                    goodView.show(v);
+                    break;
+                default:
+                    Intent intent = new Intent(v.getContext(), ArticleDetailActivity.class);
+                    intent.putExtra("title", articleJs.getArticleTitle());
+                    intent.putExtra("url", articleJs.getArticleUrl());
+                    intent.putExtra("authorName", articleJs.getUser().getUsername());
+                    v.getContext().startActivity(intent);
+                    break;
+            }
+
+        }
+
+        @Override
+        public void onItemLongClick(View v) {
+
+        }
+    };
+
+
+    private void like(Integer userId, Integer articleId) {
+        //拿到okhttpClient对象
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.get().url(StaticClass.likeUrl + "?userId=" + userId + "&articleId=" + articleId).build();
+
     }
 }
