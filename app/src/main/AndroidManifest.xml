@@ -13,18 +13,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ArticleDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar.Activity"></activity>
+        <activity android:name=".activity.UpatePwdActivity"></activity>
+        <activity
+            android:name=".activity.ArticleDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar.Activity" />
         <activity
             android:name=".activity.ShareActivity"
             android:label="我要分享"
             android:theme="@style/AppTheme.NoActionBar.Activity" />
-        <activity android:name=".activity.MainActivity"
-            android:label="IT头条"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.LoginActivity"
-            >
+            android:name=".activity.MainActivity"
+            android:label="IT头条"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
