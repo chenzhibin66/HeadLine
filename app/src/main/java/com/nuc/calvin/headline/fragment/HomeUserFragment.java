@@ -98,20 +98,6 @@ public class HomeUserFragment extends BaseFragment {
     }
 
     public void getUserMsg() {
-
-        /*Bundle bundle = this.getArguments();
-        String userHead = bundle.getString("userHead");
-        String userName = bundle.getString("userName");
-        String signature = bundle.getString("signature");
-        Log.d(TAG, "getUserMsgSignature: " + userHead + "名字" + userName + signature);
-        String user_sex = bundle.getString("sex");
-        String user_followCount = String.valueOf(bundle.getInt("followCount"));
-        Log.d(TAG, "getUserMsgfollowcount: " + user_followCount);
-        String user_fansCount = String.valueOf(bundle.getInt("fansCount"));
-        Log.d(TAG, "getUserMsgfanscount: " + user_fansCount);
-        String articleCount = String.valueOf(bundle.getInt("articleCount"));
-        Log.d(TAG, "getUserMsgarticle: " + articleCount);*/
-
         UserCustom user = ShareUtils.getInstance().getUser();
         user_head.setImageURI(user.getHeadImg());
         user_name.setText(user.getUsername());

@@ -13,7 +13,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.UpatePwdActivity"></activity>
+        <activity android:name=".activity.PostCommentActivity"
+            android:theme="@style/AppTheme.NoActionBar.Activity"></activity>
+        <activity android:name=".activity.UpatePwdActivity" />
         <activity
             android:name=".activity.ArticleDetailActivity"
             android:theme="@style/AppTheme.NoActionBar.Activity" />

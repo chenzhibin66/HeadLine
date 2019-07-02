@@ -100,8 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_collect"
-                android:paddingLeft="3dp"
-                android:text="11" />
+                android:paddingLeft="3dp" />
         </RelativeLayout>
 
         <TextView

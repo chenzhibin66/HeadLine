@@ -20,7 +20,18 @@ public class ArticleJs {
         private int collect;
         private int commentCount;
         private int likeCount;
-        public void setArticleId(int articleId) {
+        private int collectCount;
+
+
+    public int getCollectCount() {
+        return collectCount;
+    }
+
+    public void setCollectCount(int collectCount) {
+        this.collectCount = collectCount;
+    }
+
+    public void setArticleId(int articleId) {
             this.articleId = articleId;
         }
         public int getArticleId() {

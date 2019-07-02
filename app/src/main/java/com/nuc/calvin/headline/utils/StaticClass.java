@@ -19,4 +19,11 @@ public class StaticClass {
     //点赞
     public static String likeUrl = "http://" + ip + ":8080/headline/likes/like";
 
+
+    //发布评论
+    public static String commentUrl = "http://" + ip + ":8080/headline/comment/commentArticle";
+
+    //收藏
+    public static String collectUrl= "http://" + ip + ":8080/headline/collection/collect";
+
 }

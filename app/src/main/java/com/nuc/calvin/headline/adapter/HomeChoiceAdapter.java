@@ -96,7 +96,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         }
         final int pos = getRealPosition(choiceViewHolder);//这里的 position 实际需要不包括 header
         final ArticleJs articleJs = dataList.get(pos);
-        Log.d(TAG, "onBindViewHolderLikeCount: "+articleJs.getLikeCount());
+        Log.d(TAG, "onBindViewHolderLikeCount: " + articleJs.getLikeCount());
         if (choiceViewHolder instanceof ChoiceViewHolder) {
             choiceViewHolder.bindData(articleJs);
         }
@@ -175,7 +175,7 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
             authorImg.setImageURI(article.getUser().getHeadImg());
             likeCount.setText(String.valueOf(article.getLikeCount()));
             commentCount.setText(String.valueOf(article.getCommentCount()));
-            /* collcetCount.setText(String.valueOf(article.ge));*/
+            collectCount.setText(String.valueOf(article.getCollectCount()));
 
         }
     }

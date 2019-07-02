@@ -28,6 +28,7 @@ import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.ArticleDetailActivity;
+import com.nuc.calvin.headline.activity.PostCommentActivity;
 import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
 import com.nuc.calvin.headline.bean.Article;
@@ -246,24 +247,30 @@ public class HomeChoiceFragment extends BaseFragment {
         @Override
         public void onItemClick(View v, HomeChoiceAdapter.ViewName viewName, int position) {
             final ArticleJs articleJs = datas.get(position);
+            final UserCustom userCustom = ShareUtils.getInstance().getUser();
+            final Integer userId = userCustom.getUserId();
+            final Integer articleId = articleJs.getArticleId();
             Log.d(TAG, "onItemClickArticle: " + articleJs.toString() + "pos=" + position);
             switch (v.getId()) {
                 case R.id.iv_like:
-                    UserCustom userCustom = ShareUtils.getInstance().getUser();
-                    Log.d(TAG, "likeUserId: " + userCustom.getUserId());
-                    Log.d(TAG, "likeArticleId: " + articleJs.getArticleId());
-                    like(userCustom.getUserId(), articleJs.getArticleId());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            like(userId, articleId);
+                        }
+                    });
                     ((ImageView) v).setImageResource(R.drawable.ic_iv_like_press);
                     goodView.setText("+1");
                     goodView.show(v);
                     break;
                 case R.id.iv_comment:
-
+                    Intent intent1 = new Intent(v.getContext(), PostCommentActivity.class);
+                    intent1.putExtra("articleId", articleJs.getArticleId());
+                    v.getContext().startActivity(intent1);
                     break;
                 case R.id.iv_collect:
-                    Toast.makeText(getContext(), "你收藏" + (position), Toast.LENGTH_SHORT).show();
-                    goodView.setText("收藏成功");
-                    goodView.show(v);
+                    collectArticle(userId, articleId);
+
                     break;
                 default:
                     Intent intent = new Intent(v.getContext(), ArticleDetailActivity.class);
@@ -282,12 +289,56 @@ public class HomeChoiceFragment extends BaseFragment {
         }
     };
 
+    private void collectArticle(Integer userId, Integer articleId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.get().url(StaticClass.collectUrl + "?userId="
+                + userId + "&articleId=" + articleId).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "网络请求失败!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                       getActivity().runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               goodView.setText("收藏成功");
+                               goodView.show(getView());
+                           }
+                       });
+            }
+        });
+    }
+
 
     private void like(Integer userId, Integer articleId) {
         //拿到okhttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
         Request.Builder builder = new Request.Builder();
-        Request request = builder.get().url(StaticClass.likeUrl + "?userId=" + userId + "&articleId=" + articleId).build();
+        Request request = builder.get().url(StaticClass.likeUrl + "?userId="
+                + userId + "&articleId=" + articleId).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
 
     }
 }
