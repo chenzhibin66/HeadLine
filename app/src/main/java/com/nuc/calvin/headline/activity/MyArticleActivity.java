@@ -132,14 +132,47 @@ public class MyArticleActivity extends BaseActivity {
             int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
 
             if (direction == SwipeRecyclerView.RIGHT_DIRECTION) {
-                Toast.makeText(MyArticleActivity.this, "list第" + position + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT)
-                        .show();
+                Integer articleId = articleJsList.get(position).getArticleId();
+                deleteArticle(articleId);
             } else if (direction == SwipeRecyclerView.LEFT_DIRECTION) {
                 Toast.makeText(MyArticleActivity.this, "list第" + position + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT)
                         .show();
             }
         }
     };
+
+
+    private void deleteArticle(Integer articleId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        //构造Request
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.get().url(StaticClass.deleteArticleUrl + "?articleId=" + articleId).build();
+        Log.d(TAG, "deleteArticle: "+StaticClass.deleteArticleUrl + "?articleId=" + articleId);
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MyArticleActivity.this, "请求服务器失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MyArticleActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+    }
 
 
 }

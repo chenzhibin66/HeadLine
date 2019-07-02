@@ -28,5 +28,7 @@ public class StaticClass {
 
     //查询我的文章
     public static String myArticleUrl="http://" + ip + ":8080/headline/article/getMyArticle";
+    //删除文章
+    public static String deleteArticleUrl="http://" + ip + ":8080/headline/article/deleteArticle";
 
 }
