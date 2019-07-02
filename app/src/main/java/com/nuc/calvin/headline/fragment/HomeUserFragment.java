@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
+import com.nuc.calvin.headline.activity.MyArticleActivity;
 import com.nuc.calvin.headline.adapter.UserDetailsAdapter;
 import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.bean.ui.Details;
@@ -31,7 +33,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import static android.support.constraint.Constraints.TAG;
 
 
-public class HomeUserFragment extends BaseFragment {
+public class HomeUserFragment extends BaseFragment implements View.OnClickListener {
     private PullRefreshLayout userRefreshLayout;
     private RecyclerView user_recyclerview;
     private List<Details> detailsList;
@@ -44,9 +46,16 @@ public class HomeUserFragment extends BaseFragment {
     private TextView follow_count;
     private TextView fans_count;
 
+    private RelativeLayout shareLayout;
+    private RelativeLayout collectLayout;
+    private RelativeLayout fansLayout;
+
     @Override
     protected void initView(View view) {
         Fresco.initialize(getContext());
+        shareLayout = view.findViewById(R.id.share_layout);
+        collectLayout = view.findViewById(R.id.collect_layout);
+        fansLayout = view.findViewById(R.id.fans_layout);
         user_head = view.findViewById(R.id.user_img);
         user_name = view.findViewById(R.id.please_input_username);
         user_signature = view.findViewById(R.id.tv_signature);
@@ -72,6 +81,10 @@ public class HomeUserFragment extends BaseFragment {
                 }, 2000);
             }
         });
+
+        shareLayout.setOnClickListener(this);
+        collectLayout.setOnClickListener(this);
+        fansLayout.setOnClickListener(this);
     }
 
     @Override
@@ -105,5 +118,24 @@ public class HomeUserFragment extends BaseFragment {
         follow_count.setText(String.valueOf(user.getFollowCount()));
         fans_count.setText(String.valueOf(user.getFansCount()));
         article_count.setText(String.valueOf(user.getArticleCount()));
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.share_layout:
+                Intent intent = new Intent(getActivity(), MyArticleActivity.class);
+                getActivity().startActivity(intent);
+                getActivity().finish();
+                break;
+
+            case R.id.collect_layout:
+
+                break;
+
+            case R.id.fans_layout:
+
+                break;
+        }
     }
 }

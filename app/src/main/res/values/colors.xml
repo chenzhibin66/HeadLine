@@ -5,7 +5,8 @@
     <color name="colorAccent">#ff0288d1</color>
     <color name="tra_color_primary">#8f27b5ee</color>
     <color name="nav_bottom">#1296db</color>
-
+    <color name="red_normal">#FF0000</color>
+    <color name="red_pressed">#FF6666</color>
     <color name="color_black">#000000</color>
     <color name="color_dark_grey">#555555</color>
     <color name="color_grey">#808080</color>

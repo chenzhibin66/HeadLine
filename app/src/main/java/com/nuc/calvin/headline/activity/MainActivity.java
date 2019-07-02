@@ -129,6 +129,8 @@ public class MainActivity extends BaseActivity {
         int id = getIntent().getIntExtra("id", 0);
         if (id == 0) {
             mViewPager.setCurrentItem(0);
+        } else if (id == 3) {
+            mViewPager.setCurrentItem(3);
         }
     }
 }

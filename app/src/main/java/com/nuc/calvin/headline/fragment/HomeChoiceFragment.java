@@ -119,9 +119,6 @@ public class HomeChoiceFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ShareActivity.class);
-               /* Bundle bundle = new Bundle();
-                bundle.putInt("userId", getUserId());
-                intent.putExtras(bundle);*/
                 getActivity().startActivity(intent);
             }
         });

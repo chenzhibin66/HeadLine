@@ -26,4 +26,7 @@ public class StaticClass {
     //收藏
     public static String collectUrl= "http://" + ip + ":8080/headline/collection/collect";
 
+    //查询我的文章
+    public static String myArticleUrl="http://" + ip + ":8080/headline/article/getMyArticle";
+
 }
