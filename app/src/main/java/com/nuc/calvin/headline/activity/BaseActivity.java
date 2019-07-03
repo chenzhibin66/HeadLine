@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.fragment.BaseFragment;
 
@@ -27,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
         setContentView(getContentView());
         ButterKnife.bind(this);
         initView(savedInstanceState);
+        Fresco.initialize(getApplicationContext());
        /* handler = initHandle();*/
     }
 

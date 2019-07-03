@@ -59,13 +59,6 @@ public class MainActivity extends BaseActivity {
                 //.hideMsg(1)//隐藏消息
                 // .hideRedPoint(2)//隐藏红点
                 .setSelected(0);//设置选中的位置
-/*
-        int id = getIntent().getIntExtra("id", 0);
-        if (id==1){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace()
-        }*/
 
 
         //选中的点击事件
@@ -131,6 +124,8 @@ public class MainActivity extends BaseActivity {
             mViewPager.setCurrentItem(0);
         } else if (id == 3) {
             mViewPager.setCurrentItem(3);
+        } else if (id == 2) {
+            mViewPager.setCurrentItem(2);
         }
     }
 }

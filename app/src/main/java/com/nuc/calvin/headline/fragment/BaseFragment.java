@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import butterknife.ButterKnife;
 
 
@@ -39,6 +41,7 @@ public abstract class BaseFragment extends Fragment {
         myView = inflater.inflate(getContentView(), container, false);
         ButterKnife.bind(this, myView);
         fragmentActivity = getSupportActivity();
+        Fresco.initialize(getContext());
         initView(myView);
         return myView;
     }

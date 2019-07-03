@@ -1,5 +1,11 @@
 package com.nuc.calvin.headline.utils;
 
+import com.nuc.calvin.headline.bean.UserCustom;
+import com.nuc.calvin.headline.json.ArticleJs;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class StaticClass {
 
     private static String ip = "10.0.116.108";
@@ -34,6 +40,18 @@ public class StaticClass {
     public static String hotArticleUrl = "http://" + ip + ":8080/headline/article/queryHotArticle";
 
     public static String hotUserUrl = "http://" + ip + ":8080/headline/user/queryUserExSelf";
+
+    public static String queryArticleByWordUrl = "http://" + ip + ":8080/headline/article/queryArticleByWord";
+
+    public static String queryUserByWordUrl = "http://" + ip + ":8080/headline/user/queryUserByWord";
+
+
+
+
+
+    public static List<ArticleJs> articleJsList=new ArrayList<>();
+    public static List<UserCustom> userList=new ArrayList<>();
+
 
 
 }

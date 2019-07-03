@@ -1,5 +1,6 @@
 package com.nuc.calvin.headline.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.ArticleDetailActivity;
+import com.nuc.calvin.headline.activity.CommmentActivity;
 import com.nuc.calvin.headline.activity.PostCommentActivity;
 import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
@@ -79,6 +81,7 @@ public class HomeChoiceFragment extends BaseFragment {
             "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
             "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small"
     };
+    private Handler handler;
 
 //    private Handler handler = new Handler() {
 //        @Override
@@ -119,6 +122,7 @@ public class HomeChoiceFragment extends BaseFragment {
     }*/
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void initView(View view) {
 
@@ -168,6 +172,24 @@ public class HomeChoiceFragment extends BaseFragment {
                 /* mAdapter.notifyDataSetChanged();*/
             }
         }, 100);
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 0:
+                        refreshData();
+                        break;
+                    case 1:
+                        Toast.makeText(getContext(),"更新成功",Toast.LENGTH_SHORT).show();
+                        mAdapter.notifyDataSetChanged();
+                    default:
+                        break;
+                }
+            }
+
+        };
     }
 
 
@@ -265,10 +287,44 @@ public class HomeChoiceFragment extends BaseFragment {
                 Gson gson = new Gson();
                 datas = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
                 }.getType());
+
                 mAdapter.addDataList(datas);
                 /* mAdapter.notifyDataSetChanged();*/
                 Log.d(TAG, "datas=: " + datas);
 
+            }
+        });
+    }
+
+    private void refreshData() {
+        UserCustom user = ShareUtils.getInstance().getUser();
+        Log.d(TAG, "getAllArticle: " + user.getUserId());
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(StaticClass.articleUrl + "?userId=" + user.getUserId()).get().build();
+        Log.d(TAG, "getAllArticleUrl: " + StaticClass.articleUrl + "?userId=" + user.getUserId());
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "请求服务器失败", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String res = response.body().string();
+                Log.d(TAG, "onResponse: " + res);
+                Gson gson = new Gson();
+                ArrayList temp = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
+                }.getType());
+                mAdapter.clearDataList();
+                mAdapter.addDataList(temp);
+                handler.sendEmptyMessage(1);
             }
         });
     }
@@ -299,9 +355,15 @@ public class HomeChoiceFragment extends BaseFragment {
                     goodView.show(v);
                     break;
                 case R.id.iv_comment:
-                    Intent intent1 = new Intent(v.getContext(), PostCommentActivity.class);
-                    intent1.putExtra("articleId", articleJs.getArticleId());
-                    v.getContext().startActivity(intent1);
+                    if (articleJs.getCommentCount() == 0) {
+                        Intent intent1 = new Intent(v.getContext(), PostCommentActivity.class);
+                        intent1.putExtra("articleId", articleJs.getArticleId());
+                        v.getContext().startActivity(intent1);
+                    } else {
+                        Intent intent = new Intent(v.getContext(), CommmentActivity.class);
+                        intent.putExtra("articleTitle", articleJs.getArticleTitle());
+                        v.getContext().startActivity(intent);
+                    }
                     break;
                 case R.id.iv_collect:
                     collectArticle(userId, articleId);
@@ -373,7 +435,7 @@ public class HomeChoiceFragment extends BaseFragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                handler.sendEmptyMessage(0);
             }
         });
 

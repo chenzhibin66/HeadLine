@@ -1,13 +1,17 @@
 package com.nuc.calvin.headline.json;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.nuc.calvin.headline.bean.Article;
 import com.nuc.calvin.headline.bean.ArticleCustom;
 import com.nuc.calvin.headline.bean.User;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class ArticleJs {
+public class ArticleJs{
         private int articleId;
         private int userId;
         private String articleTitle;
@@ -132,4 +136,6 @@ public class ArticleJs {
                 ", likeCount=" + likeCount +
                 '}';
     }
+
+
 }

@@ -51,7 +51,11 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
 
     public void addDataList(List<ArticleJs> articleJs) {
         dataList.addAll(articleJs);
-      /*  notifyDataSetChanged();*/
+        /*  notifyDataSetChanged();*/
+    }
+
+    public void clearDataList() {
+        dataList.clear();
     }
 
 /*
@@ -137,15 +141,11 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         TextView likeCount;
         TextView commentCount;
         TextView collectCount;
-
         TextView mTitleTv;
         TextView mWhereTv;
         ImageView mCommentIv;
-
         ImageView mLikeIv;
-
         ImageView mCollectIv;
-
         SimpleDraweeView authorImg;
 
         public ChoiceViewHolder(View itemView) {
