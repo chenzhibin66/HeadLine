@@ -2,6 +2,8 @@ package com.nuc.calvin.headline.fragment;
 
 import android.view.View;
 
+import com.nuc.calvin.headline.R;
+
 public class FindArticleFragment extends BaseFragment{
     @Override
     protected void initView(View view) {
@@ -10,6 +12,6 @@ public class FindArticleFragment extends BaseFragment{
 
     @Override
     protected int getContentView() {
-        return 0;
+        return R.layout.fragment_tab_article;
     }
 }

@@ -3,6 +3,7 @@ package com.nuc.calvin.headline.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,7 +26,7 @@ public abstract class BaseFragment extends Fragment {
     public View myView;
     //可用来Fragment与Activity之间传送数据
     protected OnFragmentInteractionListener mListener;
-
+    protected Handler handler;
 
 
     public BaseFragment() {
@@ -42,6 +43,15 @@ public abstract class BaseFragment extends Fragment {
         return myView;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        initView(myView);
+       /* handler = initHandle();*/
+    }
+
+
+   /* protected abstract Handler initHandle();*/
 
     /**
      * 初始化UI
@@ -86,13 +96,6 @@ public abstract class BaseFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
-    /**
-     * 初始化recyclerView
-     */
-    protected void initRecyclerView() {
-
-    }
 
     @Override
     public void onDestroyView() {

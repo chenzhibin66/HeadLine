@@ -80,10 +80,44 @@ public class HomeChoiceFragment extends BaseFragment {
             "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small"
     };
 
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case 1:
+//                    mAdapter.notifyDataSetChanged();
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    };
+
     @Override
     protected int getContentView() {
         return R.layout.fragment_home_choice;
     }
+
+   /* @Override
+    protected Handler initHandle() {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 0:
+                        break;
+                    case -1:
+                        break;
+                    default:
+                        mAdapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+        };
+        return handler;
+    }*/
+
 
     @Override
     protected void initView(View view) {
@@ -108,13 +142,15 @@ public class HomeChoiceFragment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+//                        mAdapter.notifyDataSetChanged();
+                        getAllArticle();
                         pullRefreshLayout.setRefreshing(false);
-                       /* mAdapter.notifyDataSetChanged();*/
+//                        getAllArticle();
                     }
                 }, 2000);
             }
         });
-
+        mAdapter.notifyDataSetChanged();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,18 +162,13 @@ public class HomeChoiceFragment extends BaseFragment {
         pullRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
+                getAllArticle();
                 pullRefreshLayout.setRefreshing(false);
-               /* mAdapter.notifyDataSetChanged();*/
+
+                /* mAdapter.notifyDataSetChanged();*/
             }
         }, 100);
     }
-
-
-  /*  private Integer getUserId() {
-        Bundle bundle = this.getArguments();
-        Integer userId = bundle.getInt("userId", 0);
-        return userId;
-    }*/
 
 
     @Override
@@ -235,15 +266,16 @@ public class HomeChoiceFragment extends BaseFragment {
                 datas = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
                 }.getType());
                 mAdapter.addDataList(datas);
-               /* mAdapter.notifyDataSetChanged();*/
+                /* mAdapter.notifyDataSetChanged();*/
                 Log.d(TAG, "datas=: " + datas);
+
             }
         });
     }
 
     private HomeChoiceAdapter.OnItemClickListener homeClickListener = new HomeChoiceAdapter.OnItemClickListener() {
         @Override
-        public void onItemClick(View v, HomeChoiceAdapter.ViewName viewName, int position) {
+        public void onItemClick(View v, HomeChoiceAdapter.ViewName viewName, final int position) {
             final ArticleJs articleJs = datas.get(position);
             final UserCustom userCustom = ShareUtils.getInstance().getUser();
             final Integer userId = userCustom.getUserId();
@@ -255,7 +287,11 @@ public class HomeChoiceFragment extends BaseFragment {
                         @Override
                         public void run() {
                             like(userId, articleId);
-                           /* mAdapter.notifyDataSetChanged();*/
+                            /* mAdapter.notifyDataSetChanged();*/
+//                            mAdapter.notifyDataSetChanged();
+//                            Message msg = new Message();
+//                            msg.what = 1;
+//                            handler.sendMessage(msg);
                         }
                     });
                     ((ImageView) v).setImageResource(R.drawable.ic_iv_like_press);
@@ -308,15 +344,15 @@ public class HomeChoiceFragment extends BaseFragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                       getActivity().runOnUiThread(new Runnable() {
-                           @Override
-                           public void run() {
-                              /* mAdapter.notifyDataSetChanged();*/
-                               goodView.setText("收藏成功");
-                               goodView.show(getView());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        /* mAdapter.notifyDataSetChanged();*/
+                        goodView.setText("收藏成功");
+                        goodView.show(getView());
 
-                           }
-                       });
+                    }
+                });
             }
         });
     }

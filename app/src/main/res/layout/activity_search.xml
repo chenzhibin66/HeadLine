@@ -10,7 +10,7 @@
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
         <LinearLayout
-            android:id="@+id/search_layout"
+            android:id="@+id/activity_search_layout"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:background="@drawable/search_bar_bg"
@@ -23,18 +23,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/mini_search" />
+                android:src="@drawable/rb_search" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:hint="搜索感兴趣的用户或文章"
                 android:textColor="@color/search_hint"
-                android:textSize="12sp" />
+                android:background="@null"
+                android:textSize="14sp" />
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:padding="10dp"
             android:text="取消"
             android:textSize="20sp"

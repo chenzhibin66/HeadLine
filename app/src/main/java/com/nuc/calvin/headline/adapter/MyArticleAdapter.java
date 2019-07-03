@@ -34,7 +34,7 @@ public class MyArticleAdapter extends RecyclerView.Adapter<MyArticleAdapter.MyHo
     public void setList(List<ArticleJs> list) {
         articleJsList.clear();
         articleJsList.addAll(list);
-        notifyDataSetChanged();
+       /* notifyDataSetChanged();*/
     }
 
     @NonNull
