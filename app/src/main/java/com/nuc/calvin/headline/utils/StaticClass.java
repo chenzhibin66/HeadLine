@@ -24,11 +24,16 @@ public class StaticClass {
     public static String commentUrl = "http://" + ip + ":8080/headline/comment/commentArticle";
 
     //收藏
-    public static String collectUrl= "http://" + ip + ":8080/headline/collection/collect";
+    public static String collectUrl = "http://" + ip + ":8080/headline/collection/collect";
 
     //查询我的文章
-    public static String myArticleUrl="http://" + ip + ":8080/headline/article/getMyArticle";
+    public static String myArticleUrl = "http://" + ip + ":8080/headline/article/getMyArticle";
     //删除文章
-    public static String deleteArticleUrl="http://" + ip + ":8080/headline/article/deleteArticle";
+    public static String deleteArticleUrl = "http://" + ip + ":8080/headline/article/deleteArticle";
+
+    public static String hotArticleUrl = "http://" + ip + ":8080/headline/article/queryHotArticle";
+
+    public static String hotUserUrl = "http://" + ip + ":8080/headline/user/queryUserExSelf";
+
 
 }

@@ -10,23 +10,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.bean.User;
+import com.nuc.calvin.headline.bean.UserCustom;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHolder> {
     Context context;
-    List<User> userList = new ArrayList<>();
+    List<UserCustom> userList = new ArrayList<>();
 
     public HotUserAdapter(Context context) {
         this.context = context;
     }
 
-    public void addHotUser(List<User> list) {
+    public void addHotUser(List<UserCustom> list) {
         userList.addAll(list);
-        notifyDataSetChanged();
+        /*notifyDataSetChanged();*/
     }
 
     @NonNull
@@ -40,7 +42,7 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
     @Override
     public void onBindViewHolder(@NonNull UserHolder userHolder, int i) {
         final int pos = userHolder.getLayoutPosition();
-        final User user = userList.get(pos);
+        final UserCustom user = userList.get(pos);
         if (userHolder instanceof UserHolder) {
             userHolder.bindUser(user);
         }
@@ -60,7 +62,7 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
 
     public class UserHolder extends RecyclerView.ViewHolder {
 
-        ImageView user_head;
+        SimpleDraweeView user_head;
         TextView account_name;
         TextView signature;
         TextView share_count;
@@ -69,7 +71,6 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
 
         public UserHolder(@NonNull View itemView) {
             super(itemView);
-
             user_head = itemView.findViewById(R.id.user_head);
             account_name = itemView.findViewById(R.id.account_name);
             signature = itemView.findViewById(R.id.signature);
@@ -78,12 +79,12 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
             subscriber = itemView.findViewById(R.id.iv_subscriber);
         }
 
-        public void bindUser(User user) {
-            user_head.setImageResource(R.drawable.head);
-            account_name.setText("Java工程师");
-            signature.setText("后台开发");
-            share_count.setText("111");
-            readme_count.setText("1232");
+        public void bindUser(UserCustom user) {
+            user_head.setImageURI(user.getHeadImg());
+            account_name.setText(user.getUsername());
+            signature.setText(user.getSignature());
+            share_count.setText(String.valueOf(user.getArticleCount()));
+            readme_count.setText(String.valueOf(user.getFansCount()));
         }
     }
 }

@@ -109,7 +109,7 @@ public class HomeChoiceFragment extends BaseFragment {
                     @Override
                     public void run() {
                         pullRefreshLayout.setRefreshing(false);
-                        mAdapter.notifyDataSetChanged();
+                       /* mAdapter.notifyDataSetChanged();*/
                     }
                 }, 2000);
             }
@@ -127,17 +127,17 @@ public class HomeChoiceFragment extends BaseFragment {
             @Override
             public void run() {
                 pullRefreshLayout.setRefreshing(false);
-                mAdapter.notifyDataSetChanged();
+               /* mAdapter.notifyDataSetChanged();*/
             }
         }, 100);
     }
 
 
-    private Integer getUserId() {
+  /*  private Integer getUserId() {
         Bundle bundle = this.getArguments();
         Integer userId = bundle.getInt("userId", 0);
         return userId;
-    }
+    }*/
 
 
     @Override
@@ -235,6 +235,7 @@ public class HomeChoiceFragment extends BaseFragment {
                 datas = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
                 }.getType());
                 mAdapter.addDataList(datas);
+               /* mAdapter.notifyDataSetChanged();*/
                 Log.d(TAG, "datas=: " + datas);
             }
         });
@@ -254,6 +255,7 @@ public class HomeChoiceFragment extends BaseFragment {
                         @Override
                         public void run() {
                             like(userId, articleId);
+                           /* mAdapter.notifyDataSetChanged();*/
                         }
                     });
                     ((ImageView) v).setImageResource(R.drawable.ic_iv_like_press);
@@ -309,8 +311,10 @@ public class HomeChoiceFragment extends BaseFragment {
                        getActivity().runOnUiThread(new Runnable() {
                            @Override
                            public void run() {
+                              /* mAdapter.notifyDataSetChanged();*/
                                goodView.setText("收藏成功");
                                goodView.show(getView());
+
                            }
                        });
             }

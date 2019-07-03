@@ -83,13 +83,13 @@
                         android:src="@drawable/ic_hot_article" />
 
                 </RelativeLayout>
-                <!--活跃团队号列表-->
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/hot_article_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/title" />
-                <!--活跃独家号标题栏-->
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
