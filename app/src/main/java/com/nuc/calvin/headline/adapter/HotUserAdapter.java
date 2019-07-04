@@ -14,22 +14,24 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.bean.User;
 import com.nuc.calvin.headline.bean.UserCustom;
+import com.nuc.calvin.headline.json.UserJs;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHolder> implements View.OnClickListener{
+public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHolder> implements View.OnClickListener {
     Context context;
-    List<UserCustom> userList = new ArrayList<>();
+    List<UserJs> userList = new ArrayList<>();
 
     public HotUserAdapter(Context context) {
         this.context = context;
     }
 
-    public void addHotUser(List<UserCustom> list) {
-        userList.clear();
+    public void addHotUser(List<UserJs> list) {
         userList.addAll(list);
-        /*notifyDataSetChanged();*/
+    }
+    public void clearDataList() {
+      userList.clear();
     }
 
     @NonNull
@@ -43,22 +45,17 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
     @Override
     public void onBindViewHolder(@NonNull UserHolder userHolder, int i) {
         final int pos = userHolder.getLayoutPosition();
-        final UserCustom user = userList.get(pos);
+        final UserJs user = userList.get(pos);
         if (userHolder instanceof UserHolder) {
             userHolder.bindUser(user);
         }
-        userHolder.itemView.setClickable(true);
-        userHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "点击了" + pos, Toast.LENGTH_LONG).show();
-            }
-        });
+        userHolder.itemView.setTag(pos);
+        userHolder.subscriber.setTag(pos);
     }
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return userList == null ? 0 : userList.size();
     }
 
     public class UserHolder extends RecyclerView.ViewHolder {
@@ -78,9 +75,11 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
             share_count = itemView.findViewById(R.id.share_count);
             readme_count = itemView.findViewById(R.id.readme_count);
             subscriber = itemView.findViewById(R.id.iv_subscriber);
+            itemView.setOnClickListener(HotUserAdapter.this);
+            subscriber.setOnClickListener(HotUserAdapter.this);
         }
 
-        public void bindUser(UserCustom user) {
+        public void bindUser(UserJs user) {
             user_head.setImageURI(user.getHeadImg());
             account_name.setText(user.getUsername());
             signature.setText(user.getSignature());
@@ -98,6 +97,7 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
     //自定义一个回调接口来实现Click和LongClick事件
     public interface OnItemClickListener {
         void onItemClick(View v, ViewName viewName, int position);
+        void onItemLongClick(View v);
     }
 
 

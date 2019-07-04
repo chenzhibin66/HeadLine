@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.LoginActivity;
+import com.nuc.calvin.headline.activity.MainActivity;
+import com.nuc.calvin.headline.activity.MyCollectActivity;
 import com.nuc.calvin.headline.bean.ui.Details;
 
 import java.util.ArrayList;
@@ -56,7 +58,8 @@ public class UserDetailsAdapter extends RecyclerView.Adapter<UserDetailsAdapter.
                         Toast.makeText(context, "点击了" + pos, Toast.LENGTH_LONG).show();
                         break;
                     case 1:
-                        Toast.makeText(context, "点击了" + pos, Toast.LENGTH_LONG).show();
+                        Intent intent1 = new Intent(context, MyCollectActivity.class);
+                        context.startActivity(intent1);
                         break;
                     case 2:
                         Toast.makeText(context, "点击了" + pos, Toast.LENGTH_LONG).show();

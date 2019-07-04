@@ -51,7 +51,6 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
 
     public void addDataList(List<ArticleJs> articleJs) {
         dataList.addAll(articleJs);
-        /*  notifyDataSetChanged();*/
     }
 
     public void clearDataList() {

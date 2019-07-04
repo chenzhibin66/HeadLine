@@ -53,4 +53,14 @@ public class UserCustom extends User implements Serializable {
     public void setFansCount(int fansCount) {
         this.fansCount = fansCount;
     }
+
+    @Override
+    public String toString() {
+        return "UserCustom{" +
+                "relation=" + relation +
+                ", articleCount=" + articleCount +
+                ", followCount=" + followCount +
+                ", fansCount=" + fansCount +
+                '}';
+    }
 }

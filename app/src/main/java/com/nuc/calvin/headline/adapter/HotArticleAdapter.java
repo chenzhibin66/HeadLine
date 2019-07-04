@@ -31,8 +31,8 @@ public class HotArticleAdapter extends RecyclerView.Adapter<HotArticleAdapter.My
     }
 
     public void addHotArticle(List<ArticleJs> list) {
+        articleList.clear();
         articleList.addAll(list);
-       /* notifyDataSetChanged();*/
     }
 
     @NonNull

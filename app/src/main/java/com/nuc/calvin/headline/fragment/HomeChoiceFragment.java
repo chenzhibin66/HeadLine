@@ -84,14 +84,6 @@ public class HomeChoiceFragment extends BaseFragment {
     @SuppressLint("HandlerLeak")
     @Override
     protected void initView(View view) {
-
-        goodView = new GoodView(getContext());
-        Fresco.initialize(getContext());
-        View header = LayoutInflater.from(getContext()).inflate(R.layout.view_home_banner, null);
-        banner = header.findViewById(R.id.banner);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        initBanner();
-        mAdapter = new HomeChoiceAdapter(getActivity());
         pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -104,27 +96,22 @@ public class HomeChoiceFragment extends BaseFragment {
                 }, 2000);
             }
         });
-        /* getAllArticle();*/
-      /*  pullRefreshLayout.postDelayed(new Runnable() {
+        pullRefreshLayout.measure(0, 0);
+        pullRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
+                pullRefreshLayout.setRefreshing(true);
                 getAllArticle();
-                pullRefreshLayout.setRefreshing(false);
+
             }
-        }, 1000);*/
-      pullRefreshLayout.post(new Runnable() {
-          @Override
-          public void run() {
-              getAllArticle();
-              pullRefreshLayout.setRefreshing(true);
-          }
-      });
-      pullRefreshLayout.post(new Runnable() {
-          @Override
-          public void run() {
-              pullRefreshLayout.setRefreshing(false);
-          }
-      });
+        });
+        goodView = new GoodView(getContext());
+        Fresco.initialize(getContext());
+        View header = LayoutInflater.from(getContext()).inflate(R.layout.view_home_banner, null);
+        banner = header.findViewById(R.id.banner);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        initBanner();
+        mAdapter = new HomeChoiceAdapter(getActivity());
         mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(homeClickListener);
@@ -152,6 +139,9 @@ public class HomeChoiceFragment extends BaseFragment {
                         break;
                     case 1:
                         mAdapter.notifyDataSetChanged();
+                        break;
+                    case 2:
+                          pullRefreshLayout.setRefreshing(false);
                         break;
                     default:
                         break;
@@ -256,11 +246,8 @@ public class HomeChoiceFragment extends BaseFragment {
                 Gson gson = new Gson();
                 datas = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
                 }.getType());
-
                 mAdapter.addDataList(datas);
-                /* mAdapter.notifyDataSetChanged();*/
-                Log.d(TAG, "datas=: " + datas);
-
+                handler.sendEmptyMessage(2);
             }
         });
     }

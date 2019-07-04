@@ -48,14 +48,19 @@ public class StaticClass {
     public static String queryComment = "http://" + ip + ":8080/headline/comment/commentList";
 
 
+    public static String unFollowUrl = "http://" + ip + ":8080/headline/relation/unFollow";
+    public static String followUrl = "http://" + ip + ":8080/headline/relation/follow";
+    //取消收藏
+    public static String unCollectUrl = "http://" + ip + ":8080/headline/collection/unCollect";
+
+    //收藏列表
+    public static String collectListUrl = "http://" + ip + ":8080/headline/collection/queryAllCollection";
 
 
 
 
-
-    public static List<ArticleJs> articleJsList=new ArrayList<>();
-    public static List<UserCustom> userList=new ArrayList<>();
-
+    public static List<ArticleJs> articleJsList = new ArrayList<>();
+    public static List<UserCustom> userList = new ArrayList<>();
 
 
 }
