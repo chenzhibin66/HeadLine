@@ -1,5 +1,6 @@
 package com.nuc.calvin.headline.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,47 +64,10 @@ public class HomeFindFragment extends BaseFragment {
     private Handler handler;
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void initView(View view) {
-        Fresco.initialize(getContext());
         init(view);
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pullRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getHotArticle();
-                        getHotUser();
-                        pullRefreshLayout.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
-        pullRefreshLayout.measure(0, 0);
-        pullRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                pullRefreshLayout.setRefreshing(true);
-                getHotArticle();
-                getHotUser();
-
-            }
-        });
-        article_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        user_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        article_recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        user_recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        article_recyclerView.setAdapter(hotArticleAdapter);
-        user_recyclerView.setAdapter(hotUserAdapter);
-        search_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         handler = new Handler() {
             @Override
@@ -119,12 +83,55 @@ public class HomeFindFragment extends BaseFragment {
                     case 2:
                         pullRefreshLayout.setRefreshing(false);
                         break;
+                    case 1056:
+                        hotArticleAdapter.notifyDataSetChanged();
+                        break;
                     default:
                         break;
                 }
             }
 
         };
+        getHotArticle();
+        getHotUser();
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pullRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getHotArticle();
+                        getHotUser();
+                        pullRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+       /* pullRefreshLayout.measure(0, 0);
+        pullRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                pullRefreshLayout.setRefreshing(true);
+                getHotArticle();
+                getHotUser();
+            }
+        });*/
+        Fresco.initialize(getContext());
+
+        article_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        user_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        article_recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        user_recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        article_recyclerView.setAdapter(hotArticleAdapter);
+        user_recyclerView.setAdapter(hotUserAdapter);
+        search_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -204,7 +211,7 @@ public class HomeFindFragment extends BaseFragment {
                 }.getType());
                 Log.d(TAG, "hotArticle: " + articleList);
                 hotArticleAdapter.addHotArticle(articleList);
-                handler.sendEmptyMessage(2);
+                handler.sendEmptyMessage(1056);
             }
         });
     }

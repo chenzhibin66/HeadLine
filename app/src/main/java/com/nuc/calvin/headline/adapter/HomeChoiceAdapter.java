@@ -28,7 +28,7 @@ import static android.support.constraint.Constraints.TAG;
  * 根据不同的 ViewType 返回不同的 ViewHolder
  * 通过 setter 方法将不同的 View 注入进 Adapter
  */
-public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.ChoiceViewHolder> implements View.OnClickListener {
+public class  HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.ChoiceViewHolder> implements View.OnClickListener {
 
     public static final int TYPE_HEADER = 0;
     public static final int TYPE_NOMAL = 1;
@@ -57,16 +57,6 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         dataList.clear();
     }
 
-/*
-    public void addList(List<ArticleJs> list, boolean append) {
-        if (list != null) {
-            if (!append) {
-                dataList.clear();
-            }
-            dataList.addAll(list);
-        }
-        notifyDataSetChanged();
-    }*/
 
 
     @Override
@@ -107,17 +97,6 @@ public class HomeChoiceAdapter extends RecyclerView.Adapter<HomeChoiceAdapter.Ch
         choiceViewHolder.mLikeIv.setTag(pos);
         choiceViewHolder.mCommentIv.setTag(pos);
         choiceViewHolder.mCollectIv.setTag(pos);
-       /* choiceViewHolder.itemView.setClickable(true);
-        choiceViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ArticleDetailActivity.class);
-                intent.putExtra("title", articleJs.getArticleTitle());
-                intent.putExtra("url", articleJs.getArticleUrl());
-                intent.putExtra("authorName", articleJs.getUser().getUsername());
-                v.getContext().startActivity(intent);
-            }
-        });*/
     }
 
     /**

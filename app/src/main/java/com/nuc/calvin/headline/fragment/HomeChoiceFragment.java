@@ -3,6 +3,7 @@ package com.nuc.calvin.headline.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -21,6 +23,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.melnykov.fab.FloatingActionButton;
@@ -31,8 +34,10 @@ import com.nuc.calvin.headline.activity.CommentActivity;
 import com.nuc.calvin.headline.activity.PostCommentActivity;
 import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
+import com.nuc.calvin.headline.bean.Banner;
 import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.json.ArticleJs;
+import com.nuc.calvin.headline.json.BannerJs;
 import com.nuc.calvin.headline.utils.ShareUtils;
 import com.nuc.calvin.headline.utils.StaticClass;
 import com.wx.goodview.GoodView;
@@ -66,12 +71,8 @@ public class HomeChoiceFragment extends BaseFragment {
     private DisplayImageOptions options;
     private List<String> banner_image = new ArrayList<>();
     private List<ArticleJs> datas = null;
+    private List<BannerJs> bannerJs = new ArrayList<>();
     private List<Map<String, Object>> list = new ArrayList<>();
-    private String[] imagesString = new String[]{
-            "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
-            "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small",
-            "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small"
-    };
     private Handler handler;
     private boolean isChanged = false;
 
@@ -109,12 +110,15 @@ public class HomeChoiceFragment extends BaseFragment {
         Fresco.initialize(getContext());
         View header = LayoutInflater.from(getContext()).inflate(R.layout.view_home_banner, null);
         banner = header.findViewById(R.id.banner);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        initBanner();
+
         mAdapter = new HomeChoiceAdapter(getActivity());
         mAdapter.setHeaderView(banner);
+        initImage();
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(homeClickListener);
+
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -141,7 +145,10 @@ public class HomeChoiceFragment extends BaseFragment {
                         mAdapter.notifyDataSetChanged();
                         break;
                     case 2:
-                          pullRefreshLayout.setRefreshing(false);
+                        pullRefreshLayout.setRefreshing(false);
+                        break;
+                    case 1056:
+                        initBanner();
                         break;
                     default:
                         break;
@@ -176,48 +183,90 @@ public class HomeChoiceFragment extends BaseFragment {
      * setOnItemClickListener 设置每一张图片的点击事件
      */
     private void initBanner() {
-        initImage();
-
         banner.setPages(new CBViewHolderCreator() {
             @Override
             public Object createHolder() {
                 return new BannerImageHolderView();
             }
-        }, banner_image).setPageIndicator(new int[]{R.drawable.ic_banner_indicator_unselected
+        }, bannerJs).setPageIndicator(new int[]{R.drawable.ic_banner_indicator_unselected
                 , R.drawable.ic_banner_indicator_selected})
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        Toast.makeText(getActivity(), "你点击了" + position, Toast.LENGTH_LONG).show();
+                        BannerJs bannerarticle = bannerJs.get(position);
+                        Intent intent1 = new Intent(getContext(), ArticleDetailActivity.class);
+                        intent1.putExtra("title", bannerarticle.getArticle().getArticleTitle());
+                        intent1.putExtra("url", bannerarticle.getArticle().getArticleUrl());
+                        intent1.putExtra("authorName", bannerarticle.getUser().getUsername());
+                        startActivity(intent1);
+
                     }
                 });
     }
 
-    public class BannerImageHolderView implements Holder<String> {
 
-        private ImageView imageView;
+    public class BannerImageHolderView implements Holder<BannerJs> {
 
+        private SimpleDraweeView imageView;
+        private TextView bannerTitle;
 
         @Override
         public View createView(Context context) {
             View view = LayoutInflater.from(context).inflate(R.layout.view_banner_item, null);
             imageView = ButterKnife.findById(view, R.id.iv_banner);
+            bannerTitle = ButterKnife.findById(view, R.id.banner_title);
             return view;
         }
 
         @Override
-        public void UpdateUI(Context context, int position, String data) {
-            Glide.with(context).load(data).into(imageView);
+        public void UpdateUI(Context context, int position, BannerJs data) {
+            imageView.setImageURI(Uri.parse(data.getBannerImage()));
+            bannerTitle.setText(data.getArticle().getArticleTitle());
         }
+
+       /* @Override
+        public void UpdateUI(Context context, int position, String data) {
+             Glide.with(context).load(data).into(imageView);
+        }*/
+
     }
 
 
     /**
      * 初始化
-     * 添加三张展示照片，网上随便找的，正常形式是调用接口从自己的后台服务器拿取
+     * 添加三张展示照片
      */
     private void initImage() {
-        banner_image = Arrays.asList(imagesString);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.get().url(StaticClass.bannerUrl).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "获取广告图片失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String res = response.body().string();
+                Gson gson = new Gson();
+                bannerJs = gson.fromJson(res, new TypeToken<List<BannerJs>>() {
+                }.getType());
+                Log.d(TAG, "bannerResult" + bannerJs.toString());
+                for (int i = 0; i < bannerJs.size(); i++) {
+                    banner_image.add(bannerJs.get(i).getBannerImage());
+                    Log.d(TAG, "banIMg " + banner_image.toString());
+                    handler.sendEmptyMessage(1056);
+                }
+            }
+        });
     }
 
 
