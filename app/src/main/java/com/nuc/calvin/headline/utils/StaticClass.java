@@ -45,6 +45,10 @@ public class StaticClass {
 
     public static String queryUserByWordUrl = "http://" + ip + ":8080/headline/user/queryUserByWord";
 
+    public static String queryComment = "http://" + ip + ":8080/headline/comment/commentList";
+
+
+
 
 
 

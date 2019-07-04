@@ -5,6 +5,7 @@ import java.util.List;
 public class CommentCustom extends Comment {
 
     private User user;
+    private Article article;
 
     /**
      * 被评论文章作者昵称
@@ -62,5 +63,25 @@ public class CommentCustom extends Comment {
 
     public void setReplyList(List<Reply> replyList) {
         this.replyList = replyList;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentCustom{" +
+                "user=" + user +
+                ", article=" + article +
+                ", username='" + username + '\'' +
+                ", time='" + time + '\'' +
+                ", countReply=" + countReply +
+                ", replyList=" + replyList +
+                '}';
     }
 }

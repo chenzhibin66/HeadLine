@@ -11,17 +11,25 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.bean.Comment;
+import com.nuc.calvin.headline.bean.CommentCustom;
+import com.nuc.calvin.headline.bean.User;
+import com.nuc.calvin.headline.bean.UserCustom;
+import com.nuc.calvin.headline.json.CommentJs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentHolder> {
 
     Context context;
-    private List<Comment> list;
+    private List<CommentJs> list=new ArrayList<>();
 
-    public CommentAdapter(Context context, List<Comment> list) {
+    public CommentAdapter(Context context) {
         this.context = context;
-        this.list = list;
+    }
+
+    public void addData(List<CommentJs> commentJsList) {
+        list.addAll(commentJsList);
     }
 
     @NonNull
@@ -34,12 +42,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
 
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.CommentHolder commentHolder, int i) {
+        CommentJs commentCustom = list.get(i);
+        commentHolder.bindData(commentCustom);
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     public class CommentHolder extends RecyclerView.ViewHolder {
@@ -55,6 +65,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
             commentorName = itemView.findViewById(R.id.comment_name);
             commentContent = itemView.findViewById(R.id.commentContents);
             time = itemView.findViewById(R.id.comment_time);
+        }
+
+        private void bindData(CommentJs comment) {
+            User user = comment.getUser();
+            commentor_head.setImageURI(user.getHeadImg());
+            commentorName.setText(user.getUsername());
+            commentContent.setText(comment.getCommentContent());
+            time.setText(comment.getTime());
+
+
         }
     }
 }

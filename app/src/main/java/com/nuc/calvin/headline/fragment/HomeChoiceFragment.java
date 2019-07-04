@@ -3,7 +3,6 @@ package com.nuc.calvin.headline.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DividerItemDecoration;
@@ -23,31 +22,24 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.ArticleDetailActivity;
-import com.nuc.calvin.headline.activity.CommmentActivity;
+import com.nuc.calvin.headline.activity.CommentActivity;
 import com.nuc.calvin.headline.activity.PostCommentActivity;
 import com.nuc.calvin.headline.activity.ShareActivity;
 import com.nuc.calvin.headline.adapter.HomeChoiceAdapter;
-import com.nuc.calvin.headline.bean.Article;
 import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.json.ArticleJs;
 import com.nuc.calvin.headline.utils.ShareUtils;
 import com.nuc.calvin.headline.utils.StaticClass;
 import com.wx.goodview.GoodView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +48,6 @@ import butterknife.ButterKnife;
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -83,43 +74,12 @@ public class HomeChoiceFragment extends BaseFragment {
     };
     private Handler handler;
 
-//    private Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case 1:
-//                    mAdapter.notifyDataSetChanged();
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    };
 
     @Override
     protected int getContentView() {
         return R.layout.fragment_home_choice;
     }
 
-   /* @Override
-    protected Handler initHandle() {
-        Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case 0:
-                        break;
-                    case -1:
-                        break;
-                    default:
-                        mAdapter.notifyDataSetChanged();
-                        break;
-                }
-            }
-        };
-        return handler;
-    }*/
 
 
     @SuppressLint("HandlerLeak")
@@ -168,8 +128,6 @@ public class HomeChoiceFragment extends BaseFragment {
             public void run() {
                 getAllArticle();
                 pullRefreshLayout.setRefreshing(false);
-
-                /* mAdapter.notifyDataSetChanged();*/
             }
         }, 100);
 
@@ -360,8 +318,9 @@ public class HomeChoiceFragment extends BaseFragment {
                         intent1.putExtra("articleId", articleJs.getArticleId());
                         v.getContext().startActivity(intent1);
                     } else {
-                        Intent intent = new Intent(v.getContext(), CommmentActivity.class);
+                        Intent intent = new Intent(v.getContext(), CommentActivity.class);
                         intent.putExtra("articleTitle", articleJs.getArticleTitle());
+                        intent.putExtra("articleId", articleJs.getArticleId());
                         v.getContext().startActivity(intent);
                     }
                     break;
