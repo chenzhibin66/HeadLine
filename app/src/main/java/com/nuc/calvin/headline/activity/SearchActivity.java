@@ -64,8 +64,8 @@ public class SearchActivity extends BaseActivity {
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StaticClass.articleJsList = null;
-                StaticClass.userList = null;
+               /* StaticClass.articleJsList = null;
+                StaticClass.userList = null;*/
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                 intent.putExtra("id", 2);
                 startActivity(intent);

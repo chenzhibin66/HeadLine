@@ -56,12 +56,22 @@ public class CommentActivity extends BaseActivity {
         comment_recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         comment_recycler.setAdapter(commentAdapter);
         postComment = findViewById(R.id.post_your_comment);
-
+        Log.d(TAG, "initViewArticleTitle: " + getIntent().getStringExtra("articleTitle"));
+        article_title.setText(getIntent().getStringExtra("articleTitle"));
 
         postComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CommentActivity.this, PostCommentActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        back_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CommentActivity.this, MainActivity.class);
+                intent.putExtra("id", 0);
                 startActivity(intent);
                 finish();
             }
@@ -103,7 +113,7 @@ public class CommentActivity extends BaseActivity {
                 Gson gson = builder.create();
                 list = gson.fromJson(res, new TypeToken<List<CommentJs>>() {
                 }.getType());
-                Log.d(TAG, "jsonResult "+list.toString());
+                Log.d(TAG, "jsonResult " + list.toString());
                 commentAdapter.addData(list);
             }
         });

@@ -73,13 +73,12 @@ public class HomeChoiceFragment extends BaseFragment {
             "https://preview.qiantucdn.com/58picmark/element_origin_pic/33/82/49/66j58PIC933eZbU9yYePiMaRk.png!w1024_small"
     };
     private Handler handler;
-
+    private boolean isChanged = false;
 
     @Override
     protected int getContentView() {
         return R.layout.fragment_home_choice;
     }
-
 
 
     @SuppressLint("HandlerLeak")
@@ -93,27 +92,46 @@ public class HomeChoiceFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         initBanner();
         mAdapter = new HomeChoiceAdapter(getActivity());
-        getAllArticle();
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pullRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getAllArticle();
+                        pullRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+        /* getAllArticle();*/
+      /*  pullRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getAllArticle();
+                pullRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);*/
+      pullRefreshLayout.post(new Runnable() {
+          @Override
+          public void run() {
+              getAllArticle();
+              pullRefreshLayout.setRefreshing(true);
+          }
+      });
+      pullRefreshLayout.post(new Runnable() {
+          @Override
+          public void run() {
+              pullRefreshLayout.setRefreshing(false);
+          }
+      });
         mAdapter.setHeaderView(banner);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(homeClickListener);
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        mAdapter.notifyDataSetChanged();
-                        getAllArticle();
-                        pullRefreshLayout.setRefreshing(false);
-//                        getAllArticle();
-                    }
-                }, 2000);
-            }
-        });
+
         mAdapter.notifyDataSetChanged();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,13 +141,6 @@ public class HomeChoiceFragment extends BaseFragment {
             }
         });
 
-        pullRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getAllArticle();
-                pullRefreshLayout.setRefreshing(false);
-            }
-        }, 100);
 
         handler = new Handler() {
             @Override
@@ -140,8 +151,8 @@ public class HomeChoiceFragment extends BaseFragment {
                         refreshData();
                         break;
                     case 1:
-                        Toast.makeText(getContext(),"更新成功",Toast.LENGTH_SHORT).show();
                         mAdapter.notifyDataSetChanged();
+                        break;
                     default:
                         break;
                 }
@@ -301,14 +312,15 @@ public class HomeChoiceFragment extends BaseFragment {
                         @Override
                         public void run() {
                             like(userId, articleId);
-                            /* mAdapter.notifyDataSetChanged();*/
-//                            mAdapter.notifyDataSetChanged();
-//                            Message msg = new Message();
-//                            msg.what = 1;
-//                            handler.sendMessage(msg);
+
                         }
                     });
-                    ((ImageView) v).setImageResource(R.drawable.ic_iv_like_press);
+                    if (isChanged) {
+                        ((ImageView) v).setImageResource(R.drawable.ic_iv_like);
+                    } else {
+                        ((ImageView) v).setImageResource(R.drawable.ic_iv_like_press);
+                    }
+
                     goodView.setText("+1");
                     goodView.show(v);
                     break;
@@ -325,8 +337,12 @@ public class HomeChoiceFragment extends BaseFragment {
                     }
                     break;
                 case R.id.iv_collect:
-                    collectArticle(userId, articleId);
-
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            collectArticle(userId, articleId);
+                        }
+                    });
                     break;
                 default:
                     Intent intent = new Intent(v.getContext(), ArticleDetailActivity.class);
@@ -369,6 +385,7 @@ public class HomeChoiceFragment extends BaseFragment {
                     @Override
                     public void run() {
                         /* mAdapter.notifyDataSetChanged();*/
+                        handler.sendEmptyMessage(0);
                         goodView.setText("收藏成功");
                         goodView.show(getView());
 

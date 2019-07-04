@@ -18,7 +18,7 @@ import com.nuc.calvin.headline.bean.UserCustom;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHolder> {
+public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHolder> implements View.OnClickListener{
     Context context;
     List<UserCustom> userList = new ArrayList<>();
 
@@ -27,6 +27,7 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
     }
 
     public void addHotUser(List<UserCustom> list) {
+        userList.clear();
         userList.addAll(list);
         /*notifyDataSetChanged();*/
     }
@@ -85,6 +86,40 @@ public class HotUserAdapter extends RecyclerView.Adapter<HotUserAdapter.UserHold
             signature.setText(user.getSignature());
             share_count.setText(String.valueOf(user.getArticleCount()));
             readme_count.setText(String.valueOf(user.getFansCount()));
+        }
+    }
+
+    //item里面有多个控件可以点击（item+item内部控件）
+    public enum ViewName {
+        ITEM,
+        PRACTISE
+    }
+
+    //自定义一个回调接口来实现Click和LongClick事件
+    public interface OnItemClickListener {
+        void onItemClick(View v, ViewName viewName, int position);
+    }
+
+
+    private OnItemClickListener mOnItemClickListener;//声明自定义的接口
+
+    //定义方法并传给外面的使用者
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        if (mOnItemClickListener != null) {
+            switch (v.getId()) {
+                case R.id.hot_account_list:
+                    mOnItemClickListener.onItemClick(v, ViewName.PRACTISE, position);
+                    break;
+                default:
+                    mOnItemClickListener.onItemClick(v, ViewName.ITEM, position);
+                    break;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ import com.nuc.calvin.headline.bean.UserCustom;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.UserHolder> {
+public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.UserHolder>{
 
     Context context;
     private List<UserCustom> userList = new ArrayList<>();
@@ -73,4 +73,6 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.UserHo
 
         }
     }
+
+
 }

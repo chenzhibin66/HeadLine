@@ -3,6 +3,8 @@ package com.nuc.calvin.headline.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,6 +45,7 @@ public class MyArticleActivity extends BaseActivity {
     private ImageView my_left;
     private SwipeRecyclerView delete_recy;
     private MyArticleAdapter adapter;
+    private Handler handler;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -64,7 +67,60 @@ public class MyArticleActivity extends BaseActivity {
                 finish();
             }
         });
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 0:
+                        refresh();
+                        break;
+                    case 1:
+                        adapter.notifyDataSetChanged();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        };
     }
+
+    private void refresh() {
+        UserCustom userCustom = ShareUtils.getInstance().getUser();
+        Integer userId = userCustom.getUserId();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.get().url(StaticClass.myArticleUrl + "?userId=" + userId).build();
+        Call call = okHttpClient.newCall(request);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MyArticleActivity.this, "网络请求失败！", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String res = response.body().string();
+                Gson gson = new Gson();
+                articleJsList = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
+                }.getType());
+                Log.d(TAG, "onResponse: " + articleJsList);
+                adapter.setList(articleJsList);
+                handler.sendEmptyMessage(1);
+            }
+        });
+    }
+
 
     @Override
     protected int getContentView() {
@@ -134,6 +190,7 @@ public class MyArticleActivity extends BaseActivity {
             if (direction == SwipeRecyclerView.RIGHT_DIRECTION) {
                 Integer articleId = articleJsList.get(position).getArticleId();
                 deleteArticle(articleId);
+
             } else if (direction == SwipeRecyclerView.LEFT_DIRECTION) {
                 Toast.makeText(MyArticleActivity.this, "list第" + position + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT)
                         .show();
@@ -147,7 +204,7 @@ public class MyArticleActivity extends BaseActivity {
         //构造Request
         Request.Builder builder = new Request.Builder();
         Request request = builder.get().url(StaticClass.deleteArticleUrl + "?articleId=" + articleId).build();
-        Log.d(TAG, "deleteArticle: "+StaticClass.deleteArticleUrl + "?articleId=" + articleId);
+        Log.d(TAG, "deleteArticle: " + StaticClass.deleteArticleUrl + "?articleId=" + articleId);
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -167,7 +224,8 @@ public class MyArticleActivity extends BaseActivity {
                     @Override
                     public void run() {
                         Toast.makeText(MyArticleActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
-                        adapter.notifyDataSetChanged();
+                        /*   adapter.notifyDataSetChanged();*/
+                        handler.sendEmptyMessage(0);
                     }
                 });
             }

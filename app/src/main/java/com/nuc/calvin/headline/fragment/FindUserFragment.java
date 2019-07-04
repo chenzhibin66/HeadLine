@@ -1,10 +1,12 @@
 package com.nuc.calvin.headline.fragment;
 
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.adapter.FindUserAdapter;
@@ -22,12 +24,14 @@ public class FindUserFragment extends BaseFragment {
     private List<UserCustom> userList = new ArrayList<>();
     private FindUserAdapter userAdapter;
 
+
     @Override
     protected void initView(View view) {
         userList = StaticClass.userList;
-        Log.d(TAG, "userListstatic: "+userList);
+        Log.d(TAG, "userListstatic: " + userList);
         user_Recyclerview = view.findViewById(R.id.find_user_recy);
         user_Recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        user_Recyclerview.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         userAdapter = new FindUserAdapter(getContext(), userList);
         user_Recyclerview.setAdapter(userAdapter);
 
@@ -37,4 +41,5 @@ public class FindUserFragment extends BaseFragment {
     protected int getContentView() {
         return R.layout.fragment_tab_user;
     }
+
 }

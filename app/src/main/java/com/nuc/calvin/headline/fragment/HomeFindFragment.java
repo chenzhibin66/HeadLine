@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,7 +42,7 @@ import okhttp3.Response;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class HomeFindFragment extends BaseFragment {
+public class HomeFindFragment extends BaseFragment{
 
     private RecyclerView article_recyclerView;
     private RecyclerView user_recyclerView;
@@ -61,8 +62,23 @@ public class HomeFindFragment extends BaseFragment {
         init(view);
         getHotArticle();
         getHotUser();
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getHotArticle();
+                        getHotUser();
+                        pullRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
         article_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         user_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        article_recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        user_recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         article_recyclerView.setAdapter(hotArticleAdapter);
         user_recyclerView.setAdapter(hotUserAdapter);
         search_tv.setOnClickListener(new View.OnClickListener() {
@@ -72,17 +88,7 @@ public class HomeFindFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pullRefreshLayout.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
+
 
 
     }
@@ -97,6 +103,7 @@ public class HomeFindFragment extends BaseFragment {
         user_recyclerView = view.findViewById(R.id.hot_account_list);
         hotArticleAdapter = new HotArticleAdapter(getContext());
         hotUserAdapter = new HotUserAdapter(getContext());
+
         pullRefreshLayout = view.findViewById(R.id.search_refresh);
         scrollView = view.findViewById(R.id.search_scrollView);
 //        searchLayout=view.findViewById(R.id.search_layout);
@@ -165,4 +172,6 @@ public class HomeFindFragment extends BaseFragment {
             }
         });
     }
+
+
 }
