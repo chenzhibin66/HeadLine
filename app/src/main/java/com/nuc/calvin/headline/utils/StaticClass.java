@@ -1,5 +1,7 @@
 package com.nuc.calvin.headline.utils;
 
+import com.nuc.calvin.headline.adapter.FindArticleAdapter;
+import com.nuc.calvin.headline.adapter.FindUserAdapter;
 import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.json.ArticleJs;
 
@@ -59,11 +61,14 @@ public class StaticClass {
 
     public static String bannerUrl = "http://" + ip + ":8080/headline/banner/queryAllBanner";
 
+    public static String msgCommentUrl = "http://" + ip + ":8080/headline/comment/queryCommentByUserId";
 
 
+    public static List<ArticleJs> articleJsList;
+    public static List<UserCustom> userList;
 
-    public static List<ArticleJs> articleJsList = new ArrayList<>();
-    public static List<UserCustom> userList = new ArrayList<>();
 
+    public static FindUserAdapter findUserAdapter;
+    public static FindArticleAdapter findArticleAdapter;
 
 }

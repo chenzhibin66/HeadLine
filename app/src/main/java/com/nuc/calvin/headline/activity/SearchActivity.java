@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nuc.calvin.headline.R;
+import com.nuc.calvin.headline.adapter.FindArticleAdapter;
+import com.nuc.calvin.headline.adapter.FindUserAdapter;
 import com.nuc.calvin.headline.adapter.SearchAdapter;
 import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.fragment.FindArticleFragment;
@@ -77,8 +79,10 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String word = keyWord.getText().toString();
-                getQueryArticle(word);
-                queryUser(word);
+                findArticleFragment.refredata(word);
+                findUserFragment.refreshData(word);
+                StaticClass.findUserAdapter = new FindUserAdapter(getApplicationContext(), StaticClass.userList);
+                StaticClass.findArticleAdapter = new FindArticleAdapter(getApplicationContext(), StaticClass.articleJsList);
             }
         });
 
@@ -90,60 +94,4 @@ public class SearchActivity extends BaseActivity {
     }
 
 
-    private void getQueryArticle(String keyWord) {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request.Builder builder = new Request.Builder();
-        Request request = builder.get().url(StaticClass.queryArticleByWordUrl + "?keyWord=" + keyWord).build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(SearchActivity.this, "请求服务器失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String res = response.body().string();
-                Gson gson = new Gson();
-                articleJsList = gson.fromJson(res, new TypeToken<List<ArticleJs>>() {
-                }.getType());
-                Log.d(TAG, "queryByWord: " + articleJsList);
-                StaticClass.articleJsList = articleJsList;
-            }
-        });
-    }
-
-    private void queryUser(String keyWord) {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request.Builder builder = new Request.Builder();
-        Request request = builder.get().url(StaticClass.queryUserByWordUrl + "?keyWord=" + keyWord).build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(SearchActivity.this, "请求服务器失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String res = response.body().string();
-                Gson gson = new Gson();
-                userCustomList = gson.fromJson(res, new TypeToken<List<UserCustom>>() {
-                }.getType());
-                Log.d(TAG, "useraaaaaa: " + userCustomList.toString());
-                StaticClass.userList = userCustomList;
-            }
-        });
-    }
 }
