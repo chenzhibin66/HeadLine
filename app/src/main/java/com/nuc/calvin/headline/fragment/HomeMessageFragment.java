@@ -14,7 +14,7 @@ public class HomeMessageFragment extends BaseFragment {
 
     private PullRefreshLayout layout;
 
-    private ImageView iv_dingyue;
+
     private ImageView iv_comment;
     private ImageView iv_attention;
     private ImageView iv_like;
@@ -44,7 +44,6 @@ public class HomeMessageFragment extends BaseFragment {
 
 
     private void init(View view) {
-        iv_dingyue = view.findViewById(R.id.msg_iv_dingyue);
         iv_comment = view.findViewById(R.id.msg_iv_comment);
         iv_attention = view.findViewById(R.id.msg_iv_guanzhu);
         iv_like = view.findViewById(R.id.msg_iv_good);

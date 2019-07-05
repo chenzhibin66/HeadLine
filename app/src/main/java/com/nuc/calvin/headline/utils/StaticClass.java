@@ -8,8 +8,8 @@ import java.util.List;
 
 public class StaticClass {
 
-    /*private static String ip = "10.0.116.108";*/
-    private static String ip = "10.0.117.73";
+    private static String ip = "10.0.116.108";
+
 
     //登录url
     public static String loginUrl = "http://" + ip + ":8080/headline/user/loginUser";

@@ -220,7 +220,7 @@ public class HomeChoiceFragment extends BaseFragment {
 
         @Override
         public void UpdateUI(Context context, int position, BannerJs data) {
-            imageView.setImageURI(Uri.parse(data.getBannerImage()));
+            Glide.with(context).load(data.getBannerImage()).into(imageView);
             bannerTitle.setText(data.getArticle().getArticleTitle());
         }
 
@@ -379,6 +379,11 @@ public class HomeChoiceFragment extends BaseFragment {
                             collectArticle(userId, articleId);
                         }
                     });
+                    if (isChanged) {
+                        ((ImageView) v).setImageResource(R.drawable.ic_mini_collect_press);
+                    } else {
+                        ((ImageView) v).setImageResource(R.drawable.ic_mini_collect);
+                    }
                     break;
                 default:
                     Intent intent = new Intent(v.getContext(), ArticleDetailActivity.class);
