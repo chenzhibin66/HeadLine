@@ -66,8 +66,7 @@ public class StaticClass {
     public static String followListUrl = "http://" + ip + ":8080/headline/relation/listFollow";
 
 
-
-
+    public static int code;
     public static List<ArticleJs> articleJsList;
     public static List<UserCustom> userList;
 

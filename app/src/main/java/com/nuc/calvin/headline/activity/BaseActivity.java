@@ -19,9 +19,6 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
 
-
-    protected Handler handler;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +26,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
         ButterKnife.bind(this);
         initView(savedInstanceState);
         Fresco.initialize(getApplicationContext());
-       /* handler = initHandle();*/
     }
 
 

@@ -56,7 +56,7 @@ public class PostCommentActivity extends BaseActivity {
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 Request request = builder.get().url(StaticClass.commentUrl + "?userId=" + userId + "&articleId=" + articleId + "&content=" + content).build();
-                Log.d(TAG, "commentUrl: "+StaticClass.commentUrl + "?userId=" + userId + "&articleId=" + articleId + "&content=" + content);
+                Log.d(TAG, "commentUrl: " + StaticClass.commentUrl + "?userId=" + userId + "&articleId=" + articleId + "&content=" + content);
                 Call call = okHttpClient.newCall(request);
 
                 call.enqueue(new Callback() {

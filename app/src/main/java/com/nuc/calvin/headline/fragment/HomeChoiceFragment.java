@@ -122,7 +122,6 @@ public class HomeChoiceFragment extends BaseFragment {
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.attachToRecyclerView(mRecyclerView);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
         mAdapter.notifyDataSetChanged();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

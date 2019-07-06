@@ -2,6 +2,8 @@ package com.nuc.calvin.headline.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,9 +45,29 @@ public class CommentActivity extends BaseActivity {
     private TextView postComment;
     private CommentAdapter commentAdapter;
     private List<CommentJs> list = new ArrayList<>();
+    private Handler handler;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        int code = getIntent().getIntExtra("code", 0);
+        if (code == 1) {
+            handler.sendEmptyMessage(1);
+        }
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+
+                    case 1:
+                        commentAdapter.notifyDataSetChanged();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        };
         Integer articleId = getIntent().getIntExtra("articleId", 0);
         Log.d(TAG, "articleIdComment: " + articleId);
         getCommentList(articleId);
@@ -64,7 +86,6 @@ public class CommentActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CommentActivity.this, PostCommentActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         back_left.setOnClickListener(new View.OnClickListener() {
@@ -111,9 +132,10 @@ public class CommentActivity extends BaseActivity {
                     }
                 });
                 Gson gson = builder.create();
-                list = gson.fromJson(res, new TypeToken<List<CommentJs>>() {
+                List<CommentJs> temp = gson.fromJson(res, new TypeToken<List<CommentJs>>() {
                 }.getType());
-                Log.d(TAG, "jsonResult " + list.toString());
+                list.clear();
+                list.addAll(temp);
                 commentAdapter.addData(list);
             }
         });
