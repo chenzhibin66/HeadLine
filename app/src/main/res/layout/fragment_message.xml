@@ -39,6 +39,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/msg_comment_layout"
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             android:orientation="horizontal">
@@ -71,6 +72,7 @@
                         android:background="@color/color_grey" />
 
                     <LinearLayout
+                        android:id="@+id/msg_collect_layout"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:orientation="horizontal">
@@ -101,6 +103,7 @@
                         android:background="@color/color_grey" />
 
                     <LinearLayout
+                        android:id="@+id/msg_like_layout"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:orientation="horizontal">

@@ -13,9 +13,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MsgLikesActivity"></activity>
-        <activity android:name=".activity.MsgCollectActivity" />
-        <activity android:name=".activity.MsgCommentActivity" />
+        <activity android:name=".activity.MyFansActivity"
+            android:theme="@style/AppTheme.NoActionBar.Activity"></activity>
+        <activity
+            android:name=".activity.MyFollowActivity"
+            android:theme="@style/AppTheme.NoActionBar.Activity" />
+        <activity
+            android:name=".activity.MsgLikesActivity"
+            android:theme="@style/AppTheme.NoActionBar.Activity" />
+        <activity
+            android:name=".activity.MsgCollectActivity"
+            android:theme="@style/AppTheme.NoActionBar.Activity" />
+        <activity
+            android:name=".activity.MsgCommentActivity"
+            android:theme="@style/AppTheme.NoActionBar.Activity" />
         <activity
             android:name=".activity.MyCollectActivity"
             android:theme="@style/AppTheme.NoActionBar.Activity" />

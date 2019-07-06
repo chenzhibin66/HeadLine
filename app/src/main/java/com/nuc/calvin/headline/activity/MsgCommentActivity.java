@@ -1,8 +1,11 @@
 package com.nuc.calvin.headline.activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +20,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import com.nuc.calvin.headline.R;
+import com.nuc.calvin.headline.adapter.MsgCommentAdapter;
 import com.nuc.calvin.headline.json.CommentJs;
+import com.nuc.calvin.headline.utils.ShareUtils;
 import com.nuc.calvin.headline.utils.StaticClass;
 
 import java.io.IOException;
@@ -33,16 +38,21 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MsgCommentActivity extends BaseActivity {
-
+    private static final String TAG = "MsgCommentActivity";
     private RecyclerView com_recy;
     private ImageView com_left;
     private List<CommentJs> commentJsList = new ArrayList<>();
+    private MsgCommentAdapter msgCommentAdapter;
+    private Handler handler;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        getCommentList(ShareUtils.getInstance().getUser().getUserId());
         com_recy = findViewById(R.id.msg_comment_recy);
         com_left = findViewById(R.id.msg_comment_left);
-
+        com_recy.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        msgCommentAdapter = new MsgCommentAdapter(getApplicationContext(), commentJsList);
+        com_recy.setAdapter(msgCommentAdapter);
         com_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +62,17 @@ public class MsgCommentActivity extends BaseActivity {
                 finish();
             }
         });
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 1:
+                        msgCommentAdapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+        };
     }
 
     @Override
@@ -89,9 +110,10 @@ public class MsgCommentActivity extends BaseActivity {
                 Gson gson = builder.create();
                 List<CommentJs> temp = gson.fromJson(res, new TypeToken<List<CommentJs>>() {
                 }.getType());
+                Log.d(TAG, "onResponseComment: " + temp);
                 commentJsList.clear();
                 commentJsList.addAll(temp);
-                /* commentAdapter.addData(list);*/
+                handler.sendEmptyMessage(1);
             }
         });
     }

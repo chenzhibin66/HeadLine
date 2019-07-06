@@ -27,7 +27,8 @@
             android:id="@+id/msg_comment_time"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="300dp"
+            android:layout_marginLeft="170dp"
+            android:singleLine="true"
             android:layout_height="wrap_content"
             android:textSize="12sp"/>
     </LinearLayout>
@@ -37,10 +38,11 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/msg_comment_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="12sp"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 

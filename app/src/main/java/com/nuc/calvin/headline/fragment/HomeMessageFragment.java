@@ -1,12 +1,17 @@
 package com.nuc.calvin.headline.fragment;
 
 
+import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.nuc.calvin.headline.R;
+import com.nuc.calvin.headline.activity.MsgCollectActivity;
+import com.nuc.calvin.headline.activity.MsgCommentActivity;
+import com.nuc.calvin.headline.activity.MsgLikesActivity;
 
 
 public class HomeMessageFragment extends BaseFragment {
@@ -15,9 +20,9 @@ public class HomeMessageFragment extends BaseFragment {
     private PullRefreshLayout layout;
 
 
-    private ImageView iv_comment;
-    private ImageView iv_attention;
-    private ImageView iv_like;
+    private LinearLayout commentLayout;
+    private LinearLayout collectLayout;
+    private LinearLayout likeLayout;
 
     @Override
 
@@ -34,6 +39,33 @@ public class HomeMessageFragment extends BaseFragment {
                 }, 2000);
             }
         });
+
+        commentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MsgCommentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        collectLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MsgCollectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        likeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MsgLikesActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -44,9 +76,9 @@ public class HomeMessageFragment extends BaseFragment {
 
 
     private void init(View view) {
-        iv_comment = view.findViewById(R.id.msg_iv_comment);
-        iv_attention = view.findViewById(R.id.msg_iv_guanzhu);
-        iv_like = view.findViewById(R.id.msg_iv_good);
+        commentLayout = view.findViewById(R.id.msg_comment_layout);
+        collectLayout = view.findViewById(R.id.msg_collect_layout);
+        likeLayout = view.findViewById(R.id.msg_like_layout);
         layout = view.findViewById(R.id.msg_refreshLayout);
     }
 

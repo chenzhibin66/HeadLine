@@ -52,8 +52,8 @@ public class MainActivity extends BaseActivity {
 //                .setTextColorSelected(0, Color.BLUE)//设置指定位置下选中状态文字颜色
 //                .setMarginTop(PixelUtil.dpToPx(MainActivity.this, 5))//
 //                .setMarginTop(1, PixelUtil.dpToPx(MainActivity.this, 10))
-                .setMsg(0, String.valueOf(12))//设置显示消息
-                .setMsg(1, "1")//设置显示消息
+               // .setMsg(0, String.valueOf(12))//设置显示消息
+               // .setMsg(1, "1")//设置显示消息
                 .showRedPoint(2)//设置显示红点
                 // .hideMsg(0)//隐藏消息
                 //.hideMsg(1)//隐藏消息

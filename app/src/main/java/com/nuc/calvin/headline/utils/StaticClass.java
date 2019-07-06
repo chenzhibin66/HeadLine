@@ -63,6 +63,10 @@ public class StaticClass {
 
     public static String msgCommentUrl = "http://" + ip + ":8080/headline/comment/queryCommentByUserId";
 
+    public static String followListUrl = "http://" + ip + ":8080/headline/relation/listFollow";
+
+
+
 
     public static List<ArticleJs> articleJsList;
     public static List<UserCustom> userList;

@@ -18,6 +18,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nuc.calvin.headline.R;
 import com.nuc.calvin.headline.activity.MyArticleActivity;
+import com.nuc.calvin.headline.activity.MyFansActivity;
+import com.nuc.calvin.headline.activity.MyFollowActivity;
 import com.nuc.calvin.headline.adapter.UserDetailsAdapter;
 import com.nuc.calvin.headline.bean.UserCustom;
 import com.nuc.calvin.headline.bean.ui.Details;
@@ -130,11 +132,15 @@ public class HomeUserFragment extends BaseFragment implements View.OnClickListen
                 break;
 
             case R.id.collect_layout:
-
+                Intent intent1 = new Intent(getActivity(), MyFollowActivity.class);
+                getActivity().startActivity(intent1);
+                getActivity().finish();
                 break;
 
             case R.id.fans_layout:
-
+                Intent intent2 = new Intent(getActivity(), MyFansActivity.class);
+                getActivity().startActivity(intent2);
+                getActivity().finish();
                 break;
         }
     }

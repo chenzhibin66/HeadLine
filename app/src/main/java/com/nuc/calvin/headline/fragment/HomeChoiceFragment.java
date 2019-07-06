@@ -224,10 +224,6 @@ public class HomeChoiceFragment extends BaseFragment {
             bannerTitle.setText(data.getArticle().getArticleTitle());
         }
 
-       /* @Override
-        public void UpdateUI(Context context, int position, String data) {
-             Glide.with(context).load(data).into(imageView);
-        }*/
 
     }
 

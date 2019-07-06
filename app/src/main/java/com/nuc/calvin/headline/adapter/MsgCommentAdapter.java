@@ -35,7 +35,8 @@ public class MsgCommentAdapter extends RecyclerView.Adapter<MsgCommentAdapter.Co
 
     @Override
     public void onBindViewHolder(@NonNull CommentHolder commentHolder, int i) {
-
+        CommentJs commentJs = commentJsList.get(i);
+        commentHolder.bindData(commentJs);
     }
 
     @Override
@@ -56,10 +57,17 @@ public class MsgCommentAdapter extends RecyclerView.Adapter<MsgCommentAdapter.Co
 
             commentor_head = itemView.findViewById(R.id.commentor_img);
             commentorName = itemView.findViewById(R.id.commentor_name);
-            commentTime = itemView.findViewById(R.id.comment_time);
-            content = itemView.findViewById(R.id.comment_content);
-            comment_title = itemView.findViewById(R.id.comment_article_title);
+            commentTime = itemView.findViewById(R.id.msg_comment_time);
+            content = itemView.findViewById(R.id.msg_comment_content);
+            comment_title = itemView.findViewById(R.id.msg_article_title);
         }
 
+        private void bindData(CommentJs commentJs) {
+            commentor_head.setImageURI(commentJs.getUser().getHeadImg());
+            commentorName.setText(commentJs.getUser().getUsername());
+            commentTime.setText(commentJs.getTime());
+            content.setText(commentJs.getCommentContent());
+            comment_title.setText(commentJs.getArticle().getArticleTitle());
+        }
     }
 }
